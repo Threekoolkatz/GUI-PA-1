@@ -1,12 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.hardcoders.csc468.weather;
 
 /**
- *
+ * The main application class.
+ * 
  * @author Johnathan Ackerman <johnathan.ackerman@mines.sdsmt.edu>
  * @author Daniel Andrus <daniel.andrus@mines.sdsmt.edu>
  * @author MacKenzie Smith <mackenzie.smith@mines.sdsmt.edu>
@@ -14,6 +10,8 @@ package com.hardcoders.csc468.weather;
 public class Weatherman {
 
     /**
+     * The entry point for the program.
+     * 
      * @param args the command line arguments
      */
     public static void main(String[] args) {
