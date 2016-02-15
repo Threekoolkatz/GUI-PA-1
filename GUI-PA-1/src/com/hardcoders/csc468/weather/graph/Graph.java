@@ -80,4 +80,6 @@ public abstract class Graph<DomainType, RangeType> extends JPanel {
     public void setRangeLowerBound(RangeType lowerBound) {
         rangeLowerBound = lowerBound;
     }
+    
+    public abstract void redraw();
 }

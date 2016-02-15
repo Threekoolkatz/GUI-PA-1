@@ -87,7 +87,12 @@ public class LineGraph<DomainType, RangeType> extends Graph<DomainType, RangeTyp
         scalesDirty = true;
     }
     
-    public void sortDataPoints() {
+    @Override
+    public void redraw() {
+        calculateDrawPoints();
+    }
+    
+    private void sortDataPoints() {
         if (!dataPointsDirty) {
             return;
         }
@@ -97,7 +102,7 @@ public class LineGraph<DomainType, RangeType> extends Graph<DomainType, RangeTyp
         scalesDirty = true;
     }
     
-    public void calculateDrawScales() {
+    private void calculateDrawScales() {
         
         // Make sure data points are sorted along the domain axis
         sortDataPoints();
@@ -137,7 +142,7 @@ public class LineGraph<DomainType, RangeType> extends Graph<DomainType, RangeTyp
         drawPointsDirty = true;
     }
     
-    public void calculateDrawPoints() {
+    private void calculateDrawPoints() {
         
         // Ensure drawing scales have been calculated with current data set
         calculateDrawScales();
@@ -171,9 +176,6 @@ public class LineGraph<DomainType, RangeType> extends Graph<DomainType, RangeTyp
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         
-        // Calculate drawing points if necessary; might be better to do elsewhere
-        calculateDrawPoints();
-        
         final int numPoints = drawPoints[0].length;
         
         // Set the color
@@ -193,6 +195,7 @@ public class LineGraph<DomainType, RangeType> extends Graph<DomainType, RangeTyp
     @Override
     public void componentResized(ComponentEvent e) {
         drawPointsDirty = true;
+        calculateDrawPoints();
     }
 
     @Override
