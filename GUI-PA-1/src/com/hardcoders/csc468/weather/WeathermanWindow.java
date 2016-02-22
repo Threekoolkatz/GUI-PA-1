@@ -12,10 +12,12 @@ public class WeathermanWindow extends javax.swing.JFrame {
     public WeathermanWindow() {
         initComponents();
     }
+    
     /**
      *  Creates new form WeathermanWindow with a title
     */
-    public WeathermanWindow(String title){
+    public WeathermanWindow(String title) {
+        this();
         this.setTitle(title);
     }
 
