@@ -177,6 +177,8 @@ public class WeathermanWindow extends javax.swing.JFrame {
                 .addGap(83, 83, 83))
         );
 
+        // Here is where i am going to add the new stuff
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
