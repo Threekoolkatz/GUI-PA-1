@@ -1,5 +1,6 @@
 package com.hardcoders.csc468.weather.model;
 
+import com.hardcoders.csc468.weather.graph.DataPoint;
 import java.util.Date;
 
 /**
@@ -95,4 +96,42 @@ public interface WeatherDataPoint {
      * to the nearest 0.01 inches.
      */
     public Double getPercipitation();
+    
+    /**
+     * Abstract DataPointAdapter that allows this {@link WeatherDataPoint} class
+     * to be usable with {@link Graph}s.
+     * 
+     * @param <RangeType> The data type of the range of this data type.
+     */
+    public abstract class DataPointAdapter<RangeType> implements DataPoint<Date, RangeType> {
+        
+        /**
+         * The {@link WeatherDataPoint} object this DataPoint adapter is linked
+         * to.
+         */
+        private final WeatherDataPoint weatherDataPoint;
+        
+        /**
+         * Constructor that takes a non-null WeatherDataPoint object to attach
+         * to.
+         * 
+         * @param weatherDataPoint The {@link WeatherDataPoint} object to link
+         * to.
+         */
+        public DataPointAdapter(WeatherDataPoint weatherDataPoint) {
+            if (weatherDataPoint == null) throw new IllegalArgumentException("weatherDataPoint cannot be null");
+            this.weatherDataPoint = weatherDataPoint;
+        }
+        
+        @Override
+        public Date getDomainPosition() {
+            return weatherDataPoint.getTimestamp();
+        }
+
+        @Override
+        public Double getDomainPercentage(Date lowerBound, Date upperBound) {
+            Double time = (double) weatherDataPoint.getTimestamp().getTime() - (double) lowerBound.getTime();
+            return (time) / (upperBound.getTime() - lowerBound.getTime());
+        }
+    }
 }
