@@ -10,20 +10,65 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- *
- * @author 1989750
+ * Line graph class that extends the {@link Graph} class. Displays registered
+ * data points in a line graph. Performs internal optimizations for improving
+ * drawing speed.
+ * 
+ * @param <DomainType> The data type to use for the domain (horizontal) axis.
+ * @param <RangeType> The data type to use for the range (vertical) axis.
+ * 
+ * @author Daniel Andrus <daniel.andrus@mines.sdsmt.edu>
  */
 public class LineGraph<DomainType, RangeType> extends Graph<DomainType, RangeType> implements ComponentListener {
-    private List<Double> domainScales;
-    private List<Double> rangeScales;
-    private int          domainScalesLowerBound;
-    private int          domainScalesUpperBound;
-    private int          drawPoints[][];
     
-    private boolean      dataPointsDirty;
-    private boolean      scalesDirty;
-    private boolean      drawPointsDirty;
+    /**
+     * Cached data point domain scale values. Values are scaled relative to
+     * width of component, allowing for fast resizing.
+     */
+    private final List<Double> domainScales;
     
+    /**
+     * Cached data point range scales. Values are scaled relative to height of
+     * component, allowing for fast resizing.
+     */
+    private final List<Double> rangeScales;
+    
+    /**
+     * The index of the data point with the lowest domain value to draw.
+     */
+    private int                domainScalesLowerBound;
+    
+    /**
+     * The index of the data point with the highest domain value to draw.
+     */
+    private int                domainScalesUpperBound;
+    
+    /**
+     * 2 dimensional array of x and y coordinates to use for drawing the graph.
+     */
+    private final int          drawPoints[][];
+    
+    /**
+     * Flag indicating that data points are no longer valid and must be
+     * resorted and calculated before rendering.
+     */
+    private boolean            dataPointsDirty;
+    
+    /**
+     * Flag indicating that the cached scaling values for the data points are no
+     * longer valid and need to be recalculated before rendering.
+     */
+    private boolean            scalesDirty;
+    
+    /**
+     * Flag indicating that the cached data point coordinates are no longer
+     * valid and must be recalculated before rendering.
+     */
+    private boolean            drawPointsDirty;
+    
+    /**
+     * Default constructor. Initializes parameters to their default values.
+     */
     public LineGraph() {
         super();
         
@@ -92,6 +137,10 @@ public class LineGraph<DomainType, RangeType> extends Graph<DomainType, RangeTyp
         calculateDrawPoints();
     }
     
+    /**
+     * Sorts all data points by their domain values in ascending order, but only
+     * if the {@link #dataPointsDirty} flag is set.
+     */
     private void sortDataPoints() {
         if (!dataPointsDirty) {
             return;
@@ -102,6 +151,10 @@ public class LineGraph<DomainType, RangeType> extends Graph<DomainType, RangeTyp
         scalesDirty = true;
     }
     
+    /**
+     * Recalculates and caches data point drawing scales (relative to dimensions
+     * of the this graph), but only if the {@link #scalesDirty} flag is set.
+     */
     private void calculateDrawScales() {
         
         // Make sure data points are sorted along the domain axis
@@ -164,7 +217,7 @@ public class LineGraph<DomainType, RangeType> extends Graph<DomainType, RangeTyp
                 // Search upper half
                 domainBottom = domainMid + 1;
             }
-        }while (domainTop > domainBottom);
+        } while (domainTop > domainBottom);
         domainScalesLowerBound = domainMid - (domainMid > 0 ? 1 : 0);
         
         // Make sure bounds are in appropriate order
@@ -186,6 +239,10 @@ public class LineGraph<DomainType, RangeType> extends Graph<DomainType, RangeTyp
         drawPointsDirty = true;
     }
     
+    /**
+     * Recalculates and caches drawing coordinates for data points in the graph,
+     * but only if the {@link #drawPointsDirty} flag is set.
+     */
     private void calculateDrawPoints() {
         
         // Ensure drawing scales have been calculated with current data set
@@ -216,6 +273,12 @@ public class LineGraph<DomainType, RangeType> extends Graph<DomainType, RangeTyp
         drawPointsDirty = false;
     }
 
+    /**
+     * Draws a line graph in addition to performing the default paint behaviors
+     * of a {@link JPanel}.
+     * 
+     * @param g The graphics context to use when drawing.
+     */
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
