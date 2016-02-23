@@ -120,7 +120,57 @@ public class LineGraph<DomainType, RangeType> extends Graph<DomainType, RangeTyp
         
         List<DataPoint<DomainType, RangeType>> dataPoints = getDataPoints();
         
-        for (DataPoint<DomainType, RangeType> dataPoint : dataPoints) {
+        // Find domain upper bound using binary search
+        int domainTop = dataPoints.size() - 1;
+        int domainBottom = 0;
+        int domainMid;
+        do {
+            domainMid = (domainTop + domainBottom) / 2;
+            double domainScale = dataPoints.get(domainMid).getDomainPercentage(getDomainLowerBound(), getDomainUpperBound());
+            
+            if (domainScale == 1.0) {
+                
+                // Found what we were looking for
+                break;
+            } else if (domainScale > 1.0) {
+                
+                // Search lower half
+                domainTop = domainMid - 1;
+            } else if (domainScale < 1.0) {
+                
+                // Search upper half
+                domainBottom = domainMid + 1;
+            }
+        } while (domainTop > domainBottom);
+        domainScalesUpperBound = domainMid + (domainMid < dataPoints.size() ? 1 : 0);
+        
+        // Find domain lower bound using binary search
+        domainTop = domainMid + 1;
+        domainBottom = 0;
+        do {
+            domainMid = (domainTop + domainBottom) / 2;
+            double domainScale = dataPoints.get(domainMid).getDomainPercentage(getDomainLowerBound(), getDomainUpperBound());
+            
+            if (domainScale == 0.0) {
+                
+                // Found what we're looking for
+                break;
+            } else if (domainScale > 0.0) {
+                
+                // Search lower half
+                domainTop = domainMid - 1;
+            } else if (domainScale < 0.0) {
+                
+                // Search upper half
+                domainBottom = domainMid + 1;
+            }
+        }while (domainTop > domainBottom);
+        domainScalesLowerBound = domainMid - (domainMid > 0 ? 1 : 0);
+        
+        // Make sure bounds are in appropriate order
+        if (domainScalesUpperBound < domainScalesLowerBound) domainScalesUpperBound = domainScalesLowerBound;
+        
+        for (DataPoint<DomainType, RangeType> dataPoint : dataPoints.subList(domainScalesLowerBound, domainScalesUpperBound)) {
             
             // Calculate point's position on the graph relative to the domain and range settings
             double domainScale = dataPoint.getDomainPercentage(getDomainLowerBound(), getDomainUpperBound());
@@ -129,13 +179,7 @@ public class LineGraph<DomainType, RangeType> extends Graph<DomainType, RangeTyp
             // Store the result
             domainScales.add(domainScale);
             rangeScales.add(rangeScale);
-            
-            // Update bounds if necessary (useful for implicit trimming)
-            if (domainScale < 0) domainScalesLowerBound = domainScales.size();
-            if (domainScale > 1) domainScalesUpperBound = domainScales.size();
         }
-        
-        if (domainScalesUpperBound < domainScalesLowerBound) domainScalesUpperBound = domainScalesLowerBound;
         
         // Update dirty flags
         scalesDirty = false;
