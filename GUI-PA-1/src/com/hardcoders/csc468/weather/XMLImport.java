@@ -1,12 +1,17 @@
 package com.hardcoders.csc468.weather;
 import com.hardcoders.csc468.weather.model.WeatherDataPoint;
 import com.hardcoders.csc468.weather.model.WindDirection;
-import static com.sun.org.apache.xalan.internal.lib.ExsltDatetime.date;
+//import static com.sun.org.apache.xalan.internal.lib.ExsltDatetime.date;
 import java.io.File;
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.jdom2.Document;
 import org.jdom2.Element;
 import org.jdom2.JDOMException;
@@ -40,17 +45,31 @@ public class XMLImport{
 		for (int i = 0; i < list.size(); i++) {
 
 		   Element node = (Element) list.get(i);
+                   
+                   String date = node.getChildText("date");
+                   String time = node.getChildText("time");
+                   String dateTime = date.trim() + " " + time.trim() + "M";
+                   DateFormat newFormat = new SimpleDateFormat("MM/dd/yy hh:mma");
+                   Date newDate = newFormat.parse(dateTime);
+                   
+                   newPoint.setTimestamp(newDate);
+                   
                  
-                   newPoint.temperature = stringToDouble(node.getChildText("temperature"));
-                   newPoint.humidity = stringToDouble(node.getChildText("humidity"));
-                   newPoint.barometer = stringToDouble(node.getChildText("barometer"));
-                   newPoint.windSpeed = stringToDouble(node.getChildText("windspeed"));
+                   newPoint.setTempurature(stringToDouble(node.getChildText("temperature")));
+                   newPoint.setHumditiy(stringToDouble(node.getChildText("humidity")));
+                   newPoint.setPressure(stringToDouble(node.getChildText("barometer")));
+                   newPoint.setWindSpeed(stringToDouble(node.getChildText("windspeed")));
+                   
+                   
                    //newPoint.windDIrection = stringToDouble(node.getChildText("windDirection"));
-                   newPoint.windGust = stringToDouble(node.getChildText("windgust"));
-                   newPoint.windChill = stringToDouble(node.getChildText("windchill"));
-                   newPoint.heatIndex = stringToDouble(node.getChildText("heatindex"));
-                   newPoint.uvIndex = stringToDouble(node.getChildText("rainfall"));
-                   newPoint.rainFall = stringToDouble(node.getChildText("rainfall"));
+                   String temp = node.getChildText("winddirection");
+                   newPoint.setWindDirection(WindDirection.fromString(temp));
+                   
+                   newPoint.setWindGust(stringToDouble(node.getChildText("windgust")));
+                   newPoint.setWindChill(stringToDouble(node.getChildText("windchill")));
+                   newPoint.setHeatIndex(stringToDouble(node.getChildText("heatindex")));
+                   newPoint.setUVIndex(stringToDouble(node.getChildText("rainfall")));
+                   newPoint.setPercipitation(stringToDouble(node.getChildText("rainfall")));
                    
 		   //System.out.println("Date: " + node.getChildText("date"));
 		   //System.out.println("time: " + node.getChildText("time"));
@@ -62,7 +81,9 @@ public class XMLImport{
 
 	  } catch (IOException | JDOMException io) {
 		System.out.println(io.getMessage());
-	  }
+	  } catch (ParseException ex) {
+            Logger.getLogger(XMLImport.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
     public double stringToDouble(String text){
@@ -122,7 +143,7 @@ public class XMLImport{
             return new TemperatureDataPointAdapter(this);
         }
         
-        private void setTempurature(double temperature) {
+        private void setTempurature(Double temperature) {
             this.temperature = temperature;
         }
 
@@ -136,7 +157,7 @@ public class XMLImport{
             return new HumidityDataPointAdapter(this);
         }
         
-        private void setHumditiy(double humidity) {
+        private void setHumditiy(Double humidity) {
             this.humidity = humidity;
         }
         
@@ -150,7 +171,7 @@ public class XMLImport{
             return new PressureDataPointAdapter(this);
         }
         
-        public void setPressure(double pressure) {
+        public void setPressure(Double pressure) {
             this.barometer = pressure;
         }
 
@@ -164,7 +185,7 @@ public class XMLImport{
             return new WindSpeedDataPointAdapter(this);
         }
         
-        public void setWindSpeed(double windSpeed) {
+        public void setWindSpeed(Double windSpeed) {
             this.windSpeed = windSpeed;
         }
 
@@ -192,7 +213,7 @@ public class XMLImport{
             return new WindGustDataPointAdapter(this);
         }
         
-        private void setWindGust(double windGust) {
+        private void setWindGust(Double windGust) {
             this.windGust = windGust;
         }
 
@@ -205,7 +226,7 @@ public class XMLImport{
             return new WindChillDataPointAdapter(this);
         }
         
-        private void setWindChill(double windChill) {
+        private void setWindChill(Double windChill) {
             this.windChill = windChill;
         }
 
@@ -219,7 +240,7 @@ public class XMLImport{
             return new HeatIndexDataPointAdapter(this);
         }
         
-        private void setHeatIndex(double heatIndex) {
+        private void setHeatIndex(Double heatIndex) {
             this.heatIndex = heatIndex;
         }
 
@@ -233,7 +254,7 @@ public class XMLImport{
             return new UVIndexDataPointAdapter(this);
         }
         
-        private void setUVIndex(double uvIndex) {
+        private void setUVIndex(Double uvIndex) {
             this.uvIndex = uvIndex;
         }
 
@@ -247,7 +268,7 @@ public class XMLImport{
             return new PercipitationDataPointAdapter(this);
         }
         
-        private void setPercipitation(double percipitation) {
+        private void setPercipitation(Double percipitation) {
             this.rainFall = percipitation;
         }
     }
