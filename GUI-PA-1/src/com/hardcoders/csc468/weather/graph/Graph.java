@@ -2,6 +2,7 @@ package com.hardcoders.csc468.weather.graph;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import javax.swing.JPanel;
 
@@ -14,7 +15,7 @@ import javax.swing.JPanel;
  * @param <DomainType>
  * @param <RangeType>
  */
-public abstract class Graph<DomainType, RangeType> extends JPanel {
+public abstract class Graph<DomainType extends Comparable, RangeType extends Comparable> extends JPanel {
     
     /**
      * Internal stored list of data points to display.
@@ -41,6 +42,30 @@ public abstract class Graph<DomainType, RangeType> extends JPanel {
      */
     private RangeType    rangeLowerBound;
     
+    /**
+     * The maximum value among the domain values of the data points. Will be
+     * {@code null} if there are no data points.
+     */
+    private DomainType   domainMaxValue;
+    
+    /**
+     * The minimum value among the domain values of the data points. Will be
+     * {@code null} if there are no data points.
+     */
+    private DomainType   domainMinValue;
+    
+    /**
+     * The maximum value among the range values of the data points. Will be
+     * {@code null} if there are no data points.
+     */
+    private RangeType    rangeMaxValue;
+    
+    /**
+     * The minimum value among the range values of the data points. Will be
+     * {@code null} if there are no data points.
+     */
+    private RangeType    rangeMinValue;
+    
     
     /**
      * Default constructor. Initializes variables to default values.
@@ -53,6 +78,10 @@ public abstract class Graph<DomainType, RangeType> extends JPanel {
         domainLowerBound = null;
         rangeUpperBound = null;
         rangeLowerBound = null;
+        domainMaxValue = null;
+        domainMinValue = null;
+        rangeMaxValue = null;
+        rangeMinValue = null;
     }
     
     /**
@@ -64,7 +93,8 @@ public abstract class Graph<DomainType, RangeType> extends JPanel {
         if (point == null) {
             return;
         }
-        dataPoints.add(point);
+        
+        addDataPoints(Collections.singleton(point));
     }
     
     /**
@@ -77,6 +107,21 @@ public abstract class Graph<DomainType, RangeType> extends JPanel {
             return;
         }
         dataPoints.addAll(points);
+        
+        for (DataPoint<DomainType, RangeType> point : points) {
+            if (domainMinValue == null || domainMinValue.compareTo(point.getDomainPosition()) > 0) {
+                domainMinValue = point.getDomainPosition();
+            }
+            if (domainMaxValue == null || domainMaxValue.compareTo(point.getDomainPosition()) < 0) {
+                domainMaxValue = point.getDomainPosition();
+            }
+            if (rangeMinValue == null || rangeMinValue.compareTo(point.getRangeValue()) > 0) {
+                rangeMinValue = point.getRangeValue();
+            }
+            if (rangeMaxValue == null || rangeMaxValue.compareTo(point.getRangeValue()) < 0) {
+                rangeMaxValue = point.getRangeValue();
+            }
+        }
     }
     
     /**
@@ -96,7 +141,7 @@ public abstract class Graph<DomainType, RangeType> extends JPanel {
      * @return The current domain upper bound or {@code null} if none is set.
      */
     public DomainType getDomainUpperBound() {
-        return domainUpperBound;
+        return (domainUpperBound == null ? domainMaxValue : domainUpperBound);
     }
     
     /**
@@ -106,7 +151,7 @@ public abstract class Graph<DomainType, RangeType> extends JPanel {
      * @return The current domain lower bound or {@code null} if none is set.
      */
     public DomainType getDomainLowerBound() {
-        return domainLowerBound;
+        return (domainLowerBound == null ? domainMinValue : domainLowerBound);
     }
     
     /**
@@ -116,7 +161,7 @@ public abstract class Graph<DomainType, RangeType> extends JPanel {
      * @return The current range upper bound or {@code null} if none is set.
      */
     public RangeType getRangeUpperBound() {
-        return rangeUpperBound;
+        return (rangeUpperBound == null ? rangeMaxValue : rangeUpperBound);
     }
     
     /**
@@ -126,7 +171,7 @@ public abstract class Graph<DomainType, RangeType> extends JPanel {
      * @return The current range lower bound or {@code null} if none is set.
      */
     public RangeType getRangeLowerBound() {
-        return rangeLowerBound;
+        return (rangeLowerBound == null ? rangeMinValue : rangeLowerBound);
     }
     
     /**

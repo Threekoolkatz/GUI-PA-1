@@ -20,9 +20,11 @@ public interface DataPoint<DomainType, RangeType> extends Comparable {
     DomainType getDomainPosition();
     
     /**
-     * Gets the value of this data point along the range axis.
+     * Gets the value of this data point along the range axis. This value may be
+     * {@code null}.
      * 
-     * @return The value of this data point along the range axis.
+     * @return The value of this data point along the range axis. May be
+     * {@code null}.
      */
     RangeType getRangeValue();
     

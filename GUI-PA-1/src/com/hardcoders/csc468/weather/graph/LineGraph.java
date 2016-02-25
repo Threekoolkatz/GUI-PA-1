@@ -19,7 +19,7 @@ import java.util.List;
  * 
  * @author Daniel Andrus <daniel.andrus@mines.sdsmt.edu>
  */
-public class LineGraph<DomainType, RangeType> extends Graph<DomainType, RangeType> implements ComponentListener {
+public class LineGraph<DomainType extends Comparable, RangeType extends Comparable> extends Graph<DomainType, RangeType> implements ComponentListener {
     
     /**
      * Cached data point domain scale values. Values are scaled relative to
@@ -65,6 +65,7 @@ public class LineGraph<DomainType, RangeType> extends Graph<DomainType, RangeTyp
      * valid and must be recalculated before rendering.
      */
     private boolean            drawPointsDirty;
+    
     
     /**
      * Default constructor. Initializes parameters to their default values.
