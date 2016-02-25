@@ -6,7 +6,6 @@ import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
 
 /**
@@ -65,7 +64,7 @@ public class LineGraph<DomainType extends Comparable, RangeType extends Comparab
      * valid and must be recalculated before rendering.
      */
     private boolean            drawPointsDirty;
-    
+
     
     /**
      * Default constructor. Initializes parameters to their default values.
@@ -129,29 +128,36 @@ public class LineGraph<DomainType extends Comparable, RangeType extends Comparab
     
     @Override
     public void setRangeLowerBound(RangeType lowerBound) {
-        setRangeLowerBound(lowerBound);
+        super.setRangeLowerBound(lowerBound);
         scalesDirty = true;
-    }
-    
-    @Override
-    public void redraw() {
-        calculateDrawPoints();
     }
     
     /**
      * Sorts all data points by their domain values in ascending order, but only
      * if the {@link #dataPointsDirty} flag is set.
      */
-    private void sortDataPoints() {
+    @Override
+    public void sortDataPoints() {
+        
+        // Only sort if flag is set
         if (!dataPointsDirty) {
             return;
         }
         
-        Collections.sort(getDataPoints());
+        // Make call to super class
+        super.sortDataPoints();
+        
+        // Update flags
         dataPointsDirty = false;
         scalesDirty = true;
     }
-    
+
+    @Override
+    public void redraw() {
+        calculateDrawPoints();
+        super.redraw();
+    }
+        
     /**
      * Recalculates and caches data point drawing scales (relative to dimensions
      * of the this graph), but only if the {@link #scalesDirty} flag is set.
@@ -162,7 +168,7 @@ public class LineGraph<DomainType extends Comparable, RangeType extends Comparab
         sortDataPoints();
         
         // Cancel if scaling values are up-to-date
-        if (scalesDirty) {
+        if (!scalesDirty) {
             return;
         }
         
@@ -173,6 +179,11 @@ public class LineGraph<DomainType extends Comparable, RangeType extends Comparab
         domainScalesUpperBound = 0;
         
         List<DataPoint<DomainType, RangeType>> dataPoints = getDataPoints();
+        
+        // Short-circuit if graph contains no data points
+        if (dataPoints.isEmpty()) {
+            return;
+        }
         
         // Find domain upper bound using binary search
         int domainTop = dataPoints.size() - 1;
@@ -195,11 +206,11 @@ public class LineGraph<DomainType extends Comparable, RangeType extends Comparab
                 // Search upper half
                 domainBottom = domainMid + 1;
             }
-        } while (domainTop > domainBottom);
-        domainScalesUpperBound = domainMid + (domainMid < dataPoints.size() ? 1 : 0);
+        } while (domainTop >= domainBottom);
+        domainScalesUpperBound = domainMid + (domainMid < dataPoints.size() - 1 ? 1 : 0) + 1;
         
         // Find domain lower bound using binary search
-        domainTop = domainMid + 1;
+        domainTop = domainMid;
         domainBottom = 0;
         do {
             domainMid = (domainTop + domainBottom) / 2;
@@ -218,7 +229,7 @@ public class LineGraph<DomainType extends Comparable, RangeType extends Comparab
                 // Search upper half
                 domainBottom = domainMid + 1;
             }
-        } while (domainTop > domainBottom);
+        } while (domainTop >= domainBottom);
         domainScalesLowerBound = domainMid - (domainMid > 0 ? 1 : 0);
         
         // Make sure bounds are in appropriate order
@@ -228,7 +239,7 @@ public class LineGraph<DomainType extends Comparable, RangeType extends Comparab
             
             // Calculate point's position on the graph relative to the domain and range settings
             double domainScale = dataPoint.getDomainPercentage(getDomainLowerBound(), getDomainUpperBound());
-            double rangeScale = dataPoint.getDomainPercentage(getDomainLowerBound(), getDomainUpperBound());
+            double rangeScale = dataPoint.getRangePercentage(getRangeLowerBound(), getRangeUpperBound());
             
             // Store the result
             domainScales.add(domainScale);
@@ -254,10 +265,15 @@ public class LineGraph<DomainType extends Comparable, RangeType extends Comparab
             return;
         }
         
+        // Shortc-circuit if no data points exist
+        if (domainScales.isEmpty() || rangeScales.isEmpty()) {
+            return;
+        }
+        
         // Initialize constants
         final int width = getWidth();
         final int height = getHeight();
-        final int numPoints = domainScalesUpperBound - domainScalesLowerBound + 1;
+        final int numPoints = domainScalesUpperBound - domainScalesLowerBound;
         
         // Allocate arrays
         for (int i = 0; i < 2; i++) {
@@ -266,8 +282,8 @@ public class LineGraph<DomainType extends Comparable, RangeType extends Comparab
         
         // Calculate pixel locations of drawing points
         for (int i = 0; i < numPoints; i++) {
-            drawPoints[0][i] = (int) (domainScales.get(i + domainScalesLowerBound) * width);
-            drawPoints[1][i] = (int) (rangeScales.get(i + domainScalesLowerBound) * height);
+            drawPoints[0][i] = (int) (domainScales.get(i) * width);
+            drawPoints[1][i] = (int) (rangeScales.get(i) * height);
         }
         
         // Reset dirty flag
@@ -300,10 +316,11 @@ public class LineGraph<DomainType extends Comparable, RangeType extends Comparab
         }
     }
 
+    
     @Override
     public void componentResized(ComponentEvent e) {
         drawPointsDirty = true;
-        calculateDrawPoints();
+        redraw();
     }
 
     @Override
