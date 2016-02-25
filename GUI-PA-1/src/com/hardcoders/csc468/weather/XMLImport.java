@@ -76,80 +76,176 @@ public class XMLImport{
 
     public class XmlWeatherDataPoint implements WeatherDataPoint
     {
-        XmlWeatherDataPoint() {
-            
+        private Date          timestamp;
+        private Double        temperature;
+        private Double        humidity;
+        private Double        barometer;
+        private Double        windSpeed;
+        private WindDirection windDirection;
+        private Double        windGust;
+        private Double        windChill;
+        private Double        heatIndex;
+        private Double        uvIndex;
+        private Double        rainFall;
+        
+        
+        public XmlWeatherDataPoint() {
+            timestamp = null;
+            temperature = null;
+            humidity = null;
+            barometer = null;
+            windSpeed = null;
+            windDirection = null;
+            windGust = null;
+            windChill = null;
+            heatIndex = null;
+            uvIndex = null;
+            rainFall = null;
         }
+        
+        
         @Override
         public Date getTimestamp() {
-            throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+            return timestamp;
         }
 
         @Override
         public Double getTemperature() {
-            throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+            return temperature;
         }
         
-        public void setTempurature(double temperature) {
+        @Override
+        public TemperatureDataPointAdapter getTemperatureAsDataPoint() {
+            return new TemperatureDataPointAdapter(this);
+        }
+        
+        private void setTempurature(double temperature) {
             this.temperature = temperature;
         }
 
         @Override
         public Double getHumidity() {
-            throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+            return humidity;
         }
 
         @Override
+        public HumidityDataPointAdapter getHumidityAsDataPoint() {
+            return new HumidityDataPointAdapter(this);
+        }
+        
+        private void setHumditiy(double humidity) {
+            this.humidity = humidity;
+        }
+        
+        @Override
         public Double getPressure() {
-            throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+            return barometer;
+        }
+        
+        @Override
+        public PressureDataPointAdapter getPressureAsDataPoint() {
+            return new PressureDataPointAdapter(this);
+        }
+        
+        public void setPressure(double pressure) {
+            this.barometer = pressure;
         }
 
         @Override
         public Double getWindSpeed() {
-            throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+            return windSpeed;
+        }
+        
+        @Override
+        public WindSpeedDataPointAdapter getWindSpeedAsDataPoint() {
+            return new WindSpeedDataPointAdapter(this);
+        }
+        
+        public void setWindSpeed(double windSpeed) {
+            this.windSpeed = windSpeed;
         }
 
         @Override
         public WindDirection getWindDirection() {
-            throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+            return windDirection;
+        }
+        
+        @Override
+        public WindDirectionDataPointAdapter getWindDirectionAsDataPoint() {
+            return new WindDirectionDataPointAdapter(this);
         }
 
+        private void setWindDirection(WindDirection windDirection) {
+            this.windDirection = windDirection;
+        }
+        
         @Override
         public Double getWindGust() {
-            throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+            return windGust;
+        }
+        
+        @Override
+        public WindGustDataPointAdapter getWindGustAsDataPoint() {
+            return new WindGustDataPointAdapter(this);
+        }
+        
+        private void setWindGust(double windGust) {
+            this.windGust = windGust;
         }
 
         @Override
         public Double getWindChill() {
-            throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+            return windChill;
+        }
+        
+        public WindChillDataPointAdapter getWindChillAsDataPoint() {
+            return new WindChillDataPointAdapter(this);
+        }
+        
+        private void setWindChill(double windChill) {
+            this.windChill = windChill;
         }
 
         @Override
         public Double getHeatIndex() {
-            throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+            return heatIndex;
+        }
+        
+        @Override
+        public HeatIndexDataPointAdapter getHeatIndexAsDataPoint() {
+            return new HeatIndexDataPointAdapter(this);
+        }
+        
+        private void setHeatIndex(double heatIndex) {
+            this.heatIndex = heatIndex;
         }
 
         @Override
         public Double getUVIndex() {
-            throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+            return uvIndex;
+        }
+        
+        @Override
+        public UVIndexDataPointAdapter getUVIndexAsDataPoint() {
+            return new UVIndexDataPointAdapter(this);
+        }
+        
+        private void setUVIndex(double uvIndex) {
+            this.uvIndex = uvIndex;
         }
 
         @Override
         public Double getPercipitation() {
-            throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+            return rainFall;
         }
         
+        @Override
+        public PercipitationDataPointAdapter getPercipitationAsDataPoint() {
+            return new PercipitationDataPointAdapter(this);
+        }
         
-        Date Timestamp = new Date();
-        double temperature;
-        double humidity;
-        double barometer;
-        double windSpeed;
-        //windDirection;
-        double windGust;
-        double windChill;
-        double heatIndex;
-        double uvIndex;
-        double rainFall;
+        private void setPercipitation(double percipitation) {
+            this.rainFall = percipitation;
+        }
     }
-    
 }
