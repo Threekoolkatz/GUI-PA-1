@@ -74,8 +74,7 @@ public class XMLImport{
         return temp;
     }
 
-    public class XmlWeatherDataPoint implements WeatherDataPoint
-    {
+    public class XmlWeatherDataPoint implements WeatherDataPoint {
         private Date          timestamp;
         private Double        temperature;
         private Double        humidity;
@@ -109,6 +108,10 @@ public class XMLImport{
             return timestamp;
         }
 
+        private void setTimestamp(Date timestamp) {
+            this.timestamp = timestamp;
+        }
+        
         @Override
         public Double getTemperature() {
             return temperature;
