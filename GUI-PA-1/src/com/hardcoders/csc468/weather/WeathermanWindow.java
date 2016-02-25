@@ -21,8 +21,8 @@ public class WeathermanWindow extends javax.swing.JFrame {
         lineGraph.addDataPoint(new SimpleWeatherDataPoint(new Date(350), 10.0).getTemperatureAsDataPoint());
         lineGraph.addDataPoint(new SimpleWeatherDataPoint(new Date(500), 10.0).getTemperatureAsDataPoint());
         
-        lineGraph.setDomainLowerBound(new Date(50));
-        lineGraph.setDomainUpperBound(new Date(550));
+        lineGraph.setDomainLowerBound(50.0);
+        lineGraph.setDomainUpperBound(550.0);
         lineGraph.setRangeUpperBound(15.0);
         lineGraph.setRangeLowerBound(5.0);
         
@@ -55,7 +55,7 @@ public class WeathermanWindow extends javax.swing.JFrame {
         heatIndexButton = new javax.swing.JButton();
         uvIndexButton = new javax.swing.JButton();
         rainfallButton = new javax.swing.JButton();
-        lineGraph = new com.hardcoders.csc468.weather.WeatherInteractiveLineGraph();
+        lineGraph = new com.hardcoders.csc468.weather.graph.RealInteractiveLineGraph();
         menuBar = new javax.swing.JMenuBar();
         fileMenu = new javax.swing.JMenu();
         openMenuItem = new javax.swing.JMenuItem();
@@ -185,9 +185,7 @@ public class WeathermanWindow extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(heatIndexButton)
                 .addContainerGap(27, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(lineGraph, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(lineGraph, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -364,7 +362,7 @@ public class WeathermanWindow extends javax.swing.JFrame {
     private javax.swing.JMenu fileMenu;
     private javax.swing.JButton heatIndexButton;
     private javax.swing.JButton humidityButton;
-    private com.hardcoders.csc468.weather.WeatherInteractiveLineGraph lineGraph;
+    private com.hardcoders.csc468.weather.graph.RealInteractiveLineGraph lineGraph;
     private javax.swing.JMenuBar menuBar;
     private javax.swing.JMenuItem openMenuItem;
     private javax.swing.JButton pressureButton;

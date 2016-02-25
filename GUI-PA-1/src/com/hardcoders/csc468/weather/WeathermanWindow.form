@@ -79,10 +79,7 @@
               <Component id="heatIndexButton" min="-2" max="-2" attributes="0"/>
               <EmptySpace pref="27" max="32767" attributes="0"/>
           </Group>
-          <Group type="102" alignment="0" attributes="0">
-              <Component id="lineGraph" max="32767" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
-          </Group>
+          <Component id="lineGraph" alignment="0" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
@@ -185,7 +182,7 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="rainfallButtonActionPerformed"/>
       </Events>
     </Component>
-    <Container class="com.hardcoders.csc468.weather.WeatherInteractiveLineGraph" name="lineGraph">
+    <Container class="com.hardcoders.csc468.weather.graph.RealInteractiveLineGraph" name="lineGraph">
 
       <Layout>
         <DimensionLayout dim="0">
