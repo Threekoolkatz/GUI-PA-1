@@ -226,9 +226,10 @@ public interface WeatherDataPoint {
             // If any value is null or if bounds are equivalent, place data
             // point in the center
             if (lowerBound == null
-                || upperBound == null
-                || getDomainPosition() == null
-                || lowerBound.getTime() == upperBound.getTime()) {
+                    || upperBound == null
+                    || getDomainPosition() == null
+                    || lowerBound.getTime() == upperBound.getTime()) {
+                
                 return 0.5;
             }
             
@@ -266,9 +267,10 @@ public interface WeatherDataPoint {
             // If any value is null or the bounds are equivalent, place data
             // point in the center.
             if (lowerBound == null
-                || upperBound == null
-                || getRangeValue() == null
-                || upperBound == lowerBound) {
+                    || upperBound == null
+                    || getRangeValue() == null
+                    || upperBound == lowerBound) {
+                
                 return 0.5;
             }
             

@@ -1,9 +1,18 @@
 package com.hardcoders.csc468.weather.graph;
 
+import java.awt.AWTEvent;
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Point;
+import java.awt.Toolkit;
+import java.awt.event.AWTEventListener;
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
+import java.awt.event.MouseWheelEvent;
+import java.awt.event.MouseWheelListener;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -18,7 +27,7 @@ import java.util.List;
  * 
  * @author Daniel Andrus <daniel.andrus@mines.sdsmt.edu>
  */
-public class LineGraph<DomainType extends Comparable, RangeType extends Comparable> extends Graph<DomainType, RangeType> implements ComponentListener {
+public abstract class LineGraph<DomainType extends Comparable, RangeType extends Comparable> extends Graph<DomainType, RangeType> implements ComponentListener, MouseListener, MouseMotionListener, MouseWheelListener {
     
     /**
      * Cached data point domain scale values. Values are scaled relative to
@@ -67,6 +76,17 @@ public class LineGraph<DomainType extends Comparable, RangeType extends Comparab
     
     
     /**
+     * The last known point that the mouse clicked on the component.
+     */
+    private Point              clickPoint;
+    
+    private DomainType         clickDomainLowerBound;
+    private DomainType         clickDomainUpperBound;
+    private RangeType          clickRangeLowerBound;
+    private RangeType          clickRangeUpperBound;
+    
+    
+    /**
      * Default constructor. Initializes parameters to their default values.
      */
     public LineGraph() {
@@ -86,8 +106,17 @@ public class LineGraph<DomainType extends Comparable, RangeType extends Comparab
         scalesDirty = false;
         drawPointsDirty = false;
         
+        clickPoint = null;
+        clickDomainLowerBound = null;
+        clickDomainUpperBound = null;
+        clickRangeLowerBound = null;
+        clickRangeUpperBound = null;
+        
         // Handle own component events
         this.addComponentListener(this);
+        this.addMouseListener(this);
+        this.addMouseMotionListener(this);
+        this.addMouseWheelListener(this);
     }
     
     @Override
@@ -131,6 +160,33 @@ public class LineGraph<DomainType extends Comparable, RangeType extends Comparab
         super.setRangeLowerBound(lowerBound);
         scalesDirty = true;
     }
+    
+    /**
+     * Translates the domain and range bounds by a certain percentage (relative
+     * to the current size of the domain and range window (not the x and y pixel
+     * height and width, but the data bounds themselves)). Must be overridden by
+     * a subclass, since this requires knowledge of DomainType and RangeType.
+     * 
+     * @param pDomain The percent relative to the width of the domain window
+     * to translate the graph along the domain. Negative shifts "left", positive
+     * shifts "right".
+     * @param pRange the percent relative to the height of the range window to
+     * translate the graph along the range. Negative shifts "down", positive
+     * shifts "up".
+     */
+    public abstract void translateBounds(double pDomain, double pRange);
+    
+    /**
+     * Scales the bounds either in or out, allowing for zooming that is focused
+     * on a point.
+     * 
+     * @param scale The percent scale value to adjust the bounds. Only positive
+     * values are valid. Values less than 1.0 will zoom in, values greater than
+     * 1.0 will zoom out.
+     * @param pDomain The domain percent value to focus on when zooming.
+     * @param pRange The range percent value to focus on when zooming.
+     */
+    public abstract void scaleBounds(double scale, double pDomain, double pRange);
     
     /**
      * Sorts all data points by their domain values in ascending order, but only
@@ -316,6 +372,7 @@ public class LineGraph<DomainType extends Comparable, RangeType extends Comparab
         }
     }
 
+    
     @Override
     public void componentResized(ComponentEvent e) {
         drawPointsDirty = true;
@@ -335,5 +392,83 @@ public class LineGraph<DomainType extends Comparable, RangeType extends Comparab
     @Override
     public void componentHidden(ComponentEvent e) {
         // Nothing else to do
+    }
+
+    
+    private void saveDisplayState(MouseEvent e) {
+        clickPoint = e.getPoint();
+        clickDomainLowerBound = getDomainLowerBound();
+        clickDomainUpperBound = getDomainUpperBound();
+        clickRangeLowerBound = getRangeLowerBound();
+        clickRangeUpperBound = getRangeUpperBound();
+    }
+    
+    @Override
+    public void mouseClicked(MouseEvent e) {
+        // Nothing else to do
+    }
+
+    @Override
+    public void mousePressed(MouseEvent e) {
+        saveDisplayState(e);
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
+        // Nothing else to do
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent e) {
+        // Nothing else to do
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e) {
+        // Nothing else to do
+    }
+
+    @Override
+    public void mouseDragged(MouseEvent e) {
+        
+        // Convenience variables
+        Point point = e.getPoint();
+        
+        // Ensure clickPoint has been set
+        if (clickPoint == null
+                || clickDomainLowerBound == null
+                || clickDomainUpperBound == null
+                || clickRangeLowerBound == null
+                || clickRangeUpperBound == null) {
+            
+            saveDisplayState(e);
+            return;
+        }
+        
+        // Calculate delta x and delta y
+        int dx = (int) point.getX() - (int) clickPoint.getX();
+        int dy = (int) point.getY() - (int) clickPoint.getY();
+        
+        double px = (double) dx / (double) getWidth();
+        double py = (double) dy / (double) getHeight();
+        
+        // Reset bounds
+        setDomainLowerBound(clickDomainLowerBound);
+        setDomainUpperBound(clickDomainUpperBound);
+        setRangeLowerBound(clickRangeLowerBound);
+        setRangeUpperBound(clickRangeUpperBound);
+        
+        // Pass off implementation to subclass
+        translateBounds(px, py);
+    }
+
+    @Override
+    public void mouseMoved(MouseEvent e) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void mouseWheelMoved(MouseWheelEvent e) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

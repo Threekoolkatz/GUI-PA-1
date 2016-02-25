@@ -24,6 +24,12 @@ public abstract class Graph<DomainType extends Comparable, RangeType extends Com
     private final List<GraphListener> listeners;
     
     /**
+     * Flag indicating that the data stored in this graph is dirty or that the
+     * data bounds are dirty.
+     */
+    private boolean dataDirty;
+    
+    /**
      * Internal stored list of data points to display.
      */
     private final List<DataPoint<DomainType, RangeType>> dataPoints;
@@ -80,6 +86,7 @@ public abstract class Graph<DomainType extends Comparable, RangeType extends Com
         super();
         
         listeners = new ArrayList<>();
+        dataDirty = false;
         dataPoints = new ArrayList<>();
         domainUpperBound = null;
         domainLowerBound = null;
@@ -129,6 +136,8 @@ public abstract class Graph<DomainType extends Comparable, RangeType extends Com
                 rangeMaxValue = point.getRangeValue();
             }
         }
+        
+        dataDirty = true;
     }
     
     /**
@@ -189,6 +198,7 @@ public abstract class Graph<DomainType extends Comparable, RangeType extends Com
      */
     public void setDomainUpperBound(DomainType upperBound) {
         domainUpperBound = upperBound;
+        dataDirty = true;
     }
     
     /**
@@ -199,6 +209,7 @@ public abstract class Graph<DomainType extends Comparable, RangeType extends Com
      */
     public void setDomainLowerBound(DomainType lowerBound) {
         domainLowerBound = lowerBound;
+        dataDirty = true;
     }
     
     /**
@@ -209,6 +220,7 @@ public abstract class Graph<DomainType extends Comparable, RangeType extends Com
      */
     public void setRangeUpperBound(RangeType upperBound) {
         rangeUpperBound = upperBound;
+        dataDirty = true;
     }
     
     /**
@@ -219,6 +231,7 @@ public abstract class Graph<DomainType extends Comparable, RangeType extends Com
      */
     public void setRangeLowerBound(RangeType lowerBound) {
         rangeLowerBound = lowerBound;
+        dataDirty = true;
     }
     
     /**
@@ -233,6 +246,7 @@ public abstract class Graph<DomainType extends Comparable, RangeType extends Com
         
         // Sort data points
         Collections.sort(dataPoints);
+        dataDirty = true;
     }
 
     /**
@@ -273,6 +287,7 @@ public abstract class Graph<DomainType extends Comparable, RangeType extends Com
         for (GraphListener listener : listeners) {
             listener.onGraphChanged(this);
         }
+        dataDirty = false;
     }
     
     
@@ -280,6 +295,14 @@ public abstract class Graph<DomainType extends Comparable, RangeType extends Com
      * Listener interface for handling graph update events.
      */
     public interface GraphListener {
+        
+        /**
+         * Main callback function; triggered when the bounds or data of this
+         * graph is changed.
+         * 
+         * @param graph The {@link Graph} object that has been modified,
+         * allowing this listener to be used with multiple {@link Graph}s.
+         */
         public void onGraphChanged(Graph graph);
     }
 }
