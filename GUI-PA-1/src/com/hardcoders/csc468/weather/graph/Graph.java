@@ -215,6 +215,20 @@ public abstract class Graph<DomainType extends Comparable, RangeType extends Com
     }
     
     /**
+     * Sorts all data points by their domain values in ascending order.
+     */
+    public void sortDataPoints() {
+        
+        // Short-circuit if graph contains no data points
+        if (dataPoints.isEmpty()) {
+            return;
+        }
+        
+        // Sort data points
+        Collections.sort(dataPoints);
+    }
+
+    /**
      * Redraws the graph, forcing a recalculation of drawing data. Should be
      * invoked manually after manipulating the graph contents and any graph
      * parameters.

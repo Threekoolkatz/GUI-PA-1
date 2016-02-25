@@ -1,5 +1,7 @@
 package com.hardcoders.csc468.weather;
 
+import java.util.Date;
+
 /**
  *
  * @author Mack Smith
@@ -11,6 +13,20 @@ public class WeathermanWindow extends javax.swing.JFrame {
      */
     public WeathermanWindow() {
         initComponents();
+        
+        lineGraph.addDataPoint(new SimpleWeatherDataPoint(new Date(100), 10.0).getTemperatureAsDataPoint());
+        lineGraph.addDataPoint(new SimpleWeatherDataPoint(new Date(250), 10.0).getTemperatureAsDataPoint());
+        lineGraph.addDataPoint(new SimpleWeatherDataPoint(new Date(275), 12.0).getTemperatureAsDataPoint());
+        lineGraph.addDataPoint(new SimpleWeatherDataPoint(new Date(325), 8.0).getTemperatureAsDataPoint());
+        lineGraph.addDataPoint(new SimpleWeatherDataPoint(new Date(350), 10.0).getTemperatureAsDataPoint());
+        lineGraph.addDataPoint(new SimpleWeatherDataPoint(new Date(500), 10.0).getTemperatureAsDataPoint());
+        
+        lineGraph.setDomainLowerBound(new Date(50));
+        lineGraph.setDomainUpperBound(new Date(550));
+        lineGraph.setRangeUpperBound(15.0);
+        lineGraph.setRangeLowerBound(5.0);
+        
+        lineGraph.redraw();
     }
     
     /**
@@ -39,6 +55,7 @@ public class WeathermanWindow extends javax.swing.JFrame {
         heatIndexButton = new javax.swing.JButton();
         uvIndexButton = new javax.swing.JButton();
         rainfallButton = new javax.swing.JButton();
+        lineGraph = new com.hardcoders.csc468.weather.graph.LineGraph();
         menuBar = new javax.swing.JMenuBar();
         fileMenu = new javax.swing.JMenu();
         openMenuItem = new javax.swing.JMenuItem();
@@ -109,6 +126,17 @@ public class WeathermanWindow extends javax.swing.JFrame {
             }
         });
 
+        javax.swing.GroupLayout lineGraphLayout = new javax.swing.GroupLayout(lineGraph);
+        lineGraph.setLayout(lineGraphLayout);
+        lineGraphLayout.setHorizontalGroup(
+            lineGraphLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        lineGraphLayout.setVerticalGroup(
+            lineGraphLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 237, Short.MAX_VALUE)
+        );
+
         fileMenu.setText("File");
         fileMenu.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -157,11 +185,13 @@ public class WeathermanWindow extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(heatIndexButton)
                 .addContainerGap(27, Short.MAX_VALUE))
+            .addComponent(lineGraph, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(243, Short.MAX_VALUE)
+                .addComponent(lineGraph, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(tempButton)
                     .addComponent(windSpeedButton)
@@ -332,6 +362,7 @@ public class WeathermanWindow extends javax.swing.JFrame {
     private javax.swing.JMenu fileMenu;
     private javax.swing.JButton heatIndexButton;
     private javax.swing.JButton humidityButton;
+    private com.hardcoders.csc468.weather.graph.LineGraph lineGraph;
     private javax.swing.JMenuBar menuBar;
     private javax.swing.JMenuItem openMenuItem;
     private javax.swing.JButton pressureButton;
