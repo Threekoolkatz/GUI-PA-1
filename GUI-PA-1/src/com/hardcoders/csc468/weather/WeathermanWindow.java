@@ -177,6 +177,8 @@ public class WeathermanWindow extends javax.swing.JFrame {
                 .addGap(83, 83, 83))
         );
 
+        // Here is where i am going to add the new stuff
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
@@ -195,6 +197,7 @@ public class WeathermanWindow extends javax.swing.JFrame {
      */
     private void openMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_openMenuItemActionPerformed
         // TODO add your handling code here:
+        
     }//GEN-LAST:event_openMenuItemActionPerformed
 
     /**
@@ -203,6 +206,8 @@ public class WeathermanWindow extends javax.swing.JFrame {
      */
     private void tempButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tempButtonActionPerformed
         // TODO add your handling code here:
+        // Switches graph data to temperature
+        System.out.println("Switch to temperature");
     }//GEN-LAST:event_tempButtonActionPerformed
 
     /**
@@ -211,6 +216,8 @@ public class WeathermanWindow extends javax.swing.JFrame {
      */
     private void windSpeedButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_windSpeedButtonActionPerformed
         // TODO add your handling code here:
+        // Switches graph data to wind speed
+        System.out.println("Switch to wind speed");
     }//GEN-LAST:event_windSpeedButtonActionPerformed
 
     /**
@@ -219,6 +226,8 @@ public class WeathermanWindow extends javax.swing.JFrame {
      */
     private void pressureButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pressureButtonActionPerformed
         // TODO add your handling code here:
+        // Switches graph data to barometric pressure
+        System.out.println("Switching to pressure data");
     }//GEN-LAST:event_pressureButtonActionPerformed
 
     /**
@@ -227,6 +236,8 @@ public class WeathermanWindow extends javax.swing.JFrame {
      */
     private void windGustButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_windGustButtonActionPerformed
         // TODO add your handling code here:
+        // Switch graph data to wind gust data
+        System.out.println("Switching to wind gust");
     }//GEN-LAST:event_windGustButtonActionPerformed
 
     /** 
@@ -235,6 +246,8 @@ public class WeathermanWindow extends javax.swing.JFrame {
      */
     private void humidityButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_humidityButtonActionPerformed
         // TODO add your handling code here:
+        // Switch graph data to humidity data
+        System.out.println("Switching to humidity");
     }//GEN-LAST:event_humidityButtonActionPerformed
 
     /**
@@ -243,6 +256,8 @@ public class WeathermanWindow extends javax.swing.JFrame {
      */
     private void windChillButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_windChillButtonActionPerformed
         // TODO add your handling code here:
+        // Switch graph data to wind chill
+        System.out.println("Switching to wind chill data");
     }//GEN-LAST:event_windChillButtonActionPerformed
 
     
@@ -252,6 +267,8 @@ public class WeathermanWindow extends javax.swing.JFrame {
      */
     private void heatIndexButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_heatIndexButtonActionPerformed
         // TODO add your handling code here:
+        // Switch graph data to heat index data
+        System.out.println("Switchin to head index data");
     }//GEN-LAST:event_heatIndexButtonActionPerformed
 
     /**
@@ -260,6 +277,8 @@ public class WeathermanWindow extends javax.swing.JFrame {
      */
     private void uvIndexButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_uvIndexButtonActionPerformed
         // TODO add your handling code here:
+        // Switch graph data to UV index data
+        System.out.println("Switching to UV index data");
     }//GEN-LAST:event_uvIndexButtonActionPerformed
 
     /**
@@ -268,6 +287,8 @@ public class WeathermanWindow extends javax.swing.JFrame {
      */
     private void rainfallButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rainfallButtonActionPerformed
         // TODO add your handling code here:
+        // Switch to rainfall data
+        System.out.println("Switching to rainfall data");
     }//GEN-LAST:event_rainfallButtonActionPerformed
 
 
