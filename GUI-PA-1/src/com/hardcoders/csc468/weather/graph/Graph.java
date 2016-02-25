@@ -17,10 +17,16 @@ import javax.swing.JPanel;
  */
 public abstract class Graph<DomainType extends Comparable, RangeType extends Comparable> extends JPanel {
     
+    
+    /**
+     * List of registered listeners.
+     */
+    private final List<GraphListener> listeners;
+    
     /**
      * Internal stored list of data points to display.
      */
-    private List<DataPoint<DomainType, RangeType>> dataPoints;
+    private final List<DataPoint<DomainType, RangeType>> dataPoints;
     
     /**
      * The upper bound on the domain (horizontal) axis to display.
@@ -73,6 +79,7 @@ public abstract class Graph<DomainType extends Comparable, RangeType extends Com
     public Graph() {
         super();
         
+        listeners = new ArrayList<>();
         dataPoints = new ArrayList<>();
         domainUpperBound = null;
         domainLowerBound = null;
@@ -233,5 +240,46 @@ public abstract class Graph<DomainType extends Comparable, RangeType extends Com
      * invoked manually after manipulating the graph contents and any graph
      * parameters.
      */
-    public abstract void redraw();
+    public void redraw() {
+        notifyListeners();
+    };
+    
+    
+    /**
+     * Registers a listener to the Graph.
+     * 
+     * @param listener The listener to register.
+     */
+    public void addGraphListener(GraphListener listener) {
+        if (listener != null && !listeners.contains(listener)) {
+            listeners.add(listener);
+        }
+    }
+    
+    /**
+     * Deregisters a listener from the Graph.
+     * @param listener 
+     */
+    public void removeGraphListener(GraphListener listener) {
+        if (listener != null && listeners.contains(listener)) {
+            listeners.remove(listener);
+        }
+    }
+    
+    /**
+     * Calls the event callback for all registered listeners.
+     */
+    private void notifyListeners() {
+        for (GraphListener listener : listeners) {
+            listener.onGraphChanged(this);
+        }
+    }
+    
+    
+    /**
+     * Listener interface for handling graph update events.
+     */
+    public interface GraphListener {
+        public void onGraphChanged(Graph graph);
+    }
 }

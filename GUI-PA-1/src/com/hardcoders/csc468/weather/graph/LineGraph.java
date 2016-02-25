@@ -6,7 +6,6 @@ import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
 
 /**
@@ -156,6 +155,7 @@ public class LineGraph<DomainType extends Comparable, RangeType extends Comparab
     @Override
     public void redraw() {
         calculateDrawPoints();
+        super.redraw();
     }
         
     /**
