@@ -1,5 +1,7 @@
 package com.hardcoders.csc468.weather;
 
+import javax.swing.JFileChooser;
+
 /**
  *
  * @author Mack Smith
@@ -197,7 +199,8 @@ public class WeathermanWindow extends javax.swing.JFrame {
      */
     private void openMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_openMenuItemActionPerformed
         // TODO add your handling code here:
-        
+        final JFileChooser fc = new JFileChooser();
+        int returnVal = fc.showOpenDialog(fc);
     }//GEN-LAST:event_openMenuItemActionPerformed
 
     /**
