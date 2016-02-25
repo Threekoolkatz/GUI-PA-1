@@ -31,6 +31,15 @@ public class XMLImport{
         aClass.read("../weatherData/2010-01.xml");
     }
     
+    public void readAll( List<String> fileNames )
+    {
+        yearOfPoints.clear();
+        for (int i = 0; i < fileNames.size(); i++)
+        {
+            read( fileNames.get(i));
+        }
+    }
+    
     public void read( String fileName){
         SAXBuilder builder = new SAXBuilder();
         File currentXmlFile = new File(fileName);
@@ -71,10 +80,6 @@ public class XMLImport{
                    newPoint.setUVIndex(stringToDouble(node.getChildText("rainfall")));
                    newPoint.setPercipitation(stringToDouble(node.getChildText("rainfall")));
                    
-		   //System.out.println("Date: " + node.getChildText("date"));
-		   //System.out.println("time: " + node.getChildText("time"));
-		   //System.out.println("humidity: " + node.getChildText("humidity"));
-		   //System.out.println("barometer: " + node.getChildText("barometer"));
                    yearOfPoints.add(newPoint);
 
 		}
