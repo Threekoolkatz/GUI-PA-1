@@ -222,8 +222,18 @@ public interface WeatherDataPoint {
 
         @Override
         public Double getDomainPercentage(Date lowerBound, Date upperBound) {
-            Double time = (double) weatherDataPoint.getTimestamp().getTime() - (double) lowerBound.getTime();
-            return (time) / (upperBound.getTime() - lowerBound.getTime());
+            
+            // If any value is null or if bounds are equivalent, place data
+            // point in the center
+            if (lowerBound == null
+                || upperBound == null
+                || getDomainPosition() == null
+                || lowerBound.getTime() == upperBound.getTime()) {
+                return 0.5;
+            }
+            
+            // Calculate the percentage position across the domain
+            return (double) (getDomainPosition().getTime() - lowerBound.getTime()) / (double) (upperBound.getTime() - lowerBound.getTime());
         }
         
         @Override
@@ -252,7 +262,17 @@ public interface WeatherDataPoint {
         
         @Override
         public Double getRangePercentage(Double lowerBound, Double upperBound) {
-            if (upperBound - lowerBound == 0.0) return 0.0;
+            
+            // If any value is null or the bounds are equivalent, place data
+            // point in the center.
+            if (lowerBound == null
+                || upperBound == null
+                || getRangeValue() == null
+                || upperBound == lowerBound) {
+                return 0.5;
+            }
+            
+            // Calculate the percentage position across the range
             return (getRangeValue() - lowerBound) / (upperBound - lowerBound);
         }
     }
