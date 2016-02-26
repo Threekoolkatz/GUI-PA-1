@@ -54,10 +54,10 @@ public class RealInteractiveLineGraph extends InteractiveLineGraph<Double, Doubl
         double domainVal = domainLowerBound + domainWidth * pDomain;
         double rangeVal  = rangeLowerBound + rangeHeight * pRange;
         
-        setDomainLowerBound(domainVal + (domainLowerBound - domainVal) * (1 + (scale - 1) * pDomain));
-        setDomainUpperBound(domainVal + (domainUpperBound - domainVal) * (1 + (scale - 1) * (1.0 - pDomain)));
-        setRangeLowerBound(rangeVal + (rangeLowerBound - rangeVal) * (1 + (scale - 1) * pRange));
-        setRangeUpperBound(rangeVal + (rangeUpperBound - rangeVal) * (1 + (scale - 1) * (1.0 - pRange)));
+        setDomainLowerBound(domainVal - domainWidth * scale * pDomain);
+        setDomainUpperBound(domainVal + domainWidth * scale * (1.0 - pDomain));
+        setRangeLowerBound(rangeVal - rangeHeight * scale * pRange);
+        setRangeUpperBound(rangeVal + rangeHeight * scale * (1.0 - pRange));
     }
     
 }
