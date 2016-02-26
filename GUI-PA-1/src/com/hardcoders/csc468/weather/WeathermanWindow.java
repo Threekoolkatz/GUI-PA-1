@@ -3,6 +3,7 @@ package com.hardcoders.csc468.weather;
 import com.hardcoders.csc468.weather.XMLImport.XmlWeatherDataPoint;
 import com.hardcoders.csc468.weather.model.WeatherDataPoint;
 import java.io.File;
+import java.io.FilenameFilter;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JFileChooser;
@@ -218,6 +219,17 @@ public class WeathermanWindow extends javax.swing.JFrame {
         fc.setFileFilter(filter);
         int returnVal = fc.showOpenDialog(openMenuItem);
         
+        FilenameFilter xmlFilter = new FilenameFilter() {
+			public boolean accept(File dir, String name) {
+				String lowercaseName = name.toLowerCase();
+				if (lowercaseName.endsWith(".xml")) {
+					return true;
+				} else {
+					return false;
+				}
+			}
+        };
+        
         
         if ( returnVal == JFileChooser.APPROVE_OPTION )
         {
@@ -228,7 +240,11 @@ public class WeathermanWindow extends javax.swing.JFrame {
             
             for (File file : files) {
                 if (file.isDirectory()){
-                    
+                    File[] moreFiles = (file.listFiles(xmlFilter));
+                    for (File moreFile : moreFiles){
+                        System.out.println( moreFile );
+                        dataPoints = reader.readAll(filesForRead);
+                    }
                 }
                 else {
                     filesForRead.add(file);
