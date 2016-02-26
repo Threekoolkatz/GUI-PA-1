@@ -8,6 +8,7 @@ package com.hardcoders.csc468.weather.model;
  */
 public enum WindDirection {
     EAST,
+    EAST_NORTH_EAST,
     NORTH_EAST_EAST,
     NORTH_EAST,
     NORTH_NORTH_EAST,
@@ -15,14 +16,17 @@ public enum WindDirection {
     NORTH_NORTH_WEST,
     NORTH_WEST,
     NORTH_WEST_WEST,
+    WEST_NORTH_WEST,
     WEST,
+    WEST_SOUTH_WEST,
     SOUTH_WEST_WEST,
     SOUTH_WEST,
     SOUTH_SOUTH_WEST,
     SOUTH,
     SOUTH_SOUTH_EAST,
     SOUTH_EAST,
-    SOUTH_EAST_EAST;
+    SOUTH_EAST_EAST,
+    EAST_SOUTH_EAST;
     
     public static WindDirection fromString(String direction)
     {
@@ -31,6 +35,7 @@ public enum WindDirection {
         }
         switch (direction) {
             case "E":   return EAST;
+            case "ENE": return EAST_NORTH_EAST;
             case "NEE": return NORTH_EAST_EAST;
             case "NE":  return NORTH_EAST;
             case "NNE": return NORTH_NORTH_EAST;
@@ -38,7 +43,9 @@ public enum WindDirection {
             case "NNW": return NORTH_NORTH_EAST;
             case "NW":  return NORTH_WEST;
             case "NWW": return NORTH_WEST_WEST;
+            case "WNW": return WEST_NORTH_WEST;
             case "W":   return WEST;
+            case "WSW": return WEST_SOUTH_WEST;
             case "SWW": return SOUTH_WEST_WEST;
             case "SW":  return SOUTH_WEST;
             case "SSW": return SOUTH_SOUTH_WEST;
@@ -46,7 +53,8 @@ public enum WindDirection {
             case "SSE": return SOUTH_SOUTH_EAST;
             case "SE":  return SOUTH_EAST;
             case "SEE": return SOUTH_EAST_EAST;
-            default: {System.out.println("Invalide Month");
+            case "ESE": return EAST_SOUTH_EAST;
+            default: {System.out.println("Invalid Wind Direction " + direction);
                       return null; }
             }
     }

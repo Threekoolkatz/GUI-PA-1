@@ -31,13 +31,14 @@ public class XMLImport{
         aClass.read("../weatherData/2010-01.xml");
     }
     
-    public void readAll( List<String> fileNames )
+    public List<XmlWeatherDataPoint> readAll( List<File> fileNames )
     {
         yearOfPoints.clear();
         for (int i = 0; i < fileNames.size(); i++)
         {
-            read( fileNames.get(i));
+            read( fileNames.get(i).toString());
         }
+        return yearOfPoints;
     }
     
     public void read( String fileName){
@@ -72,6 +73,7 @@ public class XMLImport{
                    
                    //newPoint.windDIrection = stringToDouble(node.getChildText("windDirection"));
                    String temp = node.getChildText("winddirection");
+                   temp = temp.trim();
                    newPoint.setWindDirection(WindDirection.fromString(temp));
                    
                    newPoint.setWindGust(stringToDouble(node.getChildText("windgust")));
