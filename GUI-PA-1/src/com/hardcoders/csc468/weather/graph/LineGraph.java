@@ -154,6 +154,12 @@ public class LineGraph<DomainType extends Comparable, RangeType extends Comparab
     }
 
     @Override
+    public void forceRedraw() {
+        dataPointsDirty = true;
+        super.forceRedraw();
+    }
+    
+    @Override
     public void redraw() {
         calculateDrawPoints();
         super.redraw();
