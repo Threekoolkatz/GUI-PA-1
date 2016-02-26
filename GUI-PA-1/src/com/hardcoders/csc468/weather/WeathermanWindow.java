@@ -1,7 +1,8 @@
 package com.hardcoders.csc468.weather;
 
+import com.hardcoders.csc468.weather.graph.Graph;
+import com.hardcoders.csc468.weather.graph.InteractiveLineGraph;
 import java.util.Date;
-import javax.swing.*;
 
 /**
  *
@@ -15,6 +16,20 @@ public class WeathermanWindow extends javax.swing.JFrame {
     public WeathermanWindow() {
         initComponents();
         
+        lineGraph.addGraphListener(new InteractiveLineGraph.GraphListener() {
+            @Override
+            public void onGraphChanged(Graph graph) {
+                if (graph != lineGraph) return;
+                
+                if (lineGraph.getDomainLowerBound() != null) {
+                    startDate.setValue(new Date((long) lineGraph.getDomainLowerBound().doubleValue()));
+                }
+                if (lineGraph.getDomainUpperBound() != null) {
+                    endDate.setValue(new Date((long) lineGraph.getDomainUpperBound().doubleValue()));
+                }
+            }
+        });
+        
         lineGraph.addDataPoint(new SimpleWeatherDataPoint(new Date(100), 10.0).getTemperatureAsDataPoint());
         lineGraph.addDataPoint(new SimpleWeatherDataPoint(new Date(250), 10.0).getTemperatureAsDataPoint());
         lineGraph.addDataPoint(new SimpleWeatherDataPoint(new Date(275), 12.0).getTemperatureAsDataPoint());
@@ -26,7 +41,6 @@ public class WeathermanWindow extends javax.swing.JFrame {
         lineGraph.setDomainUpperBound(550.0);
         lineGraph.setRangeUpperBound(15.0);
         lineGraph.setRangeLowerBound(5.0);
-        
         
         lineGraph.redraw();
     }
@@ -133,10 +147,11 @@ public class WeathermanWindow extends javax.swing.JFrame {
 
         startDate.setModel(new javax.swing.SpinnerDateModel());
         startDate.setToolTipText("Start date");
-        startDate.setValue(new Date((long)lineGraph.getDomainLowerBound()));
+        startDate.setValue(new Date());
 
         endDate.setModel(new javax.swing.SpinnerDateModel());
         endDate.setToolTipText("End date");
+        endDate.setValue(new Date());
 
         javax.swing.GroupLayout lineGraphLayout = new javax.swing.GroupLayout(lineGraph);
         lineGraph.setLayout(lineGraphLayout);
