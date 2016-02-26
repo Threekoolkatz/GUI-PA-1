@@ -14,6 +14,8 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import com.hardcoders.csc468.weather.graph.Graph;
 import com.hardcoders.csc468.weather.graph.InteractiveLineGraph;
 import java.util.Date;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 
 /**
  *
@@ -22,6 +24,7 @@ import java.util.Date;
 public class WeathermanWindow extends javax.swing.JFrame {
 
     private List<XmlWeatherDataPoint> dataPoints;
+    private boolean graphUpdated;
     
     /**
      * Creates new form WeathermanWindow
@@ -32,10 +35,40 @@ public class WeathermanWindow extends javax.swing.JFrame {
         dataPoints = new ArrayList<XmlWeatherDataPoint>();
 
         
+        graphUpdated = false;
+        
+        startDate.addChangeListener(new ChangeListener() {
+            @Override
+            public void stateChanged(ChangeEvent e) {
+                if (graphUpdated) return;
+                graphUpdated = true;
+                
+                lineGraph.setDomainLowerBound((double) ((Date) startDate.getValue()).getTime());
+                lineGraph.redraw();
+                lineGraph.repaint();
+                
+                graphUpdated = false;
+            }
+        });
+        endDate.addChangeListener(new ChangeListener() {
+            @Override
+            public void stateChanged(ChangeEvent e) {
+                if (graphUpdated) return;
+                graphUpdated = true;
+                
+                lineGraph.setDomainUpperBound((double) ((Date) endDate.getValue()).getTime());
+                lineGraph.redraw();
+                lineGraph.repaint();
+                
+                graphUpdated = false;
+            }
+        });
         lineGraph.addGraphListener(new InteractiveLineGraph.GraphListener() {
             @Override
             public void onGraphChanged(Graph graph) {
                 if (graph != lineGraph) return;
+                if (graphUpdated) return;
+                graphUpdated = true;
                 
                 if (lineGraph.getDomainLowerBound() != null) {
                     startDate.setValue(new Date((long) lineGraph.getDomainLowerBound().doubleValue()));
@@ -43,6 +76,8 @@ public class WeathermanWindow extends javax.swing.JFrame {
                 if (lineGraph.getDomainUpperBound() != null) {
                     endDate.setValue(new Date((long) lineGraph.getDomainUpperBound().doubleValue()));
                 }
+                
+                graphUpdated = false;
             }
         });
         

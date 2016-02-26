@@ -248,6 +248,10 @@ public abstract class Graph<DomainType extends Comparable, RangeType extends Com
         Collections.sort(dataPoints);
         dataDirty = true;
     }
+    
+    public void forceRedraw() {
+        redraw();
+    }
 
     /**
      * Redraws the graph, forcing a recalculation of drawing data. Should be
