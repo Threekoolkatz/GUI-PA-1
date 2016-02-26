@@ -1,16 +1,31 @@
 package com.hardcoders.csc468.weather;
 
+import com.hardcoders.csc468.weather.XMLImport.XmlWeatherDataPoint;
+import com.hardcoders.csc468.weather.model.WeatherDataPoint;
+import java.io.File;
+import java.io.FilenameFilter;
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.JFileChooser;
+import static javax.swing.JFileChooser.FILES_AND_DIRECTORIES;
+import javax.swing.JTextArea;
+import javax.swing.filechooser.FileFilter;
+import javax.swing.filechooser.FileNameExtensionFilter;
+
 /**
  *
  * @author Mack Smith
  */
 public class WeathermanWindow extends javax.swing.JFrame {
 
+    private List<XmlWeatherDataPoint> dataPoints;
+    
     /**
      * Creates new form WeathermanWindow
      */
     public WeathermanWindow() {
         initComponents();
+        dataPoints = new ArrayList<XmlWeatherDataPoint>();
     }
     
     /**
@@ -197,7 +212,59 @@ public class WeathermanWindow extends javax.swing.JFrame {
      */
     private void openMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_openMenuItemActionPerformed
         // TODO add your handling code here:
+        final JFileChooser fc = new JFileChooser();
+        fc.setFileSelectionMode(FILES_AND_DIRECTORIES);
+        fc.setMultiSelectionEnabled(true);
+        FileFilter filter = new FileNameExtensionFilter("Weather files", "xml");
+        fc.setFileFilter(filter);
+        int returnVal = fc.showOpenDialog(openMenuItem);
         
+        FilenameFilter xmlFilter = new FilenameFilter() {
+			public boolean accept(File dir, String name) {
+				String lowercaseName = name.toLowerCase();
+				if (lowercaseName.endsWith(".xml")) {
+					return true;
+				} else {
+					return false;
+				}
+			}
+        };
+        
+        
+        if ( returnVal == JFileChooser.APPROVE_OPTION )
+        {
+            XMLImport reader = new XMLImport();
+            File[] files = fc.getSelectedFiles();
+            List<File> filesForRead = new ArrayList<>();
+            //This is where a real application would open the file.
+            
+            for (File file : files) {
+                if (file.isDirectory()){
+                    File[] moreFiles = (file.listFiles(xmlFilter));
+                    for (File moreFile : moreFiles){
+                        System.out.println( moreFile );
+                        dataPoints = reader.readAll(filesForRead);
+                    }
+                }
+                else {
+                    filesForRead.add(file);
+                }
+                
+                dataPoints = reader.readAll(filesForRead);
+                // verify file is valid (somehow)
+                // parse file using xml
+                // append results to temp list
+            }
+            
+            // add all new datapoints to dataPoints list at once
+            // add all new datapoints to graph (s)
+            
+            System.out.println( "Opening: " + files[1].getName() + "." + "\n" );
+        }
+        else
+        {
+            System.out.println( "Open command cancelled by user." + "\n" );
+        }
     }//GEN-LAST:event_openMenuItemActionPerformed
 
     /**
