@@ -186,7 +186,7 @@ public interface WeatherDataPoint {
      * 
      * @param <RangeType> The data type of the range of this data type.
      */
-    public abstract class DataPointAdapter<RangeType> implements DataPoint<Date, RangeType> {
+    public abstract class DataPointAdapter<RangeType> implements DataPoint<Double, RangeType> {
         
         /**
          * The {@link WeatherDataPoint} object this DataPoint adapter is linked
@@ -216,24 +216,25 @@ public interface WeatherDataPoint {
         }
         
         @Override
-        public Date getDomainPosition() {
-            return weatherDataPoint.getTimestamp();
+        public Double getDomainPosition() {
+            return (double) weatherDataPoint.getTimestamp().getTime();
         }
 
         @Override
-        public Double getDomainPercentage(Date lowerBound, Date upperBound) {
+        public Double getDomainPercentage(Double lowerBound, Double upperBound) {
             
             // If any value is null or if bounds are equivalent, place data
             // point in the center
             if (lowerBound == null
-                || upperBound == null
-                || getDomainPosition() == null
-                || lowerBound.getTime() == upperBound.getTime()) {
+                    || upperBound == null
+                    || getDomainPosition() == null
+                    || lowerBound == upperBound) {
+                
                 return 0.5;
             }
             
             // Calculate the percentage position across the domain
-            return (double) (getDomainPosition().getTime() - lowerBound.getTime()) / (double) (upperBound.getTime() - lowerBound.getTime());
+            return (double) (getDomainPosition() - lowerBound) / (double) (upperBound - lowerBound);
         }
         
         @Override
@@ -266,9 +267,10 @@ public interface WeatherDataPoint {
             // If any value is null or the bounds are equivalent, place data
             // point in the center.
             if (lowerBound == null
-                || upperBound == null
-                || getRangeValue() == null
-                || upperBound == lowerBound) {
+                    || upperBound == null
+                    || getRangeValue() == null
+                    || upperBound == lowerBound) {
+                
                 return 0.5;
             }
             
