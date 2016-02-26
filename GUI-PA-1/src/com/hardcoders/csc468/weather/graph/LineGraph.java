@@ -132,6 +132,7 @@ public class LineGraph<DomainType extends Comparable, RangeType extends Comparab
         scalesDirty = true;
     }
     
+    
     /**
      * Sorts all data points by their domain values in ascending order, but only
      * if the {@link #dataPointsDirty} flag is set.
