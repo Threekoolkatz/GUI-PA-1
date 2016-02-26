@@ -313,12 +313,17 @@ public class WeathermanWindow extends javax.swing.JFrame {
             List<File> filesForRead = new ArrayList<>();
             //This is where a real application would open the file.
             
+            //List though first list of directories - Only directories and xml
+            //files will be in the first file list
             for (File file : files) {
+                //check if directory
                 if (file.isDirectory()){
+                    //open directory but only extract xml files
                     File[] moreFiles = (file.listFiles(xmlFilter));
+                    //open all xml files and read data into dataPoints
                     for (File moreFile : moreFiles){
-                        System.out.println( moreFile );
-                        dataPoints = reader.readAll(filesForRead);
+                        //System.out.println( moreFile );
+                        filesForRead.add(moreFile);
                     }
                 }
                 else {
@@ -326,9 +331,6 @@ public class WeathermanWindow extends javax.swing.JFrame {
                 }
                 
                 dataPoints = reader.readAll(filesForRead);
-                // verify file is valid (somehow)
-                // parse file using xml
-                // append results to temp list
             }
             
             // add all new datapoints to dataPoints list at once

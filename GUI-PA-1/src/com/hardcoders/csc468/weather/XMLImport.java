@@ -98,7 +98,9 @@ public class XMLImport{
         try{
             temp = Double.parseDouble(text);
         }
-        catch(NumberFormatException e){};
+        catch(NumberFormatException e){
+        System.out.println("Number Format Exception, Inside string to Double");
+        };
         return temp;
     }
 
