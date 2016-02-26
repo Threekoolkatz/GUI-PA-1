@@ -57,10 +57,10 @@ public class WeatherInteractiveLineGraph extends InteractiveLineGraph<Date, Doub
         double domainVal = (double) domainLowerBound.getTime() + domainWidth * pDomain;
         double rangeVal  = rangeLowerBound + rangeHeight * pRange;
         
-        setDomainLowerBound(new Date((long) (domainVal + (domainLowerBound.getTime() - domainVal) * (1 + (scale - 1) * pDomain))));
-        setDomainUpperBound(new Date((long) (domainVal + (domainUpperBound.getTime() - domainVal) * (1 + (scale - 1) * (1.0 - pDomain)))));
-        setRangeLowerBound(rangeVal + (rangeLowerBound - rangeVal) * (1 + (scale - 1) * pRange));
-        setRangeUpperBound(rangeVal + (rangeUpperBound - rangeVal) * (1 + (scale - 1) * (1.0 - pRange)));
+        setDomainLowerBound(new Date((long) (domainVal - domainWidth * scale * pDomain)));
+        setDomainUpperBound(new Date((long) (domainVal + domainWidth * scale * (1.0 - pDomain))));
+        setRangeLowerBound(rangeVal - rangeHeight * scale * pRange);
+        setRangeUpperBound(rangeVal + rangeHeight * scale * (1.0 - pRange));
     }
     
 }
