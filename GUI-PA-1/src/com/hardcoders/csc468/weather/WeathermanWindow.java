@@ -81,19 +81,21 @@ public class WeathermanWindow extends javax.swing.JFrame {
             }
         });
         
+        /*
         lineGraph.addDataPoint(new SimpleWeatherDataPoint(new Date(100), 10.0).getTemperatureAsDataPoint());
         lineGraph.addDataPoint(new SimpleWeatherDataPoint(new Date(250), 10.0).getTemperatureAsDataPoint());
         lineGraph.addDataPoint(new SimpleWeatherDataPoint(new Date(275), 12.0).getTemperatureAsDataPoint());
         lineGraph.addDataPoint(new SimpleWeatherDataPoint(new Date(325), 8.0).getTemperatureAsDataPoint());
         lineGraph.addDataPoint(new SimpleWeatherDataPoint(new Date(350), 10.0).getTemperatureAsDataPoint());
         lineGraph.addDataPoint(new SimpleWeatherDataPoint(new Date(500), 10.0).getTemperatureAsDataPoint());
-        
+        */
         lineGraph.setDomainLowerBound(50.0);
         lineGraph.setDomainUpperBound(550.0);
         lineGraph.setRangeUpperBound(15.0);
         lineGraph.setRangeLowerBound(5.0);
-        
+        /*
         lineGraph.redraw();
+        */
     }
     
     /**
@@ -367,11 +369,17 @@ public class WeathermanWindow extends javax.swing.JFrame {
                 
                 dataPoints = reader.readAll(filesForRead);
             }
-            
-            // add all new datapoints to dataPoints list at once
             // add all new datapoints to graph (s)
+            for ( XmlWeatherDataPoint point : dataPoints )
+            {
+                lineGraph.addDataPoint(point.getTemperatureAsDataPoint());
+                endDate.setValue(point.getTimestamp());
+            }
+            //startDate.setValue(dataPoints.get(0).getTimestamp());
+            System.out.println("right before redraw");
+            lineGraph.redraw();
             
-            System.out.println( "Opening: " + files[1].getName() + "." + "\n" );
+            //System.out.println( "Opening: " + files[1].getName() + "." + "\n" );
         }
         else
         {
@@ -385,6 +393,12 @@ public class WeathermanWindow extends javax.swing.JFrame {
      */
     private void tempButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tempButtonActionPerformed
         // TODO add your handling code here:
+        
+        for ( XmlWeatherDataPoint point : dataPoints )
+        {
+            lineGraph.addDataPoint(point.getTemperatureAsDataPoint());
+        }
+        lineGraph.redraw();
         // Switches graph data to temperature
         System.out.println("Switch to temperature");
     }//GEN-LAST:event_tempButtonActionPerformed
@@ -395,6 +409,11 @@ public class WeathermanWindow extends javax.swing.JFrame {
      */
     private void windSpeedButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_windSpeedButtonActionPerformed
         // TODO add your handling code here:
+        for ( XmlWeatherDataPoint point : dataPoints )
+        {
+            lineGraph.addDataPoint(point.getWindSpeedAsDataPoint());
+        }
+        lineGraph.redraw();
         // Switches graph data to wind speed
         System.out.println("Switch to wind speed");
     }//GEN-LAST:event_windSpeedButtonActionPerformed

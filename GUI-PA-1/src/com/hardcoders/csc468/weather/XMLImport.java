@@ -73,7 +73,15 @@ public class XMLImport{
                    
                    //newPoint.windDIrection = stringToDouble(node.getChildText("windDirection"));
                    String temp = node.getChildText("winddirection");
-                   temp = temp.trim();
+                   System.out.println(temp + " is in temp");
+                   if( temp == null)
+                   {
+                       System.out.println(temp + "temp is null");
+                   }
+                   else
+                   {
+                       temp = temp.trim();
+                   }
                    newPoint.setWindDirection(WindDirection.fromString(temp));
                    
                    newPoint.setWindGust(stringToDouble(node.getChildText("windgust")));
