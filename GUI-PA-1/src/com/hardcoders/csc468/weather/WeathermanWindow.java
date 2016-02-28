@@ -375,7 +375,7 @@ public class WeathermanWindow extends javax.swing.JFrame {
             }
             //startDate.setValue(dataPoints.get(0).getTimestamp());
             System.out.println("right before redraw");
-            //lineGraph.redraw();
+            lineGraph.redraw();
             
             //System.out.println( "Opening: " + files[1].getName() + "." + "\n" );
         }
