@@ -19,6 +19,11 @@ public class AverageData {
     List<CalculatedAverageWeatherData> yearlyValues;
     CalculatedAverageWeatherData allDataValues;
     
+    int yearCount;
+    int monthCount;
+    int weekCount;
+    int dayCount;
+    
     public AverageData() {
         allDataValues = new CalculatedAverageWeatherData();
         currentDataPoints = new ArrayList<>();
@@ -26,6 +31,10 @@ public class AverageData {
         weeklyValues = new ArrayList<>();
         monthlyValues = new ArrayList<>();
         yearlyValues = new ArrayList<>();
+        yearCount = 1;
+        monthCount = 1;
+        weekCount = 1;
+        dayCount = 1;
     }
     
     public void calculateDataArray( List<XmlWeatherDataPoint> passedInData ) {
@@ -33,7 +42,7 @@ public class AverageData {
         
         //This is to test calculatedAverage -- should be commented out later.
         //Will be happy if used. //Could use as a default
-        allDataValues = (calculateAverage(passedInData));
+        allDataValues = (calculateAverageFromXmlWeatherDataPoint(passedInData));
         
         
         dailyMeanValues();
@@ -46,6 +55,18 @@ public class AverageData {
         List<CalculatedAverageWeatherData> workingDataPoints =new ArrayList<>();
         //set loop time values
         //ex 12:01AM to 11:59PM <-- might be easier by checking day
+        if( currentDataPoints == null){
+            System.err.println
+                ("Weather data Points passed to AverageData() is null");
+            return;
+        }
+        
+        //currentDataPoints.get(0).getTimestamp().
+        
+        
+        for( XmlWeatherDataPoint currentPoint : currentDataPoints ) {
+            
+        }
         
         //call average temperature
         //call high/low with date/time occurrence
@@ -93,8 +114,22 @@ public class AverageData {
         //call rainfall
     }
     
+    /**
+     * calculateAverageFromXmlWeatherDataPoint - takes an XMLWeatherDataPoint
+     *  List and calculates the needed information ( average temperature, high/
+     *  low temperature, average wind speed, max wind gust, prevailing wind
+     *  direction and total rainfall.Then stores that data in a
+     *  CalculatedAverageWeatherData class
+     * 
+     * @see CalculatedAverageWeatherData
+     * 
+     * @param workingList-XmlWeatherDataPoint list being worked on
+     * @return tempWorkingAverageDataPoint - 
+     *      filled in CalculatedAverageWeatherData class structure
+     */
     public CalculatedAverageWeatherData 
-        calculateAverage(List<XmlWeatherDataPoint> workingList )
+        calculateAverageFromXmlWeatherDataPoint(List<XmlWeatherDataPoint> 
+                workingList )
     {
         CalculatedAverageWeatherData tempWorkingAverageDataPoint 
                 = new CalculatedAverageWeatherData();
@@ -111,16 +146,16 @@ public class AverageData {
         //Find high/low with date/time occurrence
         
             //check if current high point is higher than workingPoint
-            if((tempWorkingAverageDataPoint.highTempPoint == null) ||
-                    (tempWorkingAverageDataPoint.highTempPoint.getTemperature() 
+            if((tempWorkingAverageDataPoint.getHighTemperature() == null) ||
+                    (tempWorkingAverageDataPoint.getHighTemperature().getTemperature() 
                     < workingPoint.getTemperature()))
             {
                 tempWorkingAverageDataPoint.highTempPoint = workingPoint;
             }
             
             //check if current low point is less than workingPoint
-            if((tempWorkingAverageDataPoint.lowTempPoint == null) ||
-                    (tempWorkingAverageDataPoint.lowTempPoint.getTemperature() 
+            if((tempWorkingAverageDataPoint.getLowTemperature() == null) ||
+                    (tempWorkingAverageDataPoint.getLowTemperature().getTemperature() 
                     > workingPoint.getTemperature()))
             {
                 tempWorkingAverageDataPoint.lowTempPoint = workingPoint;
@@ -131,11 +166,11 @@ public class AverageData {
                     += workingPoint.getWindSpeed();
         
         //Find max windGust with date/time occurrence
-            if((tempWorkingAverageDataPoint.maxWindGustPoint == null) ||
-                    (tempWorkingAverageDataPoint.maxWindGustPoint.getWindGust()
+            if((tempWorkingAverageDataPoint.getMaxWindGust() == null) ||
+                    (tempWorkingAverageDataPoint.getMaxWindGust().getWindGust()
                     < workingPoint.getWindGust()))
             {
-                tempWorkingAverageDataPoint.highTempPoint = workingPoint;
+                tempWorkingAverageDataPoint.maxWindGustPoint = workingPoint;
             }
         
         //Determine prevailing wind direction
@@ -148,14 +183,87 @@ public class AverageData {
         
         //Calculate average temperature
         tempWorkingAverageDataPoint.averageTemperature = 
-                tempWorkingAverageDataPoint.averageTemperature / pointCount;
+                tempWorkingAverageDataPoint.getAverageTemperature() 
+                        / pointCount;
         
         //Calculate average windspeed
         tempWorkingAverageDataPoint.averageWindSpeed = 
-                tempWorkingAverageDataPoint.averageWindSpeed / pointCount;
+                tempWorkingAverageDataPoint.getAverageTemperature() 
+                        / pointCount;
         
         return tempWorkingAverageDataPoint;
     }
+        
+    public CalculatedAverageWeatherData 
+        calculateAverageCalculatedAverageWeatherData(
+                List<CalculatedAverageWeatherData> workingList )
+    {
+        CalculatedAverageWeatherData tempWorkingAverageDataPoint 
+                = new CalculatedAverageWeatherData();
+        int pointCount = 0;
+        
+        for( CalculatedAverageWeatherData workingPoint : workingList)
+        {
+            //increament number of points processed
+            pointCount++;
+            
+        //Collect temperature
+            tempWorkingAverageDataPoint.averageTemperature 
+                    += workingPoint.getAverageTemperature();
+        //Find high/low with date/time occurrence
+        
+            //check if current high point is higher than workingPoint
+            if((tempWorkingAverageDataPoint.getHighTemperature() == null) ||
+                    (tempWorkingAverageDataPoint.getHighTemperature()
+                            .getTemperature() 
+                    < workingPoint.getHighTemperature().getTemperature()))
+            {
+                tempWorkingAverageDataPoint.highTempPoint 
+                        = workingPoint.getHighTemperature();
+            }
+            
+            //check if current low point is less than workingPoint
+            if((tempWorkingAverageDataPoint.getLowTemperature() == null) ||
+                    (tempWorkingAverageDataPoint.getLowTemperature()
+                            .getTemperature() 
+                    > workingPoint.getLowTemperature().getTemperature()))
+            {
+                tempWorkingAverageDataPoint.lowTempPoint 
+                        = workingPoint.getLowTemperature();
+            }
+            
+        //Collect windspeed
+            tempWorkingAverageDataPoint.averageWindSpeed 
+                    += workingPoint.getAverageWindSpeed();
+        
+        //Find max windGust with date/time occurrence
+            if((tempWorkingAverageDataPoint.getMaxWindGust() == null) ||
+                    (tempWorkingAverageDataPoint.getMaxWindGust().getWindGust()
+                    < workingPoint.getMaxWindGust().getWindGust()))
+            {
+                tempWorkingAverageDataPoint.highTempPoint 
+                        = workingPoint.getHighTemperature();
+            }
+        
+        //Determine prevailing wind direction
+        //Yikes
+        
+        //Collect rainfall
+            tempWorkingAverageDataPoint.totalRainFall
+                    += workingPoint.getTotalRainFall();
+        }
+        
+        //Calculate average temperature
+        tempWorkingAverageDataPoint.averageTemperature = 
+                tempWorkingAverageDataPoint.getAverageTemperature() / pointCount;
+        
+        //Calculate average windspeed
+        tempWorkingAverageDataPoint.averageWindSpeed = 
+                tempWorkingAverageDataPoint.getAverageWindSpeed() / pointCount;
+        
+        return tempWorkingAverageDataPoint;
+    }
+        
     
     public class CalculatedAverageWeatherData implements AverageWeatherData {
         
@@ -182,37 +290,37 @@ public class AverageData {
 
         @Override
         public double getAverageTemperature() {
-            throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+            return this.averageTemperature;
         }
 
         @Override
         public XmlWeatherDataPoint getLowTemperature() {
-            throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+            return this.lowTempPoint;
         }
 
         @Override
         public XmlWeatherDataPoint getHighTemperature() {
-            throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+            return this.highTempPoint;
         }
 
         @Override
         public double getAverageWindSpeed() {
-            throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+            return this.averageTemperature;
         }
 
         @Override //Make sure to call this Wind Speed during output
         public XmlWeatherDataPoint getMaxWindGust() {
-            throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+            return this.maxWindGustPoint;
         }
 
         @Override
         public WindDirection getPrevailingWindDirection() {
-            throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+            return this.prevalingWindDirection;
         }
 
         @Override
         public double getTotalRainFall() {
-            throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+            return this.totalRainFall;
         }
     }
 }

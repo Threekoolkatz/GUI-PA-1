@@ -49,7 +49,7 @@ public interface AverageWeatherData {
      * 
      * @return XmlWeatherDataPoint that holds the Max Wind Speed
      */
-    public XmlWeatherDataPoint getMaxWindSpeed();
+    public XmlWeatherDataPoint getMaxWindGust();
     
     /**
      * Gets the Prevailing Wind Direction over a period of time
