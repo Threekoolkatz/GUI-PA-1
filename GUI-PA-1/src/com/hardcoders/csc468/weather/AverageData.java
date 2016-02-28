@@ -69,9 +69,17 @@ public class AverageData {
         
         Calendar tempCalendar = Calendar.getInstance();
         tempCalendar.setTime(currentDataPoints.get(0).getTimestamp());
+        
+        //Initializes the first day
         int currentDay = tempCalendar.get(Calendar.DAY_OF_MONTH);
-        int currentDayOfWeek = tempCalendar.get(Calendar.DAY_OF_WEEK);
+        
+        //initializes current week no value needed due to special case
+        int currentDayOfWeek; 
+        
+        //Initializes the current month
         int currentMonth = tempCalendar.get(Calendar.MONTH);
+        
+        //Initializes the current Year
         int currentYear = tempCalendar.get(Calendar.YEAR);
         
         yearCount = 1;
@@ -79,7 +87,7 @@ public class AverageData {
         weekCount = 1;
         dayCount = 1;
         
-        
+        //all xml points in a given day
         List<XmlWeatherDataPoint> tempList = new ArrayList<>();
         
         //structure given from day calculations
@@ -104,7 +112,7 @@ public class AverageData {
         List<CalculatedAverageWeatherData> 
                 tempYearMonthsList = new ArrayList<>();
         
-        
+        // loops though all passed in xml points
         for( XmlWeatherDataPoint currentPoint : currentDataPoints ) {
             tempCalendar.setTime(currentPoint.getTimestamp());
             
