@@ -22,7 +22,7 @@ import org.jdom2.input.SAXBuilder;
  * @author 7143145
  */
 public class XMLImport{
-    
+    //TODO make Implement comparable for sorting!!!!!!!!!
     static List<XmlWeatherDataPoint> yearOfPoints = new ArrayList<>();
     
     public static void main(String[] args)

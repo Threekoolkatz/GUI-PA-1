@@ -4,6 +4,7 @@ import com.hardcoders.csc468.weather.XMLImport.XmlWeatherDataPoint;
 import com.hardcoders.csc468.weather.model.AverageWeatherData;
 import com.hardcoders.csc468.weather.model.WindDirection;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 
@@ -12,12 +13,24 @@ import java.util.List;
  * @author 7143145
  */
 public class AverageData {
-    List<XmlWeatherDataPoint> currentDataPoints;
-    List<CalculatedAverageWeatherData> dailyValues;
-    List<CalculatedAverageWeatherData> weeklyValues;
-    List<CalculatedAverageWeatherData> monthlyValues;
-    List<CalculatedAverageWeatherData> yearlyValues;
-    CalculatedAverageWeatherData allDataValues;
+    
+    //Points passed into the class
+    private List<XmlWeatherDataPoint> currentDataPoints;
+    
+    //List of all daily calculations
+    private List<CalculatedAverageWeatherData> dailyValues;
+    
+    //List of all weekly calculations
+    private List<CalculatedAverageWeatherData> weeklyValues;
+    
+    //List of all monthly calculations
+    private List<CalculatedAverageWeatherData> monthlyValues;
+    
+    //List of all yearly Calculations
+    private List<CalculatedAverageWeatherData> yearlyValues;
+    
+    //Calculation off all data values
+    private CalculatedAverageWeatherData allDataValues;
     
     int yearCount;
     int monthCount;
@@ -31,10 +44,6 @@ public class AverageData {
         weeklyValues = new ArrayList<>();
         monthlyValues = new ArrayList<>();
         yearlyValues = new ArrayList<>();
-        yearCount = 1;
-        monthCount = 1;
-        weekCount = 1;
-        dayCount = 1;
     }
     
     public void calculateDataArray( List<XmlWeatherDataPoint> passedInData ) {
@@ -42,13 +51,10 @@ public class AverageData {
         
         //This is to test calculatedAverage -- should be commented out later.
         //Will be happy if used. //Could use as a default
-        allDataValues = (calculateAverageFromXmlWeatherDataPoint(passedInData));
+        allDataValues = (calculateAverageFromXmlWeatherDataPoints(passedInData));
         
         
         dailyMeanValues();
-        weeklyMeanValues();
-        monthlyMeanValues();
-        yearlyMeanValues();
     }
     
     public void dailyMeanValues(){
@@ -61,61 +67,112 @@ public class AverageData {
             return;
         }
         
-        //currentDataPoints.get(0).getTimestamp().
+        Calendar tempCalendar = Calendar.getInstance();
+        tempCalendar.setTime(currentDataPoints.get(0).getTimestamp());
+        int currentDay = tempCalendar.get(Calendar.DAY_OF_MONTH);
+        int currentDayOfWeek = tempCalendar.get(Calendar.DAY_OF_WEEK);
+        int currentMonth = tempCalendar.get(Calendar.MONTH);
+        int currentYear = tempCalendar.get(Calendar.YEAR);
+        
+        yearCount = 1;
+        monthCount = 1;
+        weekCount = 1;
+        dayCount = 1;
+        
+        
+        List<XmlWeatherDataPoint> tempList = new ArrayList<>();
+        
+        //structure given from day calculations
+        CalculatedAverageWeatherData tempDayValue = 
+                new CalculatedAverageWeatherData();
+        
+        //structure given from month calculations
+        CalculatedAverageWeatherData tempMonthValue = 
+                new CalculatedAverageWeatherData();
+        
+        //structure given from year calculations
+        CalculatedAverageWeatherData tempYearValue = 
+                new CalculatedAverageWeatherData();
+        
+        //Temporary list of days in a given week
+        List<CalculatedAverageWeatherData>
+                tempWeekDaysList = new ArrayList<>();
+        //Temporary list of days in a given month
+        List<CalculatedAverageWeatherData> 
+                tempMonthDaysList = new ArrayList<>();
+        //Temporary list of days in a given year
+        List<CalculatedAverageWeatherData> 
+                tempYearMonthsList = new ArrayList<>();
         
         
         for( XmlWeatherDataPoint currentPoint : currentDataPoints ) {
+            tempCalendar.setTime(currentPoint.getTimestamp());
             
+            if( currentDay != tempCalendar.get(Calendar.DAY_OF_MONTH)){
+                dayCount++;
+                currentDay = tempCalendar.get(Calendar.DAY_OF_MONTH);
+                tempDayValue = 
+                        calculateAverageFromXmlWeatherDataPoints( tempList );
+                dailyValues.add(tempDayValue);
+                tempWeekDaysList.add(tempDayValue);
+                tempMonthDaysList.add(tempDayValue);
+                tempList.clear();
+            }
+            currentDayOfWeek = tempCalendar.get(Calendar.DAY_OF_WEEK);
+            if( currentDayOfWeek == tempCalendar.get(Calendar.SUNDAY)){
+                weekCount++;
+                weeklyValues.add(calculateAverageCalculatedAverageWeatherData(
+                        tempWeekDaysList));
+                tempWeekDaysList.clear();
+            }
+            if( currentMonth != tempCalendar.get(Calendar.MONTH)){
+                monthCount++;
+                currentMonth = tempCalendar.get(Calendar.MONTH);
+                tempMonthValue = calculateAverageCalculatedAverageWeatherData(
+                        tempMonthDaysList);
+                monthlyValues.add(tempMonthValue);
+                tempYearMonthsList.add(tempMonthValue);
+                tempMonthDaysList.clear();
+            }
+            if( currentYear != tempCalendar.get(Calendar.YEAR)){
+                yearCount++;
+                currentYear = tempCalendar.get(Calendar.YEAR);
+                yearlyValues.add(calculateAverageCalculatedAverageWeatherData(
+                        tempYearMonthsList));
+                tempMonthDaysList.clear();
+            }
+            tempList.add(currentPoint);
         }
         
-        //call average temperature
-        //call high/low with date/time occurrence
-        //call average windspeed
-        //call max windspeed with date/time occurrence
-        //call prevailing wind direction
-        //call Total rainfall
-        
-    }
-    
-    public void weeklyMeanValues(){
-        //set loop time values
-        //ex monday though sunday <--- how will i know this???
-        
-        //call average temperature
-        //call high/low with date/time occurrence
-        //call average windspeed
-        //call max windspeed with date/time occurrence
-        //call prevailing wind direction
-        //call rainfall
-    }
-    
-    public void monthlyMeanValues(){
-        //set loop time values
-        //pass day values list
-        
-        //call average temperature
-        //call high/low with date/time occurrence
-        //call average windspeed
-        //call max windspeed with date/time occurrence
-        //call prevailing wind direction
-        //call rainfall
-        
-    }
-    
-    public void yearlyMeanValues() {
-        //set loop time values
-        //pass month values list
-        
-        //call average temperature
-        //call high/low with date/time occurrence
-        //call average windspeed
-        //call max windspeed with date/time occurrence
-        //call prevailing wind direction
-        //call rainfall
+        if( !tempList.isEmpty()){
+            tempDayValue = 
+                    calculateAverageFromXmlWeatherDataPoints( tempList );
+            dailyValues.add(tempDayValue);
+            tempWeekDaysList.add(tempDayValue);
+            tempMonthDaysList.add(tempDayValue);
+            tempList.clear();
+        }
+        if( tempWeekDaysList.get(0) != null ){
+            weeklyValues.add(calculateAverageCalculatedAverageWeatherData(
+                    tempWeekDaysList));
+            tempWeekDaysList.clear();
+        }
+        if( !tempMonthDaysList.isEmpty()){
+            tempMonthValue = calculateAverageCalculatedAverageWeatherData(
+                    tempMonthDaysList);
+            monthlyValues.add(tempMonthValue);
+            tempYearMonthsList.add(tempMonthValue);
+            tempMonthDaysList.clear();
+        }
+        if( !tempMonthDaysList.isEmpty()){
+            yearlyValues.add(calculateAverageCalculatedAverageWeatherData(
+                    tempYearMonthsList));
+            tempMonthDaysList.clear();
+        }        
     }
     
     /**
-     * calculateAverageFromXmlWeatherDataPoint - takes an XMLWeatherDataPoint
+     * calculateAverageFromXmlWeatherDataPoints - takes an XMLWeatherDataPoint
      *  List and calculates the needed information ( average temperature, high/
      *  low temperature, average wind speed, max wind gust, prevailing wind
      *  direction and total rainfall.Then stores that data in a
@@ -128,7 +185,7 @@ public class AverageData {
      *      filled in CalculatedAverageWeatherData class structure
      */
     public CalculatedAverageWeatherData 
-        calculateAverageFromXmlWeatherDataPoint(List<XmlWeatherDataPoint> 
+        calculateAverageFromXmlWeatherDataPoints(List<XmlWeatherDataPoint> 
                 workingList )
     {
         CalculatedAverageWeatherData tempWorkingAverageDataPoint 
