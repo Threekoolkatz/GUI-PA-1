@@ -12,7 +12,7 @@
         <windchill> 8.3 </windchill>
         <heatindex> 8.2 </heatindex>
         <uvindex> 0.0 </uvindex>
-        <rainfall> 0.00 </rainfall>
+        <rainfall> 1.00 </rainfall>
     </weather>
 
     <weather>
@@ -27,7 +27,7 @@
         <windchill> 4.8 </windchill>
         <heatindex> 8.1 </heatindex>
         <uvindex> 0.0 </uvindex>
-        <rainfall> 0.00 </rainfall>
+        <rainfall> 4.00 </rainfall>
     </weather>
 
     <weather>
@@ -57,7 +57,7 @@
         <windchill> 2.4 </windchill>
         <heatindex> 8.1 </heatindex>
         <uvindex> 0.0 </uvindex>
-        <rainfall> 0.00 </rainfall>
+        <rainfall> 0.49 </rainfall>
     </weather>
 
     <weather>
@@ -102,7 +102,7 @@
         <windchill> -2.8 </windchill>
         <heatindex> 5.1 </heatindex>
         <uvindex> 0.0 </uvindex>
-        <rainfall> 0.00 </rainfall>
+        <rainfall> 0.01 </rainfall>
     </weather>
     
 </xml>

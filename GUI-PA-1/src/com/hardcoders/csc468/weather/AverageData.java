@@ -46,21 +46,16 @@ public class AverageData {
         yearlyValues = new ArrayList<>();
     }
     
-    public void calculateDataArray( List<XmlWeatherDataPoint> passedInData ) {
+    public void calculateData( List<XmlWeatherDataPoint> passedInData ) {
+        //sets datapoints to global-to-class variable
         currentDataPoints = passedInData;
         
-        //This is to test calculatedAverage -- should be commented out later.
-        //Will be happy if used. //Could use as a default
-        allDataValues = (calculateAverageFromXmlWeatherDataPoints(passedInData));
-        
-        
-        dailyMeanValues();
+        //actually Calculate data
+        crunchData();
     }
     
-    public void dailyMeanValues(){
-        List<CalculatedAverageWeatherData> workingDataPoints =new ArrayList<>();
-        //set loop time values
-        //ex 12:01AM to 11:59PM <-- might be easier by checking day
+    private void crunchData(){
+        //check if there is data to calculate
         if( currentDataPoints == null){
             System.err.println
                 ("Weather data Points passed to AverageData() is null");
@@ -96,10 +91,6 @@ public class AverageData {
         
         //structure given from month calculations
         CalculatedAverageWeatherData tempMonthValue = 
-                new CalculatedAverageWeatherData();
-        
-        //structure given from year calculations
-        CalculatedAverageWeatherData tempYearValue = 
                 new CalculatedAverageWeatherData();
         
         //Temporary list of days in a given week
@@ -172,10 +163,10 @@ public class AverageData {
             tempYearMonthsList.add(tempMonthValue);
             tempMonthDaysList.clear();
         }
-        if( !tempMonthDaysList.isEmpty()){
+        if( !tempYearMonthsList.isEmpty()){
             yearlyValues.add(calculateAverageCalculatedAverageWeatherData(
                     tempYearMonthsList));
-            tempMonthDaysList.clear();
+            tempYearMonthsList.clear();
         }        
     }
     
@@ -192,7 +183,7 @@ public class AverageData {
      * @return tempWorkingAverageDataPoint - 
      *      filled in CalculatedAverageWeatherData class structure
      */
-    public CalculatedAverageWeatherData 
+    private CalculatedAverageWeatherData 
         calculateAverageFromXmlWeatherDataPoints(List<XmlWeatherDataPoint> 
                 workingList )
     {
@@ -240,6 +231,7 @@ public class AverageData {
         
         //Determine prevailing wind direction
         //Yikes
+        //TODO CALCULATE THIS MESS
         
         //Collect rainfall
             tempWorkingAverageDataPoint.totalRainFall
@@ -259,7 +251,7 @@ public class AverageData {
         return tempWorkingAverageDataPoint;
     }
         
-    public CalculatedAverageWeatherData 
+    private CalculatedAverageWeatherData 
         calculateAverageCalculatedAverageWeatherData(
                 List<CalculatedAverageWeatherData> workingList )
     {
@@ -312,6 +304,7 @@ public class AverageData {
         
         //Determine prevailing wind direction
         //Yikes
+        //TODO CALCULATE THIS MESS
         
         //Collect rainfall
             tempWorkingAverageDataPoint.totalRainFall
@@ -329,16 +322,38 @@ public class AverageData {
         return tempWorkingAverageDataPoint;
     }
         
+        
+    public List<CalculatedAverageWeatherData> getDailyCalculations(){
+        return dailyValues;
+    }   
+    
+    public List<CalculatedAverageWeatherData> getWeeklyCalculations(){
+        return weeklyValues;
+    }
+    
+    public List<CalculatedAverageWeatherData> getMonthlyCalculations(){
+        return monthlyValues;
+    }
+    
+    public List<CalculatedAverageWeatherData> getYearlyCalculations() {
+        return yearlyValues;
+    }
+    
+    public CalculatedAverageWeatherData getAllDataValues(
+            List<XmlWeatherDataPoint> passedInData) {
+        allDataValues = (calculateAverageFromXmlWeatherDataPoints(passedInData));
+        return allDataValues;
+    }
     
     public class CalculatedAverageWeatherData implements AverageWeatherData {
         
-        double averageTemperature;
-        XmlWeatherDataPoint highTempPoint;
-        XmlWeatherDataPoint lowTempPoint;
-        double averageWindSpeed;
-        XmlWeatherDataPoint maxWindGustPoint;
-        WindDirection prevalingWindDirection;
-        double totalRainFall;
+        private double averageTemperature;
+        private XmlWeatherDataPoint highTempPoint;
+        private XmlWeatherDataPoint lowTempPoint;
+        private double averageWindSpeed;
+        private XmlWeatherDataPoint maxWindGustPoint;
+        private WindDirection prevalingWindDirection;
+        private double totalRainFall;
         
         /**
          *
@@ -370,7 +385,7 @@ public class AverageData {
 
         @Override
         public double getAverageWindSpeed() {
-            return this.averageTemperature;
+            return this.averageWindSpeed;
         }
 
         @Override //Make sure to call this Wind Speed during output

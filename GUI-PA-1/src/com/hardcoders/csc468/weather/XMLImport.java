@@ -23,7 +23,7 @@ import org.jdom2.input.SAXBuilder;
  */
 public class XMLImport{
     //TODO make Implement comparable for sorting!!!!!!!!!
-    static List<XmlWeatherDataPoint> yearOfPoints = new ArrayList<>();
+    List<XmlWeatherDataPoint> yearOfPoints = new ArrayList<>();
     
     public static void main(String[] args)
     {
@@ -34,9 +34,9 @@ public class XMLImport{
     public List<XmlWeatherDataPoint> readAll( List<File> fileNames )
     {
         yearOfPoints.clear();
-        for (int i = 0; i < fileNames.size(); i++)
+        for (File file : fileNames)
         {
-            read( fileNames.get(i).toString());
+            read( file.toString());
         }
         return yearOfPoints;
     }
@@ -44,7 +44,6 @@ public class XMLImport{
     public void read( String fileName){
         SAXBuilder builder = new SAXBuilder();
         File currentXmlFile = new File(fileName);
-        XmlWeatherDataPoint newPoint = new XmlWeatherDataPoint();
         
         try {
 
@@ -53,6 +52,8 @@ public class XMLImport{
 		List list = rootNode.getChildren("weather");
                 
 		for (int i = 0; i < list.size(); i++) {
+                    
+                    XmlWeatherDataPoint newPoint = new XmlWeatherDataPoint();
 
 		   Element node = (Element) list.get(i);
                    
@@ -91,6 +92,7 @@ public class XMLImport{
                    newPoint.setPercipitation(stringToDouble(node.getChildText("rainfall")));
                    
                    yearOfPoints.add(newPoint);
+                   //yearOfPoints.add(i, newPoint);
 
 		}
 
@@ -239,6 +241,7 @@ public class XMLImport{
             return windChill;
         }
         
+        @Override
         public WindChillDataPointAdapter getWindChillAsDataPoint() {
             return new WindChillDataPointAdapter(this);
         }
