@@ -2,6 +2,7 @@ package com.hardcoders.csc468.weather;
 
 import com.hardcoders.csc468.weather.XMLImport.XmlWeatherDataPoint;
 import com.hardcoders.csc468.weather.model.WeatherDataPoint;
+import com.hardcoders.csc468.weather.AverageData;
 import java.io.File;
 import java.io.FilenameFilter;
 import java.util.ArrayList;
@@ -26,6 +27,11 @@ public class WeathermanWindow extends javax.swing.JFrame {
     private List<XmlWeatherDataPoint> dataPoints;
     private boolean graphUpdated;
     
+    //need to initialize this in WeathermanWindow so that I can pass it data
+    //This is for my testing, it can be moved
+    //Initialize AverageData.java for necisarry Calculations
+    AverageData dataCruncher = new AverageData();
+    
     /**
      * Creates new form WeathermanWindow
      */
@@ -33,6 +39,7 @@ public class WeathermanWindow extends javax.swing.JFrame {
         initComponents();
 
         dataPoints = new ArrayList<XmlWeatherDataPoint>();
+        
 
         
         graphUpdated = false;
@@ -378,6 +385,11 @@ public class WeathermanWindow extends javax.swing.JFrame {
             lineGraph.redraw();
             
             //System.out.println( "Opening: " + files[1].getName() + "." + "\n" );
+            
+            //Testing AverageData class with data here. Might actually be right place for it
+            dataCruncher.calculateData(dataPoints);
+            //Line below needs to be removed after testing
+            dataCruncher.getAllDataValues(dataPoints);
         }
         else
         {
