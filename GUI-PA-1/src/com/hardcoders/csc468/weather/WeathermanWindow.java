@@ -115,9 +115,6 @@ public class WeathermanWindow extends javax.swing.JFrame {
     private void initComponents() {
 
         dataOptions = new javax.swing.ButtonGroup();
-        lineGraph = new com.hardcoders.csc468.weather.graph.RealInteractiveLineGraph();
-        startDate = new javax.swing.JSpinner();
-        endDate = new javax.swing.JSpinner();
         temperatureButton = new javax.swing.JRadioButton();
         windSpeedButton = new javax.swing.JRadioButton();
         rainfallButton = new javax.swing.JRadioButton();
@@ -129,6 +126,9 @@ public class WeathermanWindow extends javax.swing.JFrame {
         heatButton = new javax.swing.JRadioButton();
         tempLabel = new javax.swing.JLabel();
         tempVal = new javax.swing.JLabel();
+        lineGraph = new com.hardcoders.csc468.weather.WeathermanLineGraph();
+        endDate = new javax.swing.JSpinner();
+        startDate = new javax.swing.JSpinner();
         menuBar = new javax.swing.JMenuBar();
         fileMenu = new javax.swing.JMenu();
         openMenuItem = new javax.swing.JMenuItem();
@@ -137,38 +137,10 @@ public class WeathermanWindow extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        startDate.setModel(new javax.swing.SpinnerDateModel());
-        startDate.setToolTipText("Start date");
-        startDate.setValue(new Date());
-
-        endDate.setModel(new javax.swing.SpinnerDateModel());
-        endDate.setToolTipText("End date");
-        endDate.setValue(new Date());
-
-        javax.swing.GroupLayout lineGraphLayout = new javax.swing.GroupLayout(lineGraph);
-        lineGraph.setLayout(lineGraphLayout);
-        lineGraphLayout.setHorizontalGroup(
-            lineGraphLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, lineGraphLayout.createSequentialGroup()
-                .addContainerGap(430, Short.MAX_VALUE)
-                .addComponent(startDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(endDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-        );
-        lineGraphLayout.setVerticalGroup(
-            lineGraphLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, lineGraphLayout.createSequentialGroup()
-                .addGap(0, 125, Short.MAX_VALUE)
-                .addGroup(lineGraphLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(startDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(endDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-        );
-
         dataOptions.add(temperatureButton);
         temperatureButton.setText("Temperature");
         temperatureButton.setToolTipText("Switches graph data to temperature");
-        temperatureButton.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        temperatureButton.setBorder(null);
         temperatureButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/hardcoders/csc468/weather/icons/temp.png"))); // NOI18N
         temperatureButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -179,7 +151,7 @@ public class WeathermanWindow extends javax.swing.JFrame {
         dataOptions.add(windSpeedButton);
         windSpeedButton.setText("Wind Speed");
         windSpeedButton.setToolTipText("Switches graph data to wind speed");
-        windSpeedButton.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        windSpeedButton.setBorder(null);
         windSpeedButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/hardcoders/csc468/weather/icons/windspeed.png"))); // NOI18N
         windSpeedButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -239,7 +211,35 @@ public class WeathermanWindow extends javax.swing.JFrame {
 
         tempLabel.setText("Temperature");
 
-        tempVal.setText("jLabel2");
+        tempVal.setText(lineGraph.getSelectedDataPoint().getTemperature().toString());
+
+        endDate.setModel(new javax.swing.SpinnerDateModel());
+        endDate.setToolTipText("End date");
+        endDate.setValue(new Date());
+
+        startDate.setModel(new javax.swing.SpinnerDateModel());
+        startDate.setToolTipText("Start date");
+        startDate.setValue(new Date());
+
+        javax.swing.GroupLayout lineGraphLayout = new javax.swing.GroupLayout(lineGraph);
+        lineGraph.setLayout(lineGraphLayout);
+        lineGraphLayout.setHorizontalGroup(
+            lineGraphLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(lineGraphLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(startDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(endDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+        lineGraphLayout.setVerticalGroup(
+            lineGraphLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, lineGraphLayout.createSequentialGroup()
+                .addGap(0, 129, Short.MAX_VALUE)
+                .addGroup(lineGraphLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(endDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(startDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+        );
 
         fileMenu.setText("File");
         fileMenu.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -275,13 +275,12 @@ public class WeathermanWindow extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(lineGraph, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(tempLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(tempVal)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 280, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(uvButton)
                     .addGroup(layout.createSequentialGroup()
@@ -301,6 +300,7 @@ public class WeathermanWindow extends javax.swing.JFrame {
                         .addGap(40, 40, 40)
                         .addComponent(heatButton)))
                 .addGap(14, 14, 14))
+            .addComponent(lineGraph, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -410,14 +410,17 @@ public class WeathermanWindow extends javax.swing.JFrame {
 
     private void temperatureButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_temperatureButtonActionPerformed
         // TODO add your handling code here:
+        lineGraph.showTemperatureData();
     }//GEN-LAST:event_temperatureButtonActionPerformed
 
     private void pressureButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pressureButtonActionPerformed
         // TODO add your handling code here:
+        lineGraph.showPressureData();
     }//GEN-LAST:event_pressureButtonActionPerformed
 
     private void uvButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_uvButtonActionPerformed
         // TODO add your handling code here:
+        lineGraph.showUVIndexData();
     }//GEN-LAST:event_uvButtonActionPerformed
 
     private void windSpeedButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_windSpeedButtonActionPerformed
@@ -472,7 +475,7 @@ public class WeathermanWindow extends javax.swing.JFrame {
     private javax.swing.JMenu fileMenu;
     private javax.swing.JRadioButton heatButton;
     private javax.swing.JRadioButton humidityButton;
-    private com.hardcoders.csc468.weather.graph.RealInteractiveLineGraph lineGraph;
+    private com.hardcoders.csc468.weather.WeathermanLineGraph lineGraph;
     private javax.swing.JMenuBar menuBar;
     private javax.swing.JMenuItem menuQuit;
     private javax.swing.JMenuItem openMenuItem;
