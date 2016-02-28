@@ -291,7 +291,7 @@ public abstract class Graph<DomainType extends Comparable, RangeType extends Com
     /**
      * Calls the event callback for all registered listeners.
      */
-    private void notifyListeners() {
+    public void notifyListeners() {
         
         // Short-circuit if data is not dirty
         if (!dataDirty) return;

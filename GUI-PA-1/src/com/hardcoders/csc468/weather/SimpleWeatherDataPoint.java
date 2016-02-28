@@ -10,12 +10,12 @@ import java.util.Date;
 public class SimpleWeatherDataPoint implements WeatherDataPoint {
 
     private final Date timestamp;
-    private final Double temperature;
+    private final Double data;
     
     
-    public SimpleWeatherDataPoint(Date timestamp, Double temperature) {
+    public SimpleWeatherDataPoint(Date timestamp, Double data) {
         this.timestamp = timestamp;
-        this.temperature = temperature;
+        this.data = data;
     }
     
     
@@ -26,7 +26,7 @@ public class SimpleWeatherDataPoint implements WeatherDataPoint {
 
     @Override
     public Double getTemperature() {
-        return temperature;
+        return data;
     }
 
     @Override
@@ -36,7 +36,7 @@ public class SimpleWeatherDataPoint implements WeatherDataPoint {
 
     @Override
     public Double getHumidity() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return data;
     }
 
     @Override
@@ -46,7 +46,7 @@ public class SimpleWeatherDataPoint implements WeatherDataPoint {
 
     @Override
     public Double getPressure() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return data;
     }
 
     @Override
@@ -56,7 +56,7 @@ public class SimpleWeatherDataPoint implements WeatherDataPoint {
 
     @Override
     public Double getWindSpeed() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return data;
     }
 
     @Override
@@ -66,7 +66,7 @@ public class SimpleWeatherDataPoint implements WeatherDataPoint {
 
     @Override
     public WindDirection getWindDirection() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return WindDirection.NORTH;
     }
 
     @Override
@@ -76,7 +76,7 @@ public class SimpleWeatherDataPoint implements WeatherDataPoint {
 
     @Override
     public Double getWindGust() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return data;
     }
 
     @Override
@@ -86,7 +86,7 @@ public class SimpleWeatherDataPoint implements WeatherDataPoint {
 
     @Override
     public Double getWindChill() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return data;
     }
 
     @Override
@@ -96,7 +96,7 @@ public class SimpleWeatherDataPoint implements WeatherDataPoint {
 
     @Override
     public Double getHeatIndex() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return data;
     }
 
     @Override
@@ -106,7 +106,7 @@ public class SimpleWeatherDataPoint implements WeatherDataPoint {
 
     @Override
     public Double getUVIndex() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return data;
     }
 
     @Override
@@ -116,12 +116,11 @@ public class SimpleWeatherDataPoint implements WeatherDataPoint {
 
     @Override
     public Double getPercipitation() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return data;
     }
 
     @Override
     public PercipitationDataPointAdapter getPercipitationAsDataPoint() {
         return new PercipitationDataPointAdapter(this);
     }
-    
 }

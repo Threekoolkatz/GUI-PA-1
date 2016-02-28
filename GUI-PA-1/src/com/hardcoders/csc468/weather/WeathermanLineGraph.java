@@ -87,8 +87,8 @@ public class WeathermanLineGraph extends RealInteractiveLineGraph {
             
             // Adjust domain max/min
             double timestamp = (double) dataPoint.getTimestamp().getTime();
-            if (timestamp < domainMinValue) domainMinValue = timestamp;
-            if (timestamp > domainMaxValue) domainMaxValue = timestamp;
+            if (domainMinValue == null || timestamp < domainMinValue) domainMinValue = timestamp;
+            if (domainMaxValue == null || timestamp > domainMaxValue) domainMaxValue = timestamp;
             
             registerDataAdapter(FIELD_TEMPERATURE, dataPoint.getTemperatureAsDataPoint());
             registerDataAdapter(FIELD_HUMIDITY, dataPoint.getHumidityAsDataPoint());
@@ -227,37 +227,57 @@ public class WeathermanLineGraph extends RealInteractiveLineGraph {
         super.mouseClicked(e);
         if (highlightedDataPoint != null) {
             selectedDataPoint = highlightedDataPoint;
+            notifyListeners();
         }
     }
 
     @Override
     public void mouseReleased(MouseEvent e) {
         isDragging = false;
+        updateHighlightedDataPoint(e.getX());
     }
 
     @Override
     public void mouseEntered(MouseEvent e) {
         super.mouseEntered(e);
         isDragging = false;
+        updateHighlightedDataPoint(e.getX());
     }
     
     @Override
     public void mouseExited(MouseEvent e) {
         super.mouseExited(e);
-        selectedDataPoint = null;
+        highlightedDataPoint = null;
+        repaint();
     }
     
     @Override
     public void mouseMoved(MouseEvent e) {
         super.mouseMoved(e);
         
-        if (isDragging) return;
+        updateHighlightedDataPoint(e.getX());
+    }
+    
+    @Override
+    public void mouseDragged(MouseEvent e) {
+        super.mouseDragged(e);
+        isDragging = true;
+        updateHighlightedDataPoint(e.getX());
+    }
+    
+    private void updateHighlightedDataPoint(int mouseX) {
+        
+        // Completely dispell highlighted data point if dragging
+        if (isDragging) {
+            highlightedDataPoint = null;
+            return;
+        }
         
         // Short-circuit if no data points are registered
         List<WeatherDataPoint.DoubleDataPointAdapter> adapters = dataAdapters[getActiveField()];
         if (adapters.isEmpty()) return;
         
-        int x = e.getX();
+        int x = mouseX;
         
         // Translate x coordinate to approximate time
         double lowerBound = getDomainLowerBound();
@@ -317,18 +337,16 @@ public class WeathermanLineGraph extends RealInteractiveLineGraph {
         }
         
         // Only mark point as highlighted if it is visible
-        if (highlightedAdapter == null) return;
-        double pDomain = highlightedAdapter.getDomainPercentage(domainLowerBound, domainUpperBound);
-        double pRange  = highlightedAdapter.getRangePercentage(getRangeLowerBound(), getRangeUpperBound());
-        if (pDomain >= 0.0 && pDomain <= 1.0 && pRange >= 0.0 && pRange <= 1.0) {
-            this.highlightedDataPoint = highlightedAdapter.getLinkedObject();
+        if (highlightedAdapter != null) {
+            double pDomain = highlightedAdapter.getDomainPercentage(domainLowerBound, domainUpperBound);
+            double pRange  = highlightedAdapter.getRangePercentage(getRangeLowerBound(), getRangeUpperBound());
+            if (pDomain < 0.0 || pDomain > 1.0 || pRange < 0.0 || pRange > 1.0) {
+                highlightedAdapter = null;
+            }
         }
-    }
-    
-    @Override
-    public void mouseDragged(MouseEvent e) {
-        super.mouseDragged(e);
-        isDragging = true;
+        this.highlightedDataPoint = (highlightedAdapter != null ? highlightedAdapter.getLinkedObject() : null);
+        
+        repaint();
     }
     
     
@@ -338,7 +356,9 @@ public class WeathermanLineGraph extends RealInteractiveLineGraph {
         
         WeatherDataPoint points[] = {selectedDataPoint, highlightedDataPoint};
         
-        for (WeatherDataPoint dataPoint : points) {
+        for (int i  = 0; i < points.length; i++) {
+            WeatherDataPoint dataPoint = points[i];
+            
             if (dataPoint == null) continue;
 
             // Get adapter of specific data point
@@ -385,11 +405,17 @@ public class WeathermanLineGraph extends RealInteractiveLineGraph {
                     break;
             }
 
+            // Draw vertical line at highlighted/selected point
             if (adapter != null && adapter.getRangeValue() != null) {
                 int x = (int) (getWidth() * adapter.getDomainPercentage(getDomainLowerBound(), getDomainUpperBound()));
+                int y = (int) (getHeight() * adapter.getRangePercentage(getRangeLowerBound(), getRangeUpperBound()));
                 g.drawLine(x, 0, x, getHeight());
+                
+                // Draw bigger circle around selected point
+                if (i == 0) {
+                    g.drawOval(x - 4, y - 4, 8, 8);
+                }
             }
         }
-        
     }
 }
