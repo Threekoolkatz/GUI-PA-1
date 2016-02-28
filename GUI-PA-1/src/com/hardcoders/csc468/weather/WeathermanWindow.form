@@ -2,6 +2,8 @@
 
 <Form version="1.5" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
   <NonVisualComponents>
+    <Component class="javax.swing.ButtonGroup" name="dataOptions">
+    </Component>
     <Menu class="javax.swing.JMenuBar" name="menuBar">
       <SubComponents>
         <Menu class="javax.swing.JMenu" name="fileMenu">
@@ -61,33 +63,39 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" attributes="0">
+          <Component id="lineGraph" max="32767" attributes="0"/>
+          <Group type="102" alignment="1" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="tempButton" min="-2" max="-2" attributes="0"/>
+              <Component id="tempLabel" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="windSpeedButton" min="-2" max="-2" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                  <Group type="102" attributes="0">
-                      <Component id="windChillButton" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="windGustButton" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="humidityButton" min="-2" max="-2" attributes="0"/>
+              <Component id="tempVal" min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="32767" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="uvButton" min="-2" max="-2" attributes="0"/>
+                  <Group type="102" alignment="0" attributes="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="temperatureButton" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="humidityButton" alignment="0" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="windGustButton" min="-2" max="-2" attributes="0"/>
+                          <Component id="windSpeedButton" min="-2" max="-2" attributes="0"/>
+                      </Group>
                   </Group>
-                  <Group type="102" attributes="0">
-                      <Component id="uvIndexButton" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="32767" attributes="0"/>
+                  <Group type="102" alignment="0" attributes="0">
                       <Component id="rainfallButton" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="50" max="-2" attributes="0"/>
+                      <Component id="windChillButton" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <Component id="pressureButton" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="40" max="-2" attributes="0"/>
+                      <Component id="heatButton" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
-              <EmptySpace max="-2" attributes="0"/>
-              <Component id="pressureButton" min="-2" max="-2" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
-              <Component id="heatIndexButton" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="27" max="32767" attributes="0"/>
+              <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
           </Group>
-          <Component id="lineGraph" alignment="0" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
@@ -96,118 +104,52 @@
               <Component id="lineGraph" max="32767" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="tempButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="temperatureButton" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="windSpeedButton" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="pressureButton" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="windGustButton" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="humidityButton" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="windChillButton" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="heatIndexButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="tempLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="tempVal" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="uvIndexButton" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="rainfallButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="humidityButton" alignment="3" min="-2" pref="32" max="-2" attributes="0"/>
+                  <Component id="windGustButton" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace min="-2" pref="83" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="rainfallButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="windChillButton" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="pressureButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="heatButton" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="uvButton" min="-2" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
   </Layout>
   <SubComponents>
-    <Component class="javax.swing.JButton" name="tempButton">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Temperature"/>
-      </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="tempButtonActionPerformed"/>
-      </Events>
-      <AuxValues>
-        <AuxValue name="JavaCodeGenerator_AddingCodePost" type="java.lang.String" value="// Here is where i am going to add the new stuff"/>
-      </AuxValues>
-    </Component>
-    <Component class="javax.swing.JButton" name="windSpeedButton">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Wind Speed"/>
-      </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="windSpeedButtonActionPerformed"/>
-      </Events>
-    </Component>
-    <Component class="javax.swing.JButton" name="pressureButton">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Pressure"/>
-      </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="pressureButtonActionPerformed"/>
-      </Events>
-    </Component>
-    <Component class="javax.swing.JButton" name="windGustButton">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Wind Gust"/>
-      </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="windGustButtonActionPerformed"/>
-      </Events>
-    </Component>
-    <Component class="javax.swing.JButton" name="humidityButton">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Humidity"/>
-      </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="humidityButtonActionPerformed"/>
-      </Events>
-    </Component>
-    <Component class="javax.swing.JButton" name="windChillButton">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Wind Chill"/>
-      </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="windChillButtonActionPerformed"/>
-      </Events>
-    </Component>
-    <Component class="javax.swing.JButton" name="heatIndexButton">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Heat Index"/>
-      </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="heatIndexButtonActionPerformed"/>
-      </Events>
-    </Component>
-    <Component class="javax.swing.JButton" name="uvIndexButton">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="UV Index"/>
-      </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="uvIndexButtonActionPerformed"/>
-      </Events>
-    </Component>
-    <Component class="javax.swing.JButton" name="rainfallButton">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Rainfall"/>
-      </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="rainfallButtonActionPerformed"/>
-      </Events>
-    </Component>
     <Container class="com.hardcoders.csc468.weather.graph.RealInteractiveLineGraph" name="lineGraph">
 
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="1" attributes="0">
-                  <EmptySpace max="32767" attributes="0"/>
+                  <EmptySpace pref="430" max="32767" attributes="0"/>
                   <Component id="startDate" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="endDate" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="1" attributes="0">
-                  <EmptySpace min="0" pref="217" max="32767" attributes="0"/>
+                  <EmptySpace min="0" pref="125" max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="startDate" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="endDate" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -241,5 +183,148 @@
         </Component>
       </SubComponents>
     </Container>
+    <Component class="javax.swing.JRadioButton" name="temperatureButton">
+      <Properties>
+        <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+          <ComponentRef name="dataOptions"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="Temperature"/>
+        <Property name="toolTipText" type="java.lang.String" value="Switches graph data to temperature"/>
+        <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+          <Border info="org.netbeans.modules.form.compat2.border.BevelBorderInfo">
+            <BevelBorder/>
+          </Border>
+        </Property>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/com/hardcoders/csc468/weather/icons/temp.png"/>
+        </Property>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="temperatureButtonActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JRadioButton" name="windSpeedButton">
+      <Properties>
+        <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+          <ComponentRef name="dataOptions"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="Wind Speed"/>
+        <Property name="toolTipText" type="java.lang.String" value="Switches graph data to wind speed"/>
+        <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+          <Border info="org.netbeans.modules.form.compat2.border.BevelBorderInfo">
+            <BevelBorder/>
+          </Border>
+        </Property>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/com/hardcoders/csc468/weather/icons/windspeed.png"/>
+        </Property>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="windSpeedButtonActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JRadioButton" name="rainfallButton">
+      <Properties>
+        <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+          <ComponentRef name="dataOptions"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="Rainfall"/>
+        <Property name="toolTipText" type="java.lang.String" value="Switches graph data to rainfall"/>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/com/hardcoders/csc468/weather/icons/rainfall.png"/>
+        </Property>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JRadioButton" name="humidityButton">
+      <Properties>
+        <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+          <ComponentRef name="dataOptions"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="Humidity"/>
+        <Property name="toolTipText" type="java.lang.String" value="Switches graph data to humidity"/>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/com/hardcoders/csc468/weather/icons/humidity.png"/>
+        </Property>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JRadioButton" name="pressureButton">
+      <Properties>
+        <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+          <ComponentRef name="dataOptions"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="Pressure"/>
+        <Property name="toolTipText" type="java.lang.String" value="Switches graph data to pressure"/>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/com/hardcoders/csc468/weather/icons/pressure.png"/>
+        </Property>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="pressureButtonActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JRadioButton" name="windGustButton">
+      <Properties>
+        <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+          <ComponentRef name="dataOptions"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="Wind Gust"/>
+        <Property name="toolTipText" type="java.lang.String" value="Switches graph data to wind gust"/>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/com/hardcoders/csc468/weather/icons/windgust.png"/>
+        </Property>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JRadioButton" name="windChillButton">
+      <Properties>
+        <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+          <ComponentRef name="dataOptions"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="Wind Chill"/>
+        <Property name="toolTipText" type="java.lang.String" value="Switches graph data to wind chill"/>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/com/hardcoders/csc468/weather/icons/windchill.png"/>
+        </Property>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="windChillButtonActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JRadioButton" name="uvButton">
+      <Properties>
+        <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+          <ComponentRef name="dataOptions"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="UV Index"/>
+        <Property name="toolTipText" type="java.lang.String" value="Switches graph data to UV index"/>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/com/hardcoders/csc468/weather/icons/uvindex.png"/>
+        </Property>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="uvButtonActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JRadioButton" name="heatButton">
+      <Properties>
+        <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+          <ComponentRef name="dataOptions"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="Heat Index"/>
+        <Property name="toolTipText" type="java.lang.String" value="Switches graph data to heat index"/>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/com/hardcoders/csc468/weather/icons/heatindex.png"/>
+        </Property>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="tempLabel">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Temperature"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="tempVal">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="jLabel2"/>
+      </Properties>
+    </Component>
   </SubComponents>
 </Form>
