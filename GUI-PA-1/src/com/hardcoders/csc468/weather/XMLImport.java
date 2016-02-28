@@ -22,8 +22,8 @@ import org.jdom2.input.SAXBuilder;
  * @author 7143145
  */
 public class XMLImport{
-    
-    static List<XmlWeatherDataPoint> yearOfPoints = new ArrayList<>();
+    //TODO make Implement comparable for sorting!!!!!!!!!
+    List<XmlWeatherDataPoint> yearOfPoints = new ArrayList<>();
     
     public static void main(String[] args)
     {
@@ -34,9 +34,9 @@ public class XMLImport{
     public List<XmlWeatherDataPoint> readAll( List<File> fileNames )
     {
         yearOfPoints.clear();
-        for (int i = 0; i < fileNames.size(); i++)
+        for (File file : fileNames)
         {
-            read( fileNames.get(i).toString());
+            read( file.toString());
         }
         return yearOfPoints;
     }
@@ -44,7 +44,6 @@ public class XMLImport{
     public void read( String fileName){
         SAXBuilder builder = new SAXBuilder();
         File currentXmlFile = new File(fileName);
-        XmlWeatherDataPoint newPoint = new XmlWeatherDataPoint();
         
         try {
 
@@ -53,6 +52,8 @@ public class XMLImport{
 		List list = rootNode.getChildren("weather");
                 
 		for (int i = 0; i < list.size(); i++) {
+                    
+                    XmlWeatherDataPoint newPoint = new XmlWeatherDataPoint();
 
 		   Element node = (Element) list.get(i);
                    
@@ -73,7 +74,15 @@ public class XMLImport{
                    
                    //newPoint.windDIrection = stringToDouble(node.getChildText("windDirection"));
                    String temp = node.getChildText("winddirection");
-                   temp = temp.trim();
+                   //System.out.println(temp + " is in temp");
+                   if( temp == null)
+                   {
+                       //System.out.println("temp is null");
+                   }
+                   else
+                   {
+                       temp = temp.trim();
+                   }
                    newPoint.setWindDirection(WindDirection.fromString(temp));
                    
                    newPoint.setWindGust(stringToDouble(node.getChildText("windgust")));
@@ -83,6 +92,7 @@ public class XMLImport{
                    newPoint.setPercipitation(stringToDouble(node.getChildText("rainfall")));
                    
                    yearOfPoints.add(newPoint);
+                   //yearOfPoints.add(i, newPoint);
 
 		}
 
@@ -98,7 +108,9 @@ public class XMLImport{
         try{
             temp = Double.parseDouble(text);
         }
-        catch(NumberFormatException e){};
+        catch(NumberFormatException e){
+        System.out.println("Number Format Exception, Inside string to Double");
+        };
         return temp;
     }
 
@@ -229,6 +241,7 @@ public class XMLImport{
             return windChill;
         }
         
+        @Override
         public WindChillDataPointAdapter getWindChillAsDataPoint() {
             return new WindChillDataPointAdapter(this);
         }

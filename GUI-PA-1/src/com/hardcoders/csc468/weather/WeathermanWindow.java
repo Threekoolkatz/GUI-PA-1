@@ -2,6 +2,7 @@ package com.hardcoders.csc468.weather;
 
 import com.hardcoders.csc468.weather.XMLImport.XmlWeatherDataPoint;
 import com.hardcoders.csc468.weather.model.WeatherDataPoint;
+import com.hardcoders.csc468.weather.AverageData;
 import java.io.File;
 import java.io.FilenameFilter;
 import java.util.ArrayList;
@@ -26,6 +27,11 @@ public class WeathermanWindow extends javax.swing.JFrame {
     private List<XmlWeatherDataPoint> dataPoints;
     private boolean graphUpdated;
     
+    //need to initialize this in WeathermanWindow so that I can pass it data
+    //This is for my testing, it can be moved
+    //Initialize AverageData.java for necisarry Calculations
+    AverageData dataCruncher = new AverageData();
+    
     /**
      * Creates new form WeathermanWindow
      */
@@ -33,6 +39,7 @@ public class WeathermanWindow extends javax.swing.JFrame {
         initComponents();
 
         dataPoints = new ArrayList<XmlWeatherDataPoint>();
+        
 
         
         graphUpdated = false;
@@ -81,6 +88,7 @@ public class WeathermanWindow extends javax.swing.JFrame {
             }
         });
         
+        /*
         lineGraph.addWeatherDataPoint(new SimpleWeatherDataPoint(new Date(100), 10.0));
         lineGraph.addWeatherDataPoint(new SimpleWeatherDataPoint(new Date(250), 10.0));
         lineGraph.addWeatherDataPoint(new SimpleWeatherDataPoint(new Date(275), 12.0));
@@ -92,6 +100,7 @@ public class WeathermanWindow extends javax.swing.JFrame {
         lineGraph.setDomainUpperBound(550.0);
         
         lineGraph.redraw();
+        */
     }
     
     /**
@@ -346,12 +355,17 @@ public class WeathermanWindow extends javax.swing.JFrame {
             List<File> filesForRead = new ArrayList<>();
             //This is where a real application would open the file.
             
+            //List though first list of directories - Only directories and xml
+            //files will be in the first file list
             for (File file : files) {
+                //check if directory
                 if (file.isDirectory()){
+                    //open directory but only extract xml files
                     File[] moreFiles = (file.listFiles(xmlFilter));
+                    //open all xml files and read data into dataPoints
                     for (File moreFile : moreFiles){
-                        System.out.println( moreFile );
-                        dataPoints = reader.readAll(filesForRead);
+                        //System.out.println( moreFile );
+                        filesForRead.add(moreFile);
                     }
                 }
                 else {
@@ -359,15 +373,23 @@ public class WeathermanWindow extends javax.swing.JFrame {
                 }
                 
                 dataPoints = reader.readAll(filesForRead);
-                // verify file is valid (somehow)
-                // parse file using xml
-                // append results to temp list
             }
-            
-            // add all new datapoints to dataPoints list at once
             // add all new datapoints to graph (s)
+            for ( XmlWeatherDataPoint point : dataPoints )
+            {
+                lineGraph.addDataPoint(point.getTemperatureAsDataPoint());
+                //endDate.setValue(point.getTimestamp());
+            }
+            //startDate.setValue(dataPoints.get(0).getTimestamp());
+            System.out.println("right before redraw");
+            lineGraph.redraw();
             
-            System.out.println( "Opening: " + files[1].getName() + "." + "\n" );
+            //System.out.println( "Opening: " + files[1].getName() + "." + "\n" );
+            
+            //Testing AverageData class with data here. Might actually be right place for it
+            dataCruncher.calculateData(dataPoints);
+            //Line below needs to be removed after testing
+            dataCruncher.getAllDataValues(dataPoints);
         }
         else
         {
@@ -381,6 +403,12 @@ public class WeathermanWindow extends javax.swing.JFrame {
      */
     private void tempButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tempButtonActionPerformed
         // TODO add your handling code here:
+        
+        for ( XmlWeatherDataPoint point : dataPoints )
+        {
+            lineGraph.addDataPoint(point.getTemperatureAsDataPoint());
+        }
+        lineGraph.redraw();
         // Switches graph data to temperature
         System.out.println("Switch to temperature");
     }//GEN-LAST:event_tempButtonActionPerformed
@@ -391,6 +419,11 @@ public class WeathermanWindow extends javax.swing.JFrame {
      */
     private void windSpeedButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_windSpeedButtonActionPerformed
         // TODO add your handling code here:
+        for ( XmlWeatherDataPoint point : dataPoints )
+        {
+            lineGraph.addDataPoint(point.getWindSpeedAsDataPoint());
+        }
+        lineGraph.redraw();
         // Switches graph data to wind speed
         System.out.println("Switch to wind speed");
     }//GEN-LAST:event_windSpeedButtonActionPerformed
