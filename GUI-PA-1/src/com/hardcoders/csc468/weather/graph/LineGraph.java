@@ -154,9 +154,9 @@ public class LineGraph<DomainType extends Comparable, RangeType extends Comparab
     }
 
     @Override
-    public void forceRedraw() {
+    public void forceRedrawLater() {
+        super.forceRedrawLater();
         dataPointsDirty = true;
-        super.forceRedraw();
     }
     
     @Override
@@ -164,7 +164,7 @@ public class LineGraph<DomainType extends Comparable, RangeType extends Comparab
         calculateDrawPoints();
         super.redraw();
     }
-        
+    
     /**
      * Recalculates and caches data point drawing scales (relative to dimensions
      * of the this graph), but only if the {@link #scalesDirty} flag is set.
@@ -185,7 +185,7 @@ public class LineGraph<DomainType extends Comparable, RangeType extends Comparab
         domainScalesLowerBound = 0;
         domainScalesUpperBound = 0;
         
-        List<DataPoint<DomainType, RangeType>> dataPoints = getDataPoints();
+        List<? extends DataPoint<DomainType, RangeType>> dataPoints = getDataPoints();
         
         // Short-circuit if graph contains no data points
         if (dataPoints.isEmpty()) {
