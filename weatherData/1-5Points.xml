@@ -1,0 +1,108 @@
+<xml>
+
+    <weather>
+        <date> 01/01/10 </date>
+        <time> 12:15A </time>
+        <temperature> 8.3 </temperature>
+        <humidity> 82.0 </humidity>
+        <barometer> 26.844 </barometer>
+        <windspeed> 1.0 </windspeed>
+        <winddirection> E </winddirection>
+        <windgust> 5.0 </windgust>
+        <windchill> 8.3 </windchill>
+        <heatindex> 8.2 </heatindex>
+        <uvindex> 0.0 </uvindex>
+        <rainfall> 0.00 </rainfall>
+    </weather>
+
+    <weather>
+        <date> 01/01/10 </date>
+        <time> 12:30A </time>
+        <temperature> 8.2 </temperature>
+        <humidity> 81.0 </humidity>
+        <barometer> 26.841 </barometer>
+        <windspeed> 2.0 </windspeed>
+        <winddirection> ESE </winddirection>
+        <windgust> 5.0 </windgust>
+        <windchill> 4.8 </windchill>
+        <heatindex> 8.1 </heatindex>
+        <uvindex> 0.0 </uvindex>
+        <rainfall> 0.00 </rainfall>
+    </weather>
+
+    <weather>
+        <date> 01/01/10 </date>
+        <time> 12:45A </time>
+        <temperature> 8.3 </temperature>
+        <humidity> 81.0 </humidity>
+        <barometer> 26.846 </barometer>
+        <windspeed> 1.0 </windspeed>
+        <winddirection> ESE </winddirection>
+        <windgust> 4.0 </windgust>
+        <windchill> 8.3 </windchill>
+        <heatindex> 8.2 </heatindex>
+        <uvindex> 0.0 </uvindex>
+        <rainfall> 0.00 </rainfall>
+    </weather>
+
+    <weather>
+        <date> 01/01/10 </date>
+        <time> 1:00A </time>
+        <temperature> 8.2 </temperature>
+        <humidity> 80.0 </humidity>
+        <barometer> 26.846 </barometer>
+        <windspeed> 3.0 </windspeed>
+        <winddirection> ESE </winddirection>
+        <windgust> 5.0 </windgust>
+        <windchill> 2.4 </windchill>
+        <heatindex> 8.1 </heatindex>
+        <uvindex> 0.0 </uvindex>
+        <rainfall> 0.00 </rainfall>
+    </weather>
+
+    <weather>
+        <date> 01/01/10 </date>
+        <time> 1:15A </time>
+        <temperature> 8.3 </temperature>
+        <humidity> 80.0 </humidity>
+        <barometer> 26.848 </barometer>
+        <windspeed> 1.0 </windspeed>
+        <winddirection> ESE </winddirection>
+        <windgust> 4.0 </windgust>
+        <windchill> 8.3 </windchill>
+        <heatindex> 8.2 </heatindex>
+        <uvindex> 0.0 </uvindex>
+        <rainfall> 0.00 </rainfall>
+    </weather>
+
+    <weather>
+        <date> 01/01/10 </date>
+        <time> 1:30A </time>
+        <temperature> 6.6 </temperature>
+        <humidity> 80.0 </humidity>
+        <barometer> 26.849 </barometer>
+        <windspeed> 3.0 </windspeed>
+        <winddirection> ESE </winddirection>
+        <windgust> 8.0 </windgust>
+        <windchill> 0.6 </windchill>
+        <heatindex> 6.5 </heatindex>
+        <uvindex> 0.0 </uvindex>
+        <rainfall> 0.00 </rainfall>
+    </weather>
+
+    <weather>
+        <date> 01/01/10 </date>
+        <time> 1:45A </time>
+        <temperature> 5.2 </temperature>
+        <humidity> 81.0 </humidity>
+        <barometer> 26.857 </barometer>
+        <windspeed> 4.0 </windspeed>
+        <winddirection> E </winddirection>
+        <windgust> 8.0 </windgust>
+        <windchill> -2.8 </windchill>
+        <heatindex> 5.1 </heatindex>
+        <uvindex> 0.0 </uvindex>
+        <rainfall> 0.00 </rainfall>
+    </weather>
+    
+</xml>
