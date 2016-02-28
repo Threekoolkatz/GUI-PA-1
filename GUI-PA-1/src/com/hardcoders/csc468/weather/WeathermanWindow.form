@@ -61,8 +61,8 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" attributes="0">
-              <EmptySpace max="-2" attributes="0"/>
+          <Group type="102" alignment="0" attributes="0">
+              <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
               <Component id="tempButton" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="windSpeedButton" min="-2" max="-2" attributes="0"/>
@@ -85,7 +85,7 @@
               <Component id="pressureButton" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="heatIndexButton" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="27" max="32767" attributes="0"/>
+              <EmptySpace pref="22" max="32767" attributes="0"/>
           </Group>
           <Component id="lineGraph" alignment="0" max="32767" attributes="0"/>
       </Group>
@@ -190,7 +190,7 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="rainfallButtonActionPerformed"/>
       </Events>
     </Component>
-    <Container class="com.hardcoders.csc468.weather.graph.RealInteractiveLineGraph" name="lineGraph">
+    <Container class="com.hardcoders.csc468.weather.WeathermanLineGraph" name="lineGraph">
 
       <Layout>
         <DimensionLayout dim="0">
@@ -200,7 +200,7 @@
                   <Component id="startDate" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="endDate" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -209,31 +209,31 @@
               <Group type="102" alignment="1" attributes="0">
                   <EmptySpace min="0" pref="217" max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="startDate" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="endDate" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="startDate" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
           </Group>
         </DimensionLayout>
       </Layout>
       <SubComponents>
-        <Component class="javax.swing.JSpinner" name="startDate">
-          <Properties>
-            <Property name="model" type="javax.swing.SpinnerModel" editor="org.netbeans.modules.form.editors2.SpinnerModelEditor">
-              <SpinnerModel initial="now" stepSize="5" type="date"/>
-            </Property>
-            <Property name="toolTipText" type="java.lang.String" value="Start date"/>
-            <Property name="value" type="java.lang.Object" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-              <Connection code="new Date()" type="code"/>
-            </Property>
-          </Properties>
-        </Component>
         <Component class="javax.swing.JSpinner" name="endDate">
           <Properties>
             <Property name="model" type="javax.swing.SpinnerModel" editor="org.netbeans.modules.form.editors2.SpinnerModelEditor">
               <SpinnerModel initial="now" stepSize="5" type="date"/>
             </Property>
             <Property name="toolTipText" type="java.lang.String" value="End date"/>
+            <Property name="value" type="java.lang.Object" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+              <Connection code="new Date()" type="code"/>
+            </Property>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JSpinner" name="startDate">
+          <Properties>
+            <Property name="model" type="javax.swing.SpinnerModel" editor="org.netbeans.modules.form.editors2.SpinnerModelEditor">
+              <SpinnerModel initial="now" stepSize="5" type="date"/>
+            </Property>
+            <Property name="toolTipText" type="java.lang.String" value="Start date"/>
             <Property name="value" type="java.lang.Object" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
               <Connection code="new Date()" type="code"/>
             </Property>
