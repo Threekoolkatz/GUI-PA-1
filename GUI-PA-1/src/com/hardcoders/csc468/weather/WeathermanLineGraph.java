@@ -158,6 +158,12 @@ public class WeathermanLineGraph extends RealInteractiveLineGraph {
         if (activeField == FIELD) return;
         
         activeField = FIELD;
+        
+        setDomainUpperBound(null);
+        setDomainLowerBound(null);
+        setRangeUpperBound(null);
+        setRangeLowerBound(null);
+        
         forceRedrawLater();
     }
     

@@ -36,7 +36,7 @@ public class SimpleWeatherDataPoint implements WeatherDataPoint {
 
     @Override
     public Double getHumidity() {
-        return data;
+        return -data;
     }
 
     @Override
