@@ -89,6 +89,7 @@ public class WeathermanWindow extends javax.swing.JFrame {
         lineGraph.addDataPoint(new SimpleWeatherDataPoint(new Date(350), 10.0).getTemperatureAsDataPoint());
         lineGraph.addDataPoint(new SimpleWeatherDataPoint(new Date(500), 10.0).getTemperatureAsDataPoint());
         */
+        /*
         lineGraph.setDomainLowerBound(50.0);
         lineGraph.setDomainUpperBound(550.0);
         lineGraph.setRangeUpperBound(15.0);
@@ -373,11 +374,11 @@ public class WeathermanWindow extends javax.swing.JFrame {
             for ( XmlWeatherDataPoint point : dataPoints )
             {
                 lineGraph.addDataPoint(point.getTemperatureAsDataPoint());
-                endDate.setValue(point.getTimestamp());
+                //endDate.setValue(point.getTimestamp());
             }
             //startDate.setValue(dataPoints.get(0).getTimestamp());
             System.out.println("right before redraw");
-            lineGraph.redraw();
+            //lineGraph.redraw();
             
             //System.out.println( "Opening: " + files[1].getName() + "." + "\n" );
         }
