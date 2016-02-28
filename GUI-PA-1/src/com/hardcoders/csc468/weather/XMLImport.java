@@ -77,7 +77,7 @@ public class XMLImport{
                    //System.out.println(temp + " is in temp");
                    if( temp == null)
                    {
-                       System.out.println("temp is null");
+                       //System.out.println("temp is null");
                    }
                    else
                    {
