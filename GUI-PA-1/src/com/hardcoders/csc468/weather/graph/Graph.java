@@ -146,7 +146,7 @@ public abstract class Graph<DomainType extends Comparable, RangeType extends Com
      * 
      * @return An {@link ArrayList} of data points contained in this graph.
      */
-    public List<DataPoint<DomainType, RangeType>> getDataPoints() {
+    public List<? extends DataPoint<DomainType, RangeType>> getDataPoints() {
         return new ArrayList<>(dataPoints);
     }
     
@@ -249,10 +249,14 @@ public abstract class Graph<DomainType extends Comparable, RangeType extends Com
         dataDirty = true;
     }
     
-    public void forceRedraw() {
-        redraw();
+    /**
+     * Notifies graph internals that it should update cached drawing data before
+     * next rendering.
+     */
+    public void forceRedrawLater() {
+        dataDirty = true;
     }
-
+    
     /**
      * Redraws the graph, forcing a recalculation of drawing data. Should be
      * invoked manually after manipulating the graph contents and any graph
@@ -288,9 +292,16 @@ public abstract class Graph<DomainType extends Comparable, RangeType extends Com
      * Calls the event callback for all registered listeners.
      */
     private void notifyListeners() {
+        
+        // Short-circuit if data is not dirty
+        if (!dataDirty) return;
+        
+        // Call callback methods for all registered listener objects
         for (GraphListener listener : listeners) {
             listener.onGraphChanged(this);
         }
+        
+        // Reset dirty flag
         dataDirty = false;
     }
     
