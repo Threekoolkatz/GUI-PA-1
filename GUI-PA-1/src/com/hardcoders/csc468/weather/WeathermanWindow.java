@@ -129,6 +129,22 @@ public class WeathermanWindow extends javax.swing.JFrame {
         lineGraph = new com.hardcoders.csc468.weather.WeathermanLineGraph();
         endDate = new javax.swing.JSpinner();
         startDate = new javax.swing.JSpinner();
+        humidityLabel = new javax.swing.JLabel();
+        rainfallLabel = new javax.swing.JLabel();
+        pressureLabel = new javax.swing.JLabel();
+        uvLabel = new javax.swing.JLabel();
+        heatLabel = new javax.swing.JLabel();
+        speedLabel = new javax.swing.JLabel();
+        gustLabel = new javax.swing.JLabel();
+        chillLabel = new javax.swing.JLabel();
+        humidityVal = new javax.swing.JLabel();
+        rainfallVal = new javax.swing.JLabel();
+        pressureVal = new javax.swing.JLabel();
+        uvVal = new javax.swing.JLabel();
+        heatVal = new javax.swing.JLabel();
+        speedVal = new javax.swing.JLabel();
+        gustVal = new javax.swing.JLabel();
+        chillVal = new javax.swing.JLabel();
         menuBar = new javax.swing.JMenuBar();
         fileMenu = new javax.swing.JMenu();
         openMenuItem = new javax.swing.JMenuItem();
@@ -163,11 +179,21 @@ public class WeathermanWindow extends javax.swing.JFrame {
         rainfallButton.setText("Rainfall");
         rainfallButton.setToolTipText("Switches graph data to rainfall");
         rainfallButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/hardcoders/csc468/weather/icons/rainfall.png"))); // NOI18N
+        rainfallButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rainfallButtonActionPerformed(evt);
+            }
+        });
 
         dataOptions.add(humidityButton);
         humidityButton.setText("Humidity");
         humidityButton.setToolTipText("Switches graph data to humidity");
         humidityButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/hardcoders/csc468/weather/icons/humidity.png"))); // NOI18N
+        humidityButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                humidityButtonActionPerformed(evt);
+            }
+        });
 
         dataOptions.add(pressureButton);
         pressureButton.setText("Pressure");
@@ -183,6 +209,11 @@ public class WeathermanWindow extends javax.swing.JFrame {
         windGustButton.setText("Wind Gust");
         windGustButton.setToolTipText("Switches graph data to wind gust");
         windGustButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/hardcoders/csc468/weather/icons/windgust.png"))); // NOI18N
+        windGustButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                windGustButtonActionPerformed(evt);
+            }
+        });
 
         dataOptions.add(windChillButton);
         windChillButton.setText("Wind Chill");
@@ -208,6 +239,11 @@ public class WeathermanWindow extends javax.swing.JFrame {
         heatButton.setText("Heat Index");
         heatButton.setToolTipText("Switches graph data to heat index");
         heatButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/hardcoders/csc468/weather/icons/heatindex.png"))); // NOI18N
+        heatButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                heatButtonActionPerformed(evt);
+            }
+        });
 
         tempLabel.setText("Temperature");
 
@@ -235,11 +271,43 @@ public class WeathermanWindow extends javax.swing.JFrame {
         lineGraphLayout.setVerticalGroup(
             lineGraphLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, lineGraphLayout.createSequentialGroup()
-                .addGap(0, 129, Short.MAX_VALUE)
+                .addGap(0, 157, Short.MAX_VALUE)
                 .addGroup(lineGraphLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(endDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(startDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
+
+        humidityLabel.setText("Humidity");
+
+        rainfallLabel.setText("Rainfall");
+
+        pressureLabel.setText("Pressure");
+
+        uvLabel.setText("UV Index");
+
+        heatLabel.setText("Heat Index");
+
+        speedLabel.setText("Wind Speed");
+
+        gustLabel.setText("Wind Gust");
+
+        chillLabel.setText("Wind Chill");
+
+        humidityVal.setText(lineGraph.getSelectedDataPoint().getHumidity().toString());
+
+        rainfallVal.setText(lineGraph.getSelectedDataPoint().getPercipitation().toString());
+
+        pressureVal.setText(lineGraph.getSelectedDataPoint().getPressure().toString());
+
+        uvVal.setText(lineGraph.getSelectedDataPoint().getUVIndex().toString());
+
+        heatVal.setText(lineGraph.getSelectedDataPoint().getHeatIndex().toString());
+
+        speedVal.setText(lineGraph.getSelectedDataPoint().getWindSpeed().toString());
+
+        gustVal.setText(lineGraph.getSelectedDataPoint().getWindGust().toString());
+
+        chillVal.setText(lineGraph.getSelectedDataPoint().getWindChill().toString());
 
         fileMenu.setText("File");
         fileMenu.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -277,10 +345,34 @@ public class WeathermanWindow extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(tempLabel)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(tempVal)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 280, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(tempLabel)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(humidityLabel)
+                            .addComponent(rainfallLabel)
+                            .addComponent(pressureLabel)
+                            .addComponent(uvLabel)
+                            .addComponent(heatLabel))
+                        .addGap(37, 37, 37)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(heatVal)
+                            .addComponent(uvVal)
+                            .addComponent(pressureVal)
+                            .addComponent(rainfallVal)
+                            .addComponent(humidityVal)
+                            .addComponent(tempVal))))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(speedLabel)
+                    .addComponent(gustLabel)
+                    .addComponent(chillLabel))
+                .addGap(34, 34, 34)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(chillVal)
+                    .addComponent(gustVal)
+                    .addComponent(speedVal))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 90, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(uvButton)
                     .addGroup(layout.createSequentialGroup()
@@ -299,34 +391,74 @@ public class WeathermanWindow extends javax.swing.JFrame {
                         .addComponent(pressureButton)
                         .addGap(40, 40, 40)
                         .addComponent(heatButton)))
-                .addGap(14, 14, 14))
+                .addContainerGap())
             .addComponent(lineGraph, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addComponent(lineGraph, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(lineGraph, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(temperatureButton)
-                    .addComponent(windSpeedButton)
-                    .addComponent(tempLabel)
-                    .addComponent(tempVal))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(humidityButton, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(windGustButton))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(rainfallButton)
-                    .addComponent(windChillButton))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(pressureButton)
-                    .addComponent(heatButton))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(uvButton)
-                .addGap(24, 24, 24))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(15, 15, 15)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(tempLabel)
+                                    .addComponent(tempVal))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(humidityLabel)
+                                    .addComponent(humidityVal))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(rainfallLabel)
+                                    .addComponent(rainfallVal)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(speedLabel)
+                                    .addComponent(speedVal))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(gustLabel)
+                                    .addComponent(gustVal))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(chillLabel)
+                                    .addComponent(chillVal))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(pressureLabel)
+                            .addComponent(pressureVal))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(uvLabel)
+                            .addComponent(uvVal))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(heatLabel)
+                            .addComponent(heatVal))
+                        .addGap(10, 10, 10))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(temperatureButton)
+                            .addComponent(windSpeedButton))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(humidityButton, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(windGustButton))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(rainfallButton)
+                            .addComponent(windChillButton))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(pressureButton)
+                            .addComponent(heatButton))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(uvButton)))
+                .addContainerGap(25, Short.MAX_VALUE))
         );
 
         pack();
@@ -411,26 +543,65 @@ public class WeathermanWindow extends javax.swing.JFrame {
     private void temperatureButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_temperatureButtonActionPerformed
         // TODO add your handling code here:
         lineGraph.showTemperatureData();
+        lineGraph.redraw();
+        lineGraph.repaint();
     }//GEN-LAST:event_temperatureButtonActionPerformed
 
     private void pressureButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pressureButtonActionPerformed
         // TODO add your handling code here:
         lineGraph.showPressureData();
+        lineGraph.redraw();
+        lineGraph.repaint();
     }//GEN-LAST:event_pressureButtonActionPerformed
 
     private void uvButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_uvButtonActionPerformed
         // TODO add your handling code here:
         lineGraph.showUVIndexData();
+        lineGraph.redraw();
+        lineGraph.repaint();
     }//GEN-LAST:event_uvButtonActionPerformed
 
     private void windSpeedButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_windSpeedButtonActionPerformed
         // TODO add your handling code here:
-        windSpeedButton.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        lineGraph.showWindSpeedData();
+        lineGraph.redraw();
+        lineGraph.repaint();
     }//GEN-LAST:event_windSpeedButtonActionPerformed
 
     private void windChillButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_windChillButtonActionPerformed
         // TODO add your handling code here:
+        lineGraph.showWindChillData();
+        lineGraph.redraw();
+        lineGraph.repaint();
     }//GEN-LAST:event_windChillButtonActionPerformed
+
+    private void humidityButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_humidityButtonActionPerformed
+        // TODO add your handling code here:
+        lineGraph.showHumidityData();
+        lineGraph.redraw();
+        lineGraph.repaint();
+    }//GEN-LAST:event_humidityButtonActionPerformed
+
+    private void windGustButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_windGustButtonActionPerformed
+        // TODO add your handling code here:
+        lineGraph.showWindGustData();
+        lineGraph.redraw();
+        lineGraph.repaint();
+    }//GEN-LAST:event_windGustButtonActionPerformed
+
+    private void rainfallButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rainfallButtonActionPerformed
+        // TODO add your handling code here:
+        lineGraph.showPercipitationData();
+        lineGraph.redraw();
+        lineGraph.repaint();
+    }//GEN-LAST:event_rainfallButtonActionPerformed
+
+    private void heatButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_heatButtonActionPerformed
+        // TODO add your handling code here:
+        lineGraph.showHeatIndexData();
+        lineGraph.redraw();
+        lineGraph.repaint();
+    }//GEN-LAST:event_heatButtonActionPerformed
 
 
     /**
@@ -469,23 +640,39 @@ public class WeathermanWindow extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel chillLabel;
+    private javax.swing.JLabel chillVal;
     private javax.swing.ButtonGroup dataOptions;
     private javax.swing.JMenu editMenu;
     private javax.swing.JSpinner endDate;
     private javax.swing.JMenu fileMenu;
+    private javax.swing.JLabel gustLabel;
+    private javax.swing.JLabel gustVal;
     private javax.swing.JRadioButton heatButton;
+    private javax.swing.JLabel heatLabel;
+    private javax.swing.JLabel heatVal;
     private javax.swing.JRadioButton humidityButton;
+    private javax.swing.JLabel humidityLabel;
+    private javax.swing.JLabel humidityVal;
     private com.hardcoders.csc468.weather.WeathermanLineGraph lineGraph;
     private javax.swing.JMenuBar menuBar;
     private javax.swing.JMenuItem menuQuit;
     private javax.swing.JMenuItem openMenuItem;
     private javax.swing.JRadioButton pressureButton;
+    private javax.swing.JLabel pressureLabel;
+    private javax.swing.JLabel pressureVal;
     private javax.swing.JRadioButton rainfallButton;
+    private javax.swing.JLabel rainfallLabel;
+    private javax.swing.JLabel rainfallVal;
+    private javax.swing.JLabel speedLabel;
+    private javax.swing.JLabel speedVal;
     private javax.swing.JSpinner startDate;
     private javax.swing.JLabel tempLabel;
     private javax.swing.JLabel tempVal;
     private javax.swing.JRadioButton temperatureButton;
     private javax.swing.JRadioButton uvButton;
+    private javax.swing.JLabel uvLabel;
+    private javax.swing.JLabel uvVal;
     private javax.swing.JRadioButton windChillButton;
     private javax.swing.JRadioButton windGustButton;
     private javax.swing.JRadioButton windSpeedButton;
