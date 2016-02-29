@@ -63,15 +63,7 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-<<<<<<< HEAD
-          <Group type="102" alignment="0" attributes="0">
-              <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
-              <Component id="tempButton" min="-2" max="-2" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
-              <Component id="windSpeedButton" min="-2" max="-2" attributes="0"/>
-=======
           <Group type="102" alignment="1" attributes="0">
->>>>>>> labelsandstuff
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="tempLabel" alignment="0" min="-2" max="-2" attributes="0"/>
@@ -132,13 +124,6 @@
                   </Group>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
-<<<<<<< HEAD
-              <Component id="pressureButton" min="-2" max="-2" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
-              <Component id="heatIndexButton" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="22" max="32767" attributes="0"/>
-=======
->>>>>>> labelsandstuff
           </Group>
           <Component id="lineGraph" alignment="0" max="32767" attributes="0"/>
       </Group>
@@ -373,8 +358,6 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="heatButtonActionPerformed"/>
       </Events>
     </Component>
-<<<<<<< HEAD
-=======
     <Component class="javax.swing.JLabel" name="tempLabel">
       <Properties>
         <Property name="text" type="java.lang.String" value="Temperature"/>
@@ -387,7 +370,6 @@
         </Property>
       </Properties>
     </Component>
->>>>>>> labelsandstuff
     <Container class="com.hardcoders.csc468.weather.WeathermanLineGraph" name="lineGraph">
 
       <Layout>

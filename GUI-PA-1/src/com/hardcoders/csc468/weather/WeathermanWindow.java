@@ -121,20 +121,6 @@ public class WeathermanWindow extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-<<<<<<< HEAD
-        tempButton = new javax.swing.JButton();
-        windSpeedButton = new javax.swing.JButton();
-        pressureButton = new javax.swing.JButton();
-        windGustButton = new javax.swing.JButton();
-        humidityButton = new javax.swing.JButton();
-        windChillButton = new javax.swing.JButton();
-        heatIndexButton = new javax.swing.JButton();
-        uvIndexButton = new javax.swing.JButton();
-        rainfallButton = new javax.swing.JButton();
-        lineGraph = new com.hardcoders.csc468.weather.WeathermanLineGraph();
-        endDate = new javax.swing.JSpinner();
-        startDate = new javax.swing.JSpinner();
-=======
         dataOptions = new javax.swing.ButtonGroup();
         temperatureButton = new javax.swing.JRadioButton();
         windSpeedButton = new javax.swing.JRadioButton();
@@ -166,7 +152,6 @@ public class WeathermanWindow extends javax.swing.JFrame {
         speedVal = new javax.swing.JLabel();
         gustVal = new javax.swing.JLabel();
         chillVal = new javax.swing.JLabel();
->>>>>>> labelsandstuff
         menuBar = new javax.swing.JMenuBar();
         fileMenu = new javax.swing.JMenu();
         openMenuItem = new javax.swing.JMenuItem();
@@ -269,11 +254,8 @@ public class WeathermanWindow extends javax.swing.JFrame {
 
         tempLabel.setText("Temperature");
 
-<<<<<<< HEAD
-=======
         tempVal.setText(lineGraph.getSelectedDataPoint().getTemperature().toString());
 
->>>>>>> labelsandstuff
         endDate.setModel(new javax.swing.SpinnerDateModel());
         endDate.setToolTipText("End date");
         endDate.setValue(new Date());
@@ -368,20 +350,10 @@ public class WeathermanWindow extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-<<<<<<< HEAD
-            .addGroup(layout.createSequentialGroup()
-                .addGap(15, 15, 15)
-                .addComponent(tempButton)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(windSpeedButton)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-=======
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(tempLabel)
->>>>>>> labelsandstuff
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(humidityLabel)
@@ -411,16 +383,6 @@ public class WeathermanWindow extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(uvButton)
                     .addGroup(layout.createSequentialGroup()
-<<<<<<< HEAD
-                        .addComponent(uvIndexButton)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(rainfallButton)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(pressureButton)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(heatIndexButton)
-                .addContainerGap(22, Short.MAX_VALUE))
-=======
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(temperatureButton)
                             .addComponent(humidityButton))
@@ -437,7 +399,6 @@ public class WeathermanWindow extends javax.swing.JFrame {
                         .addGap(40, 40, 40)
                         .addComponent(heatButton)))
                 .addContainerGap())
->>>>>>> labelsandstuff
             .addComponent(lineGraph, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
@@ -596,38 +557,15 @@ public class WeathermanWindow extends javax.swing.JFrame {
     
     private void menuQuitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuQuitActionPerformed
         // TODO add your handling code here:
-<<<<<<< HEAD
-        
-        for ( XmlWeatherDataPoint point : dataPoints )
-        {
-            lineGraph.addDataPoint(point.getTemperatureAsDataPoint());
-        }
-        lineGraph.redraw();
-        // Switches graph data to temperature
-        System.out.println("Switch to temperature");
-    }//GEN-LAST:event_tempButtonActionPerformed
-=======
         System.exit(0);
     }//GEN-LAST:event_menuQuitActionPerformed
->>>>>>> labelsandstuff
 
     private void temperatureButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_temperatureButtonActionPerformed
         // TODO add your handling code here:
-<<<<<<< HEAD
-        for ( XmlWeatherDataPoint point : dataPoints )
-        {
-            lineGraph.addDataPoint(point.getWindSpeedAsDataPoint());
-        }
-        lineGraph.redraw();
-        // Switches graph data to wind speed
-        System.out.println("Switch to wind speed");
-    }//GEN-LAST:event_windSpeedButtonActionPerformed
-=======
         lineGraph.showTemperatureData();
         lineGraph.redraw();
         lineGraph.repaint();
     }//GEN-LAST:event_temperatureButtonActionPerformed
->>>>>>> labelsandstuff
 
     private void pressureButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pressureButtonActionPerformed
         // TODO add your handling code here:
@@ -728,10 +666,7 @@ public class WeathermanWindow extends javax.swing.JFrame {
     private javax.swing.JMenu editMenu;
     private javax.swing.JSpinner endDate;
     private javax.swing.JMenu fileMenu;
-<<<<<<< HEAD
-    private javax.swing.JButton heatIndexButton;
-    private javax.swing.JButton humidityButton;
-=======
+
     private javax.swing.JLabel gustLabel;
     private javax.swing.JLabel gustVal;
     private javax.swing.JRadioButton heatButton;
@@ -740,7 +675,6 @@ public class WeathermanWindow extends javax.swing.JFrame {
     private javax.swing.JRadioButton humidityButton;
     private javax.swing.JLabel humidityLabel;
     private javax.swing.JLabel humidityVal;
->>>>>>> labelsandstuff
     private com.hardcoders.csc468.weather.WeathermanLineGraph lineGraph;
     private javax.swing.JMenuBar menuBar;
     private javax.swing.JMenuItem menuQuit;
