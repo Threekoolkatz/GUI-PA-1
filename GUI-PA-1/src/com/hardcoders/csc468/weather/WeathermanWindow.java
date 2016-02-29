@@ -38,6 +38,7 @@ public class WeathermanWindow extends javax.swing.JFrame {
 
         dataPoints = new ArrayList<XmlWeatherDataPoint>();
         
+        
 
         
         graphUpdated = false;
