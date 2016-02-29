@@ -192,9 +192,9 @@
                           <Component id="windSpeedButton" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="humidityButton" alignment="3" min="-2" pref="32" max="-2" attributes="0"/>
-                          <Component id="windGustButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <Component id="windGustButton" max="32767" attributes="0"/>
+                          <Component id="humidityButton" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
@@ -229,6 +229,15 @@
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
           <Image iconType="3" name="/com/hardcoders/csc468/weather/icons/temp.png"/>
         </Property>
+        <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+          <Dimension value="[99, 40]"/>
+        </Property>
+        <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+          <Dimension value="[99, 40]"/>
+        </Property>
+        <Property name="selectedIcon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/com/hardcoders/csc468/weather/icons/temp-selected.png"/>
+        </Property>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="temperatureButtonActionPerformed"/>
@@ -247,6 +256,9 @@
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
           <Image iconType="3" name="/com/hardcoders/csc468/weather/icons/windspeed.png"/>
         </Property>
+        <Property name="selectedIcon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/com/hardcoders/csc468/weather/icons/windspeed-selected.png"/>
+        </Property>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="windSpeedButtonActionPerformed"/>
@@ -261,6 +273,9 @@
         <Property name="toolTipText" type="java.lang.String" value="Switches graph data to rainfall"/>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
           <Image iconType="3" name="/com/hardcoders/csc468/weather/icons/rainfall.png"/>
+        </Property>
+        <Property name="selectedIcon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/com/hardcoders/csc468/weather/icons/rainfall-selected.png"/>
         </Property>
       </Properties>
       <Events>
@@ -277,6 +292,9 @@
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
           <Image iconType="3" name="/com/hardcoders/csc468/weather/icons/humidity.png"/>
         </Property>
+        <Property name="selectedIcon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/com/hardcoders/csc468/weather/icons/humidity-selected.png"/>
+        </Property>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="humidityButtonActionPerformed"/>
@@ -291,6 +309,9 @@
         <Property name="toolTipText" type="java.lang.String" value="Switches graph data to pressure"/>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
           <Image iconType="3" name="/com/hardcoders/csc468/weather/icons/pressure.png"/>
+        </Property>
+        <Property name="selectedIcon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/com/hardcoders/csc468/weather/icons/pressure-selected.png"/>
         </Property>
       </Properties>
       <Events>
@@ -307,6 +328,9 @@
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
           <Image iconType="3" name="/com/hardcoders/csc468/weather/icons/windgust.png"/>
         </Property>
+        <Property name="selectedIcon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/com/hardcoders/csc468/weather/icons/windgust-selected.png"/>
+        </Property>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="windGustButtonActionPerformed"/>
@@ -321,6 +345,9 @@
         <Property name="toolTipText" type="java.lang.String" value="Switches graph data to wind chill"/>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
           <Image iconType="3" name="/com/hardcoders/csc468/weather/icons/windchill.png"/>
+        </Property>
+        <Property name="selectedIcon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/com/hardcoders/csc468/weather/icons/windchill-selected.png"/>
         </Property>
       </Properties>
       <Events>
@@ -337,6 +364,9 @@
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
           <Image iconType="3" name="/com/hardcoders/csc468/weather/icons/uvindex.png"/>
         </Property>
+        <Property name="selectedIcon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/com/hardcoders/csc468/weather/icons/uvindex-selected.png"/>
+        </Property>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="uvButtonActionPerformed"/>
@@ -351,6 +381,9 @@
         <Property name="toolTipText" type="java.lang.String" value="Switches graph data to heat index"/>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
           <Image iconType="3" name="/com/hardcoders/csc468/weather/icons/heatindex.png"/>
+        </Property>
+        <Property name="selectedIcon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/com/hardcoders/csc468/weather/icons/heatindex-selected.png"/>
         </Property>
       </Properties>
       <Events>

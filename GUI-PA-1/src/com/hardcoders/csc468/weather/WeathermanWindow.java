@@ -197,6 +197,9 @@ public class WeathermanWindow extends javax.swing.JFrame {
         temperatureButton.setToolTipText("Switches graph data to temperature");
         temperatureButton.setBorder(null);
         temperatureButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/hardcoders/csc468/weather/icons/temp.png"))); // NOI18N
+        temperatureButton.setMaximumSize(new java.awt.Dimension(99, 40));
+        temperatureButton.setMinimumSize(new java.awt.Dimension(99, 40));
+        temperatureButton.setSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/com/hardcoders/csc468/weather/icons/temp-selected.png"))); // NOI18N
         temperatureButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 temperatureButtonActionPerformed(evt);
@@ -208,6 +211,7 @@ public class WeathermanWindow extends javax.swing.JFrame {
         windSpeedButton.setToolTipText("Switches graph data to wind speed");
         windSpeedButton.setBorder(null);
         windSpeedButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/hardcoders/csc468/weather/icons/windspeed.png"))); // NOI18N
+        windSpeedButton.setSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/com/hardcoders/csc468/weather/icons/windspeed-selected.png"))); // NOI18N
         windSpeedButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 windSpeedButtonActionPerformed(evt);
@@ -218,6 +222,7 @@ public class WeathermanWindow extends javax.swing.JFrame {
         rainfallButton.setText("Rainfall");
         rainfallButton.setToolTipText("Switches graph data to rainfall");
         rainfallButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/hardcoders/csc468/weather/icons/rainfall.png"))); // NOI18N
+        rainfallButton.setSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/com/hardcoders/csc468/weather/icons/rainfall-selected.png"))); // NOI18N
         rainfallButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 rainfallButtonActionPerformed(evt);
@@ -228,6 +233,7 @@ public class WeathermanWindow extends javax.swing.JFrame {
         humidityButton.setText("Humidity");
         humidityButton.setToolTipText("Switches graph data to humidity");
         humidityButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/hardcoders/csc468/weather/icons/humidity.png"))); // NOI18N
+        humidityButton.setSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/com/hardcoders/csc468/weather/icons/humidity-selected.png"))); // NOI18N
         humidityButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 humidityButtonActionPerformed(evt);
@@ -238,6 +244,7 @@ public class WeathermanWindow extends javax.swing.JFrame {
         pressureButton.setText("Pressure");
         pressureButton.setToolTipText("Switches graph data to pressure");
         pressureButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/hardcoders/csc468/weather/icons/pressure.png"))); // NOI18N
+        pressureButton.setSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/com/hardcoders/csc468/weather/icons/pressure-selected.png"))); // NOI18N
         pressureButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 pressureButtonActionPerformed(evt);
@@ -248,6 +255,7 @@ public class WeathermanWindow extends javax.swing.JFrame {
         windGustButton.setText("Wind Gust");
         windGustButton.setToolTipText("Switches graph data to wind gust");
         windGustButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/hardcoders/csc468/weather/icons/windgust.png"))); // NOI18N
+        windGustButton.setSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/com/hardcoders/csc468/weather/icons/windgust-selected.png"))); // NOI18N
         windGustButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 windGustButtonActionPerformed(evt);
@@ -258,6 +266,7 @@ public class WeathermanWindow extends javax.swing.JFrame {
         windChillButton.setText("Wind Chill");
         windChillButton.setToolTipText("Switches graph data to wind chill");
         windChillButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/hardcoders/csc468/weather/icons/windchill.png"))); // NOI18N
+        windChillButton.setSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/com/hardcoders/csc468/weather/icons/windchill-selected.png"))); // NOI18N
         windChillButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 windChillButtonActionPerformed(evt);
@@ -268,6 +277,7 @@ public class WeathermanWindow extends javax.swing.JFrame {
         uvButton.setText("UV Index");
         uvButton.setToolTipText("Switches graph data to UV index");
         uvButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/hardcoders/csc468/weather/icons/uvindex.png"))); // NOI18N
+        uvButton.setSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/com/hardcoders/csc468/weather/icons/uvindex-selected.png"))); // NOI18N
         uvButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 uvButtonActionPerformed(evt);
@@ -278,6 +288,7 @@ public class WeathermanWindow extends javax.swing.JFrame {
         heatButton.setText("Heat Index");
         heatButton.setToolTipText("Switches graph data to heat index");
         heatButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/hardcoders/csc468/weather/icons/heatindex.png"))); // NOI18N
+        heatButton.setSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/com/hardcoders/csc468/weather/icons/heatindex-selected.png"))); // NOI18N
         heatButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 heatButtonActionPerformed(evt);
@@ -398,7 +409,7 @@ public class WeathermanWindow extends javax.swing.JFrame {
                     .addComponent(uvButton)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(temperatureButton)
+                            .addComponent(temperatureButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(humidityButton))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -462,12 +473,12 @@ public class WeathermanWindow extends javax.swing.JFrame {
                         .addGap(10, 10, 10))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(temperatureButton)
+                            .addComponent(temperatureButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(windSpeedButton))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(humidityButton, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(windGustButton))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(windGustButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(humidityButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(rainfallButton)
