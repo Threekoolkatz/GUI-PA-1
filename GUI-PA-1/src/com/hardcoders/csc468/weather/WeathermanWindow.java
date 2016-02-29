@@ -1,23 +1,20 @@
 package com.hardcoders.csc468.weather;
 
 import com.hardcoders.csc468.weather.XMLImport.XmlWeatherDataPoint;
-import com.hardcoders.csc468.weather.model.WeatherDataPoint;
-import com.hardcoders.csc468.weather.AverageData;
 import java.io.File;
 import java.io.FilenameFilter;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JFileChooser;
 import static javax.swing.JFileChooser.FILES_AND_DIRECTORIES;
-import javax.swing.JTextArea;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import com.hardcoders.csc468.weather.graph.Graph;
 import com.hardcoders.csc468.weather.graph.InteractiveLineGraph;
+import com.hardcoders.csc468.weather.model.WeatherDataPoint;
 import java.util.Date;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
-import javax.swing.ButtonGroup;
 
 /**
  *
@@ -88,8 +85,44 @@ public class WeathermanWindow extends javax.swing.JFrame {
                 graphUpdated = false;
             }
         });
+        lineGraph.addGraphListener(new InteractiveLineGraph.GraphListener() {
+            @Override
+            public void onGraphChanged(Graph graph) {
+                if (graph != lineGraph) return;
+                
+                WeatherDataPoint dataPoint = lineGraph.getSelectedDataPoint();
+                if (dataPoint == null) return;
+                
+                if (dataPoint.getTemperature() != null) {
+                    tempVal.setText(dataPoint.getTemperature().toString());
+                }
+                if (dataPoint.getHumidity() != null) {
+                    humidityVal.setText(dataPoint.getHumidity().toString());
+                }
+                if (dataPoint.getPressure() != null) {
+                    pressureVal.setText(dataPoint.getPressure().toString());
+                }
+                if (dataPoint.getWindSpeed() != null) {
+                    speedVal.setText(dataPoint.getWindSpeed().toString());
+                }
+                if (dataPoint.getWindGust() != null) {
+                    gustVal.setText(dataPoint.getWindGust().toString());
+                }
+                if (dataPoint.getWindChill() != null) {
+                    chillVal.setText(dataPoint.getWindChill().toString());
+                }
+                if (dataPoint.getHeatIndex() != null) {
+                    heatVal.setText(dataPoint.getHeatIndex().toString());
+                }
+                if (dataPoint.getUVIndex() != null) {
+                    uvVal.setText(dataPoint.getUVIndex().toString());
+                }
+                if (dataPoint.getPercipitation() != null) {
+                    rainfallVal.setText(dataPoint.getPercipitation().toString());
+                }
+            }
+        });
         
-        /*
         lineGraph.addWeatherDataPoint(new SimpleWeatherDataPoint(new Date(100), 10.0));
         lineGraph.addWeatherDataPoint(new SimpleWeatherDataPoint(new Date(250), 10.0));
         lineGraph.addWeatherDataPoint(new SimpleWeatherDataPoint(new Date(275), 12.0));
@@ -101,7 +134,6 @@ public class WeathermanWindow extends javax.swing.JFrame {
         lineGraph.setDomainUpperBound(550.0);
         
         lineGraph.redraw();
-        */
     }
     
     /**
@@ -254,8 +286,6 @@ public class WeathermanWindow extends javax.swing.JFrame {
 
         tempLabel.setText("Temperature");
 
-        tempVal.setText(lineGraph.getSelectedDataPoint().getTemperature().toString());
-
         endDate.setModel(new javax.swing.SpinnerDateModel());
         endDate.setToolTipText("End date");
         endDate.setValue(new Date());
@@ -299,22 +329,6 @@ public class WeathermanWindow extends javax.swing.JFrame {
         gustLabel.setText("Wind Gust");
 
         chillLabel.setText("Wind Chill");
-
-        humidityVal.setText(lineGraph.getSelectedDataPoint().getHumidity().toString());
-
-        rainfallVal.setText(lineGraph.getSelectedDataPoint().getPercipitation().toString());
-
-        pressureVal.setText(lineGraph.getSelectedDataPoint().getPressure().toString());
-
-        uvVal.setText(lineGraph.getSelectedDataPoint().getUVIndex().toString());
-
-        heatVal.setText(lineGraph.getSelectedDataPoint().getHeatIndex().toString());
-
-        speedVal.setText(lineGraph.getSelectedDataPoint().getWindSpeed().toString());
-
-        gustVal.setText(lineGraph.getSelectedDataPoint().getWindGust().toString());
-
-        chillVal.setText(lineGraph.getSelectedDataPoint().getWindChill().toString());
 
         fileMenu.setText("File");
         fileMenu.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -379,7 +393,7 @@ public class WeathermanWindow extends javax.swing.JFrame {
                     .addComponent(chillVal)
                     .addComponent(gustVal)
                     .addComponent(speedVal))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 90, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 222, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(uvButton)
                     .addGroup(layout.createSequentialGroup()
@@ -405,7 +419,6 @@ public class WeathermanWindow extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addComponent(lineGraph, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(15, 15, 15)
@@ -465,7 +478,7 @@ public class WeathermanWindow extends javax.swing.JFrame {
                             .addComponent(heatButton))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(uvButton)))
-                .addContainerGap(25, Short.MAX_VALUE))
+                .addContainerGap(31, Short.MAX_VALUE))
         );
 
         pack();
@@ -666,7 +679,6 @@ public class WeathermanWindow extends javax.swing.JFrame {
     private javax.swing.JMenu editMenu;
     private javax.swing.JSpinner endDate;
     private javax.swing.JMenu fileMenu;
-
     private javax.swing.JLabel gustLabel;
     private javax.swing.JLabel gustVal;
     private javax.swing.JRadioButton heatButton;
