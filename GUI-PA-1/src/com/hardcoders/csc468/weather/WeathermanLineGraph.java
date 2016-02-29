@@ -113,7 +113,7 @@ public class WeathermanLineGraph extends RealInteractiveLineGraph {
     }
     
     public WeatherDataPoint getSelectedDataPoint() {
-        return null;
+        return selectedDataPoint;
     }
     
     public void showTemperatureData() {
@@ -233,6 +233,7 @@ public class WeathermanLineGraph extends RealInteractiveLineGraph {
         super.mouseClicked(e);
         if (highlightedDataPoint != null) {
             selectedDataPoint = highlightedDataPoint;
+            forceRedrawLater();
             notifyListeners();
         }
     }
