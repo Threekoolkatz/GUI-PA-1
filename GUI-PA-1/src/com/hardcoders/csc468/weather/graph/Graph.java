@@ -157,7 +157,15 @@ public abstract class Graph<DomainType extends Comparable, RangeType extends Com
      * @return The current domain upper bound or {@code null} if none is set.
      */
     public DomainType getDomainUpperBound() {
-        return (domainUpperBound == null ? domainMaxValue : domainUpperBound);
+        DomainType upperBound = (domainUpperBound == null ? domainMaxValue : domainUpperBound);
+        DomainType lowerBound = (domainLowerBound == null ? domainMinValue : domainLowerBound);
+        
+        if (upperBound != null && lowerBound != null
+                && upperBound.compareTo(lowerBound) < 0) {
+            return lowerBound;
+        } else {
+            return upperBound;
+        }
     }
     
     /**
@@ -167,7 +175,15 @@ public abstract class Graph<DomainType extends Comparable, RangeType extends Com
      * @return The current domain lower bound or {@code null} if none is set.
      */
     public DomainType getDomainLowerBound() {
-        return (domainLowerBound == null ? domainMinValue : domainLowerBound);
+        DomainType upperBound = (domainUpperBound == null ? domainMaxValue : domainUpperBound);
+        DomainType lowerBound = (domainLowerBound == null ? domainMinValue : domainLowerBound);
+        
+        if (upperBound != null && lowerBound != null
+                && upperBound.compareTo(lowerBound) < 0) {
+            return upperBound;
+        } else {
+            return lowerBound;
+        }
     }
     
     /**
@@ -177,7 +193,15 @@ public abstract class Graph<DomainType extends Comparable, RangeType extends Com
      * @return The current range upper bound or {@code null} if none is set.
      */
     public RangeType getRangeUpperBound() {
-        return (rangeUpperBound == null ? rangeMaxValue : rangeUpperBound);
+        RangeType upperBound = (rangeUpperBound == null ? rangeMaxValue : rangeUpperBound);
+        RangeType lowerBound = (rangeLowerBound == null ? rangeMinValue : rangeLowerBound);
+        
+        if (upperBound != null && lowerBound != null
+                && upperBound.compareTo(lowerBound) < 0) {
+            return lowerBound;
+        } else {
+            return upperBound;
+        }
     }
     
     /**
@@ -187,7 +211,15 @@ public abstract class Graph<DomainType extends Comparable, RangeType extends Com
      * @return The current range lower bound or {@code null} if none is set.
      */
     public RangeType getRangeLowerBound() {
-        return (rangeLowerBound == null ? rangeMinValue : rangeLowerBound);
+        RangeType upperBound = (rangeUpperBound == null ? rangeMaxValue : rangeUpperBound);
+        RangeType lowerBound = (rangeLowerBound == null ? rangeMinValue : rangeLowerBound);
+        
+        if (upperBound != null && lowerBound != null
+                && upperBound.compareTo(lowerBound) < 0) {
+            return upperBound;
+        } else {
+            return lowerBound;
+        }
     }
     
     /**

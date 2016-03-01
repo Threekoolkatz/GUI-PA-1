@@ -243,27 +243,63 @@ public class WeathermanLineGraph extends RealInteractiveLineGraph {
     @Override
     public Double getDomainLowerBound() {
         super.getDomainLowerBound();
-        return (domainLowerBound == null ? domainMinValue : domainLowerBound);
+        
+        Double lowerBound = (domainLowerBound == null ? domainMinValue : domainLowerBound);
+        Double upperBound = (domainUpperBound == null ? domainMaxValue : domainUpperBound);
+        
+        if (lowerBound != null && upperBound != null
+                && upperBound.compareTo(lowerBound) < 0) {
+            return upperBound;
+        } else {
+            return lowerBound;
+        }
     }
     
     @Override
     public Double getDomainUpperBound() {
         super.getDomainUpperBound();
-        return (domainUpperBound == null ? domainMaxValue : domainUpperBound);
+        
+        Double lowerBound = (domainLowerBound == null ? domainMinValue : domainLowerBound);
+        Double upperBound = (domainUpperBound == null ? domainMaxValue : domainUpperBound);
+        
+        if (lowerBound != null && upperBound != null
+                && upperBound.compareTo(lowerBound) < 0) {
+            return lowerBound;
+        } else {
+            return upperBound;
+        }
     }
     
     @Override
     public Double getRangeLowerBound() {
         super.getRangeLowerBound();
         int field = getActiveField();
-        return (rangeLowerBound[field] == null ? rangeMinValue[field] : rangeLowerBound[field]);
+        
+        Double lowerBound = (rangeLowerBound[field] == null ? rangeMinValue[field] : rangeLowerBound[field]);
+        Double upperBound = (rangeUpperBound[field] == null ? rangeMaxValue[field] : rangeUpperBound[field]);
+        
+        if (lowerBound != null && upperBound != null
+                && upperBound.compareTo(lowerBound) < 0) {
+            return upperBound;
+        } else {
+            return lowerBound;
+        }
     }
     
     @Override
     public Double getRangeUpperBound() {
         super.getRangeUpperBound();
         int field = getActiveField();
-        return (rangeUpperBound[field] == null ? rangeMaxValue[field] : rangeUpperBound[field]);
+        
+        Double lowerBound = (rangeLowerBound[field] == null ? rangeMinValue[field] : rangeLowerBound[field]);
+        Double upperBound = (rangeUpperBound[field] == null ? rangeMaxValue[field] : rangeUpperBound[field]);
+        
+        if (lowerBound != null && upperBound != null
+                && upperBound.compareTo(lowerBound) < 0) {
+            return lowerBound;
+        } else {
+            return upperBound;
+        }
     }
     
     @Override
