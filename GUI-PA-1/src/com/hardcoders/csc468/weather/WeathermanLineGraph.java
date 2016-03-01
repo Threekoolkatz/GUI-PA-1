@@ -510,7 +510,7 @@ public class WeathermanLineGraph extends RealInteractiveLineGraph {
             // Draw vertical line at highlighted/selected point
             if (adapter != null && adapter.getRangeValue() != null) {
                 int x = (int) (getWidth() * adapter.getDomainPercentage(getDomainLowerBound(), getDomainUpperBound()));
-                int y = (int) (getHeight() * adapter.getRangePercentage(getRangeLowerBound(), getRangeUpperBound()));
+                int y = (int) (getHeight() * (1.0 - adapter.getRangePercentage(getRangeLowerBound(), getRangeUpperBound())));
                 g.drawLine(x, 0, x, getHeight());
                 
                 // Draw bigger circle around selected point

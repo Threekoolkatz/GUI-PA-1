@@ -290,7 +290,7 @@ public class LineGraph<DomainType extends Comparable, RangeType extends Comparab
         // Calculate pixel locations of drawing points
         for (int i = 0; i < numPoints; i++) {
             drawPoints[0][i] = (int) (domainScales.get(i) * width);
-            drawPoints[1][i] = (int) (rangeScales.get(i) * height);
+            drawPoints[1][i] = (int) ((1 - rangeScales.get(i)) * height);
         }
         
         // Reset dirty flag
