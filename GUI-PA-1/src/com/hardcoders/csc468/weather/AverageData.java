@@ -86,7 +86,7 @@ public class AverageData {
         int currentDay = tempCalendar.get(Calendar.DAY_OF_MONTH);
         
         //initializes current week no value needed due to special case
-        int currentDayOfWeek; 
+        int currentWeekOfYear = tempCalendar.get(Calendar.WEEK_OF_YEAR);
         
         //Initializes the current month
         int currentMonth = tempCalendar.get(Calendar.MONTH);
@@ -125,8 +125,8 @@ public class AverageData {
         for( XmlWeatherDataPoint currentPoint : currentDataPoints ) {
             tempCalendar.setTime(currentPoint.getTimestamp());
             
+            //Handles Day List
             if( currentDay != tempCalendar.get(Calendar.DAY_OF_MONTH)){
-                dayCount++;
                 currentDay = tempCalendar.get(Calendar.DAY_OF_MONTH);
                 tempDayValue = 
                         calculateAverageFromXmlWeatherDataPoints( tempList );
@@ -135,13 +135,16 @@ public class AverageData {
                 tempMonthDaysList.add(tempDayValue);
                 tempList.clear();
             }
-            currentDayOfWeek = tempCalendar.get(Calendar.DAY_OF_WEEK);
-            if( currentDayOfWeek < tempCalendar.get(Calendar.SUNDAY)){
-                weekCount++;
+            
+            //Handles week List (special case)
+            if( currentWeekOfYear != tempCalendar.get(Calendar.WEEK_OF_YEAR)){
+                currentWeekOfYear = tempCalendar.get(Calendar.WEEK_OF_YEAR);
                 weeklyValues.add(calculateAverageCalculatedAverageWeatherData(
                         tempWeekDaysList));
                 tempWeekDaysList.clear();
             }
+            
+            //Handles Month List
             if( currentMonth != tempCalendar.get(Calendar.MONTH)){
                 monthCount++;
                 currentMonth = tempCalendar.get(Calendar.MONTH);
@@ -151,6 +154,8 @@ public class AverageData {
                 tempYearMonthsList.add(tempMonthValue);
                 tempMonthDaysList.clear();
             }
+            
+            // Handles Year List
             if( currentYear != tempCalendar.get(Calendar.YEAR)){
                 yearCount++;
                 currentYear = tempCalendar.get(Calendar.YEAR);
