@@ -76,6 +76,13 @@
                           <Component id="pressureLabel" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Component id="uvLabel" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Component id="heatLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="averageTempLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="highTempLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="lowTempLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="maxWindSpeedLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="prevailingWindLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="totalRainfallLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="averageWindSpeedLabel" alignment="0" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
@@ -112,7 +119,7 @@
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="yearTab" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="45" max="32767" attributes="0"/>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="uvButton" min="-2" max="-2" attributes="0"/>
                   <Group type="102" alignment="0" attributes="0">
@@ -137,7 +144,7 @@
                       <Component id="heatButton" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
-              <EmptySpace max="-2" attributes="0"/>
+              <EmptySpace max="32767" attributes="0"/>
           </Group>
           <Component id="lineGraph" alignment="0" max="32767" attributes="0"/>
       </Group>
@@ -147,7 +154,7 @@
           <Group type="102" alignment="1" attributes="0">
               <Component id="lineGraph" min="-2" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="0" attributes="0">
+                  <Group type="102" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" attributes="0">
                               <Group type="103" groupAlignment="3" attributes="0">
@@ -197,36 +204,41 @@
                           <Component id="heatLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="heatVal" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="averageTempLabel" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="highTempLabel" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="lowTempLabel" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="averageWindSpeedLabel" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="maxWindSpeedLabel" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="prevailingWindLabel" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="totalRainfallLabel" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <Group type="102" attributes="0">
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" attributes="0">
-                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="temperatureButton" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="windSpeedButton" alignment="3" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                          </Group>
-                          <Group type="102" alignment="0" attributes="0">
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="dayTab" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="monthTab" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="yearTab" alignment="3" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                          </Group>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="dayTab" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="monthTab" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="yearTab" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="temperatureButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="windSpeedButton" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
                           <Component id="windGustButton" max="32767" attributes="0"/>
-                          <Component id="humidityButton" max="32767" attributes="0"/>
+                          <Component id="humidityButton" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="rainfallButton" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="windChillButton" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="pressureButton" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="heatButton" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -568,6 +580,41 @@
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="yearTabActionPerformed"/>
       </Events>
+    </Component>
+    <Component class="javax.swing.JLabel" name="averageTempLabel">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Average Temperature"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="highTempLabel">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="High Temperature"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="lowTempLabel">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Low Temperature"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="maxWindSpeedLabel">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Maximum Wind Speed"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="prevailingWindLabel">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Prevailing Wind Direction"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="totalRainfallLabel">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Rainfall"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="averageWindSpeedLabel">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Mean Wind Speed"/>
+      </Properties>
     </Component>
   </SubComponents>
 </Form>
