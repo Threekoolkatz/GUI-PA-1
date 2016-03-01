@@ -608,7 +608,7 @@ public class AverageData {
          * 
          * @see WindDirection
          * 
-         * @return returns the prevailent WindDirection
+         * @return returns the prevalent WindDirection
          */
         public WindDirection getPrevailingWind() {
             int max = -2953838;
