@@ -263,10 +263,11 @@ public class WeathermanLineGraph extends RealInteractiveLineGraph {
         super.mouseMoved(e);
         
         updateHighlightedDataPoint(e.getX());
-        this.setToolTipText(this.displayDataPoint(highlightedDataPoint));
+        if(highlightedDataPoint != null)
+            this.setToolTipText(this.displayDataPoint(highlightedDataPoint));
     }
     
-    // Mack added this :D
+    // Author:  Mack Smith
     // Returns a string with all the data of a single weather data point
     public String displayDataPoint(WeatherDataPoint p) {
         
