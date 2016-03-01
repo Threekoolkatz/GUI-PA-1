@@ -10,8 +10,10 @@ import java.util.List;
 
 
 /**
- *
- * @author 7143145
+ * Calculates average temperature and windspeed, high/low temp, max wind speed
+ *  and prevalent wind direction
+ * 
+ * @author Johnny Ackerman
  */
 public class AverageData {
     
@@ -38,6 +40,9 @@ public class AverageData {
     int weekCount;
     int dayCount;
     
+    /**
+     * Constructor initializes lists
+     */
     public AverageData() {
         allDataValues = new CalculatedAverageWeatherData();
         currentDataPoints = new ArrayList<>();
@@ -47,6 +52,12 @@ public class AverageData {
         yearlyValues = new ArrayList<>();
     }
     
+    /**
+     * initializes currentDataPoints with passed in data and processes the 
+     *  information
+     * 
+     * @param passedInData list of XmlWeatherDataPoints
+     */
     public void calculateData( List<XmlWeatherDataPoint> passedInData ) {
         //sets datapoints to global-to-class variable
         currentDataPoints = passedInData;
@@ -55,6 +66,11 @@ public class AverageData {
         crunchData();
     }
     
+    /**
+     * fills in Daily values, Monthly values, weekly values, and yearly values
+     *  while calculating all the needed data items 
+     * 
+     */
     private void crunchData(){
         //check if there is data to calculate
         if( currentDataPoints == null){
@@ -426,7 +442,7 @@ public class AverageData {
         private double totalRainFall;
         
         /**
-         *
+         * Constructor - initializes values incase anything is missing.
          */
         public CalculatedAverageWeatherData(){
             averageTemperature = 0;
@@ -474,6 +490,13 @@ public class AverageData {
         }
     }
     
+    /**
+     * Class developed to handle prevailing wind directions for a set of data
+     * 
+     * @see WindDirection
+     * 
+     * @author Johnny Ackerman
+     */
     public class WindDirectionCounter {
         
         int E, ENE, NEE, NE, NNE, N, NW, NWW, WNW, W, WSW, SWW, SW, SSW, S, SSE,
@@ -483,6 +506,9 @@ public class AverageData {
             reset();
         }
         
+        /**
+         * if the counter needs to be reset, places all counts down to 0
+         */
         public void reset() {
             this.ESE = 0;
             this.SEE = 0;
@@ -505,6 +531,13 @@ public class AverageData {
             this.E = 0;
         }
         
+        /**
+         * Increments the number of times any direction has been encountered
+         * 
+         * @see WindDirection
+         * 
+         * @param direction - direction being counted
+         */
         public void count( WindDirection direction) {
             switch (direction) {
                 case EAST:
@@ -570,6 +603,13 @@ public class AverageData {
             }
         } 
         
+        /**
+         * determines which direction was encountered the most
+         * 
+         * @see WindDirection
+         * 
+         * @return returns the prevailent WindDirection
+         */
         public WindDirection getPrevailingWind() {
             int max = -2953838;
             if (max < E) max = E;
