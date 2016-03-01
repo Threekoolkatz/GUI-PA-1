@@ -372,17 +372,30 @@ public class WeathermanLineGraph extends RealInteractiveLineGraph {
         
         String tooltip = new String();
         
-        tooltip = ("<html>Temperature: " + p.getTemperature().toString() + "<br>" +
-                   "Humidity: " + p.getHumidity().toString() + "<br>" +
-                   "Rainfall: " + p.getPercipitation().toString() + "<br>" +
-                   "Pressure: " + p.getPressure().toString() + "<br>" +
-                   "UV Index: " + p.getUVIndex().toString() + "<br>" +
-                   "Heat Index: " + p.getHeatIndex().toString() + "<br>" +
-                   "Wind Speed: " + p.getWindSpeed().toString() + "<br>" +
-                   "Wind Gust: " + p.getWindGust().toString() + "<br>" +
-                   "Wind Chill: " + p.getWindChill().toString() + "<br>" +
-                   "Wind Direction: " + p.getWindDirection().toString() + "<br></html>"
-                );
+        tooltip = "<html>";
+        if(p.getTemperature() != null)
+        {
+            tooltip += "Temperature: " + p.getTemperature().toString() + "<br>";
+        }
+        if(p.getHumidity() != null)
+            tooltip += "Humidity: " + p.getHumidity().toString() + "<br>";
+        if(p.getPercipitation() != null)
+            tooltip += "Rainfall: " + p.getPercipitation().toString() + "<br>";
+        if(p.getPressure() != null )
+            tooltip += "Pressure: " + p.getPressure().toString() + "<br>";
+        if(p.getUVIndex() != null)
+            tooltip += "UV Index: " + p.getUVIndex().toString() + "<br>";
+        if(p.getHeatIndex() != null)
+            tooltip += "Heat Index: " + p.getHeatIndex().toString() + "<br>";
+        if(p.getWindSpeed() != null)
+            tooltip += "Wind Speed: " + p.getWindSpeed().toString() + "<br>";
+        if(p.getWindGust() != null)
+            tooltip += "Wind Gust: " + p.getWindGust().toString() + "<br>";
+        if(p.getWindChill() != null)
+            tooltip += "Wind Chill: " + p.getWindChill().toString() + "<br>";
+        if(p.getWindDirection() != null)
+            tooltip += "Wind Direction: " + p.getWindDirection().toString() + "<br>";
+        tooltip += "</html>";
         return tooltip;
     }
     
