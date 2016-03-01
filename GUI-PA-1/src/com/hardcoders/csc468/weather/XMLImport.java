@@ -18,19 +18,32 @@ import org.jdom2.JDOMException;
 import org.jdom2.input.SAXBuilder;
 
 /**
- *
- * @author 7143145
+ * Converts XML files to an XmlWeatherDataPoint.
+ * 
+ * @see XmlWeatherDataPoint
+ * 
+ * @author Johnny Ackerman
  */
 public class XMLImport{
     //TODO make Implement comparable for sorting!!!!!!!!!
     List<XmlWeatherDataPoint> yearOfPoints = new ArrayList<>();
     
+    /**
+     * Used to test functionality
+     * @param args 
+     */
     public static void main(String[] args)
     {
         XMLImport aClass = new XMLImport();
         aClass.read("../weatherData/2010-01.xml");
     }
     
+    /**
+     * Takes a list of files and reads in their data individually, then
+     *  returns a list of all XmlWeatherDataPoints read in
+     * @param fileNames
+     * @return yearOfPoints - all the points read in from files
+     */
     public List<XmlWeatherDataPoint> readAll( List<File> fileNames )
     {
         yearOfPoints.clear();
@@ -41,6 +54,14 @@ public class XMLImport{
         return yearOfPoints;
     }
     
+    /**
+     * Reads the XML data from a single XML file. uses the JDOM library to
+     *  parse though the XML tags
+     * 
+     * @see JDOM
+     * 
+     * @param fileName 
+     */
     public void read( String fileName){
         SAXBuilder builder = new SAXBuilder();
         File currentXmlFile = new File(fileName);
@@ -103,6 +124,11 @@ public class XMLImport{
         }
     }
     
+    /**
+     * Converts a string to its double equivalent
+     * @param text
+     * @return 
+     */
     public double stringToDouble(String text){
         double temp = 0;
         try{
@@ -114,6 +140,12 @@ public class XMLImport{
         return temp;
     }
 
+    /**
+     * Adds functionality to the WeatherDataPoint model. This is used to
+     *  store the read in information in an easy to pass structure.
+     * 
+     * @see WeatherDataPoint
+     */
     public class XmlWeatherDataPoint implements WeatherDataPoint {
         private Date          timestamp;
         private Double        temperature;
@@ -127,7 +159,9 @@ public class XMLImport{
         private Double        uvIndex;
         private Double        rainFall;
         
-        
+        /**
+         * initializes all values to null because any given tag can be missing
+         */
         public XmlWeatherDataPoint() {
             timestamp = null;
             temperature = null;
@@ -148,6 +182,10 @@ public class XMLImport{
             return timestamp;
         }
 
+        /**
+         * sets the timestamp
+         * @param timestamp 
+         */
         private void setTimestamp(Date timestamp) {
             this.timestamp = timestamp;
         }
@@ -162,6 +200,10 @@ public class XMLImport{
             return new TemperatureDataPointAdapter(this);
         }
         
+        /**
+         * sets the temperature
+         * @param temperature 
+         */
         private void setTempurature(Double temperature) {
             this.temperature = temperature;
         }
@@ -176,6 +218,11 @@ public class XMLImport{
             return new HumidityDataPointAdapter(this);
         }
         
+        /**
+         * sets the humidity
+         * 
+         * @param humidity 
+         */
         private void setHumditiy(Double humidity) {
             this.humidity = humidity;
         }
@@ -190,6 +237,10 @@ public class XMLImport{
             return new PressureDataPointAdapter(this);
         }
         
+        /**
+         * sets the barometric pressure
+         * @param pressure 
+         */
         public void setPressure(Double pressure) {
             this.barometer = pressure;
         }
@@ -204,6 +255,10 @@ public class XMLImport{
             return new WindSpeedDataPointAdapter(this);
         }
         
+        /**
+         * sets the wind speed
+         * @param windSpeed 
+         */
         public void setWindSpeed(Double windSpeed) {
             this.windSpeed = windSpeed;
         }
@@ -218,6 +273,13 @@ public class XMLImport{
             return new WindDirectionDataPointAdapter(this);
         }
 
+        /**
+         * sets the windDirection
+         * 
+         * @see WindDirection
+         * 
+         * @param windDirection 
+         */
         private void setWindDirection(WindDirection windDirection) {
             this.windDirection = windDirection;
         }
@@ -232,6 +294,10 @@ public class XMLImport{
             return new WindGustDataPointAdapter(this);
         }
         
+        /**
+         * sets the wind gusts
+         * @param windGust 
+         */
         private void setWindGust(Double windGust) {
             this.windGust = windGust;
         }
@@ -246,6 +312,10 @@ public class XMLImport{
             return new WindChillDataPointAdapter(this);
         }
         
+        /**
+         * sets the wind chill
+         * @param windChill 
+         */
         private void setWindChill(Double windChill) {
             this.windChill = windChill;
         }
@@ -260,6 +330,10 @@ public class XMLImport{
             return new HeatIndexDataPointAdapter(this);
         }
         
+        /**
+         * sets the heat index
+         * @param heatIndex 
+         */
         private void setHeatIndex(Double heatIndex) {
             this.heatIndex = heatIndex;
         }
@@ -274,6 +348,10 @@ public class XMLImport{
             return new UVIndexDataPointAdapter(this);
         }
         
+        /**
+         * sets the UV index
+         * @param uvIndex 
+         */
         private void setUVIndex(Double uvIndex) {
             this.uvIndex = uvIndex;
         }
@@ -288,6 +366,10 @@ public class XMLImport{
             return new PercipitationDataPointAdapter(this);
         }
         
+        /**
+         * sets the rainfall
+         * @param percipitation 
+         */
         private void setPercipitation(Double percipitation) {
             this.rainFall = percipitation;
         }
