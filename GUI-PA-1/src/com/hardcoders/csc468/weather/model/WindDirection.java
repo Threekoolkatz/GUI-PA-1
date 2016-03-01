@@ -7,27 +7,36 @@ package com.hardcoders.csc468.weather.model;
  * @author Daniel Andrus <daniel.andrus@mines.sdsmt.edu>
  */
 public enum WindDirection {
-    EAST,
-    EAST_NORTH_EAST,
-    NORTH_EAST_EAST,
-    NORTH_EAST,
-    NORTH_NORTH_EAST,
-    NORTH,
-    NORTH_NORTH_WEST,
-    NORTH_WEST,
-    NORTH_WEST_WEST,
-    WEST_NORTH_WEST,
-    WEST,
-    WEST_SOUTH_WEST,
-    SOUTH_WEST_WEST,
-    SOUTH_WEST,
-    SOUTH_SOUTH_WEST,
-    SOUTH,
-    SOUTH_SOUTH_EAST,
-    SOUTH_EAST,
-    SOUTH_EAST_EAST,
-    EAST_SOUTH_EAST;
+    EAST("East"),
+    EAST_NORTH_EAST("East Northeast"),
+    NORTH_EAST_EAST("Northeast East"),
+    NORTH_EAST("Northeast"),
+    NORTH_NORTH_EAST("North Northeast"),
+    NORTH("North"),
+    NORTH_NORTH_WEST("North Northwest"),
+    NORTH_WEST("Northwest"),
+    NORTH_WEST_WEST("Northwest West"),
+    WEST_NORTH_WEST("West Northwest"),
+    WEST("West"),
+    WEST_SOUTH_WEST("West Southwest"),
+    SOUTH_WEST_WEST("Southwest West"),
+    SOUTH_WEST("Southwest"),
+    SOUTH_SOUTH_WEST("South Southwest"),
+    SOUTH("South"),
+    SOUTH_SOUTH_EAST("South Southeast"),
+    SOUTH_EAST("Southeast"),
+    SOUTH_EAST_EAST("Southeast East"),
+    EAST_SOUTH_EAST("East Southeast");
     
+    //value to hold the string representation of each enum
+    private String stringDirection;
+    
+    /**
+     * Converts the string representation into the enumerated type
+     * 
+     * @param direction the passed in string
+     * @return Enumerated version of the direction
+     */
     public static WindDirection fromString(String direction)
     {
         if( direction == null ){
@@ -57,5 +66,29 @@ public enum WindDirection {
             default: {System.out.println("Invalid Wind Direction " + direction);
                       return null; }
             }
+    }
+    
+    /**
+     * Constructor that gives each enumerated value a string 
+     * representation
+     * 
+     * @param stringDirection - string representation of enum value
+     */
+    WindDirection(String stringDirection){
+        this.stringDirection = stringDirection;
+    }
+    
+    /**
+     * returns the string representation of the enumerated value
+     * 
+     * @return stringDirection - stored string representation
+     */
+    public String getValue() {
+        return stringDirection;
+    }
+    
+    @Override
+    public String toString(){
+        return this.getValue();
     }
 }
