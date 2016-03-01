@@ -23,7 +23,10 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 /**
- *
+ * Displays the view for the graph and data to reside in.
+ * It handles fetching the data from a file open command and passing that data
+ * to the graph. Pretty much the main file of the program.
+ * 
  * @author Mack Smith
  */
 public class WeathermanWindow extends javax.swing.JFrame {
@@ -130,17 +133,6 @@ public class WeathermanWindow extends javax.swing.JFrame {
             }
         });
         
-        /*
-        lineGraph.addWeatherDataPoint(new SimpleWeatherDataPoint(new Date(100), 10.0));
-        lineGraph.addWeatherDataPoint(new SimpleWeatherDataPoint(new Date(250), 10.0));
-        lineGraph.addWeatherDataPoint(new SimpleWeatherDataPoint(new Date(275), 12.0));
-        lineGraph.addWeatherDataPoint(new SimpleWeatherDataPoint(new Date(325), 8.0));
-        lineGraph.addWeatherDataPoint(new SimpleWeatherDataPoint(new Date(350), 10.0));
-        lineGraph.addWeatherDataPoint(new SimpleWeatherDataPoint(new Date(500), 10.0));
-        
-        lineGraph.setDomainLowerBound(50.0);
-        lineGraph.setDomainUpperBound(550.0);
-        */
         lineGraph.redraw();
     }
     
@@ -627,70 +619,100 @@ public class WeathermanWindow extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_openMenuItemActionPerformed
 
-    
+    /**
+     * Action exits the program.
+     * @param evt 
+     */
     private void menuQuitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuQuitActionPerformed
-        // TODO add your handling code here:
+        // exit program
         System.exit(0);
     }//GEN-LAST:event_menuQuitActionPerformed
 
+    /**
+     * Switches the graph to temperature mode
+     * @param evt 
+     */
     private void temperatureButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_temperatureButtonActionPerformed
-        // TODO add your handling code here:
         lineGraph.showTemperatureData();
         lineGraph.redraw();
         lineGraph.repaint();
     }//GEN-LAST:event_temperatureButtonActionPerformed
 
+    /**
+     * Switches the graph to Borometric Pressure mode
+     * @param evt 
+     */
     private void pressureButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pressureButtonActionPerformed
-        // TODO add your handling code here:
         lineGraph.showPressureData();
         lineGraph.redraw();
         lineGraph.repaint();
     }//GEN-LAST:event_pressureButtonActionPerformed
 
+    /**
+     * Switches the graph to display the UV index
+     * @param evt 
+     */
     private void uvButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_uvButtonActionPerformed
-        // TODO add your handling code here:
         lineGraph.showUVIndexData();
         lineGraph.redraw();
         lineGraph.repaint();
     }//GEN-LAST:event_uvButtonActionPerformed
 
+    /**
+     * Switches the graph to wind speed mode
+     * @param evt 
+     */
     private void windSpeedButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_windSpeedButtonActionPerformed
-        // TODO add your handling code here:
         lineGraph.showWindSpeedData();
         lineGraph.redraw();
         lineGraph.repaint();
     }//GEN-LAST:event_windSpeedButtonActionPerformed
 
+    /**
+     * Switches the graph to Wind Chill mode
+     * @param evt 
+     */
     private void windChillButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_windChillButtonActionPerformed
-        // TODO add your handling code here:
         lineGraph.showWindChillData();
         lineGraph.redraw();
         lineGraph.repaint();
     }//GEN-LAST:event_windChillButtonActionPerformed
 
+    /**
+     * Switches the graph to humidity mode
+     * @param evt 
+     */
     private void humidityButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_humidityButtonActionPerformed
-        // TODO add your handling code here:
         lineGraph.showHumidityData();
         lineGraph.redraw();
         lineGraph.repaint();
     }//GEN-LAST:event_humidityButtonActionPerformed
 
+    /**
+     * Switches the graph to Wind Gust Display
+     * @param evt 
+     */
     private void windGustButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_windGustButtonActionPerformed
-        // TODO add your handling code here:
         lineGraph.showWindGustData();
         lineGraph.redraw();
         lineGraph.repaint();
     }//GEN-LAST:event_windGustButtonActionPerformed
 
+    /**
+     * Switches the graph to display rainfall
+     * @param evt 
+     */
     private void rainfallButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rainfallButtonActionPerformed
-        // TODO add your handling code here:
         lineGraph.showPercipitationData();
         lineGraph.redraw();
         lineGraph.repaint();
     }//GEN-LAST:event_rainfallButtonActionPerformed
 
+    /**
+     * Switches the graph to Show the Head Index
+     * @param evt 
+     */
     private void heatButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_heatButtonActionPerformed
-        // TODO add your handling code here:
         lineGraph.showHeatIndexData();
         lineGraph.redraw();
         lineGraph.repaint();
