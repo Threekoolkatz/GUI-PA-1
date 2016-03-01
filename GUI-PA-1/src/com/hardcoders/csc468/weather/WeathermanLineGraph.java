@@ -263,6 +263,28 @@ public class WeathermanLineGraph extends RealInteractiveLineGraph {
         super.mouseMoved(e);
         
         updateHighlightedDataPoint(e.getX());
+        if(highlightedDataPoint != null)
+            this.setToolTipText(this.displayDataPoint(highlightedDataPoint));
+    }
+    
+    // Author:  Mack Smith
+    // Returns a string with all the data of a single weather data point
+    public String displayDataPoint(WeatherDataPoint p) {
+        
+        String tooltip = new String();
+        
+        tooltip = ("<html>Temperature: " + p.getTemperature().toString() + "<br>" +
+                   "Humidity: " + p.getHumidity().toString() + "<br>" +
+                   "Rainfall: " + p.getPercipitation().toString() + "<br>" +
+                   "Pressure: " + p.getPressure().toString() + "<br>" +
+                   "UV Index: " + p.getUVIndex().toString() + "<br>" +
+                   "Heat Index: " + p.getHeatIndex().toString() + "<br>" +
+                   "Wind Speed: " + p.getWindSpeed().toString() + "<br>" +
+                   "Wind Gust: " + p.getWindGust().toString() + "<br>" +
+                   "Wind Chill: " + p.getWindChill().toString() + "<br>" +
+                   "Wind Direction: " + p.getWindDirection().toString() + "<br></html>"
+                );
+        return tooltip;
     }
     
     @Override

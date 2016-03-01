@@ -13,6 +13,12 @@ import com.hardcoders.csc468.weather.graph.Graph;
 import com.hardcoders.csc468.weather.graph.InteractiveLineGraph;
 import com.hardcoders.csc468.weather.model.WeatherDataPoint;
 import java.util.Date;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
@@ -37,6 +43,7 @@ public class WeathermanWindow extends javax.swing.JFrame {
         initComponents();
 
         dataPoints = new ArrayList<XmlWeatherDataPoint>();
+        
         
 
         
@@ -155,6 +162,7 @@ public class WeathermanWindow extends javax.swing.JFrame {
     private void initComponents() {
 
         dataOptions = new javax.swing.ButtonGroup();
+        dateTabs = new javax.swing.ButtonGroup();
         temperatureButton = new javax.swing.JRadioButton();
         windSpeedButton = new javax.swing.JRadioButton();
         rainfallButton = new javax.swing.JRadioButton();
@@ -185,6 +193,9 @@ public class WeathermanWindow extends javax.swing.JFrame {
         speedVal = new javax.swing.JLabel();
         gustVal = new javax.swing.JLabel();
         chillVal = new javax.swing.JLabel();
+        dayTab = new javax.swing.JRadioButton();
+        monthTab = new javax.swing.JRadioButton();
+        yearTab = new javax.swing.JRadioButton();
         menuBar = new javax.swing.JMenuBar();
         fileMenu = new javax.swing.JMenu();
         openMenuItem = new javax.swing.JMenuItem();
@@ -298,6 +309,8 @@ public class WeathermanWindow extends javax.swing.JFrame {
 
         tempLabel.setText("Temperature");
 
+        lineGraph.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 5));
+
         endDate.setModel(new javax.swing.SpinnerDateModel());
         endDate.setToolTipText("End date");
         endDate.setValue(new Date());
@@ -320,7 +333,7 @@ public class WeathermanWindow extends javax.swing.JFrame {
         lineGraphLayout.setVerticalGroup(
             lineGraphLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, lineGraphLayout.createSequentialGroup()
-                .addGap(0, 157, Short.MAX_VALUE)
+                .addGap(0, 221, Short.MAX_VALUE)
                 .addGroup(lineGraphLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(endDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(startDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -341,6 +354,30 @@ public class WeathermanWindow extends javax.swing.JFrame {
         gustLabel.setText("Wind Gust");
 
         chillLabel.setText("Wind Chill");
+
+        dateTabs.add(dayTab);
+        dayTab.setText("Day");
+        dayTab.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                dayTabActionPerformed(evt);
+            }
+        });
+
+        dateTabs.add(monthTab);
+        monthTab.setText("Month");
+        monthTab.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                monthTabActionPerformed(evt);
+            }
+        });
+
+        dateTabs.add(yearTab);
+        yearTab.setText("Year");
+        yearTab.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                yearTabActionPerformed(evt);
+            }
+        });
 
         fileMenu.setText("File");
         fileMenu.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -403,9 +440,18 @@ public class WeathermanWindow extends javax.swing.JFrame {
                 .addGap(34, 34, 34)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(chillVal)
-                    .addComponent(gustVal)
-                    .addComponent(speedVal))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 222, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(gustVal)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(dayTab))
+                            .addComponent(speedVal))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(monthTab)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(yearTab)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 45, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(uvButton)
                     .addGroup(layout.createSequentialGroup()
@@ -433,7 +479,6 @@ public class WeathermanWindow extends javax.swing.JFrame {
                 .addComponent(lineGraph, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(15, 15, 15)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -472,11 +517,19 @@ public class WeathermanWindow extends javax.swing.JFrame {
                             .addComponent(heatLabel)
                             .addComponent(heatVal))
                         .addGap(10, 10, 10))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(temperatureButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(windSpeedButton))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(temperatureButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(windSpeedButton)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(dayTab)
+                                    .addComponent(monthTab)
+                                    .addComponent(yearTab))
+                                .addGap(0, 0, Short.MAX_VALUE)))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(windGustButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(humidityButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -490,7 +543,7 @@ public class WeathermanWindow extends javax.swing.JFrame {
                             .addComponent(heatButton))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(uvButton)))
-                .addContainerGap(31, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -643,6 +696,105 @@ public class WeathermanWindow extends javax.swing.JFrame {
         lineGraph.repaint();
     }//GEN-LAST:event_heatButtonActionPerformed
 
+    /**
+     * @Author Mack Smith
+     * 
+     * Changes the graph scale to one month based on the date in the left spinner
+     * 
+     * @param evt 
+     */
+    private void dayTabActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dayTabActionPerformed
+        // TODO add your handling code here:
+          DateFormat date = new SimpleDateFormat("dd-MM-yyyy");
+          String low = date.format(startDate.getValue());
+          Calendar min = Calendar.getInstance();
+
+          Date temp = null;
+          
+        try {
+            temp = date.parse(low);
+        } catch (ParseException ex) {
+            Logger.getLogger(WeathermanWindow.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+          min.setTime(temp);          
+          
+          min.add(Calendar.DAY_OF_MONTH, 1);
+
+          double newLow = 0;
+          newLow = (double) min.getTimeInMillis();
+          lineGraph.setDomainUpperBound(newLow);
+          lineGraph.redraw();
+          lineGraph.repaint();
+    }//GEN-LAST:event_dayTabActionPerformed
+
+    /**
+     * @Author Mack Smith
+     * 
+     * Changes the graph scale to one month based on the date in the left spinner
+     * 
+     * @param evt 
+     */
+    private void monthTabActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_monthTabActionPerformed
+        // TODO add your handling code here:
+          DateFormat date = new SimpleDateFormat("dd-MM-yyyy");
+          String low = date.format(startDate.getValue());
+          Calendar min = Calendar.getInstance();
+
+          Date temp = null;
+          
+        try {
+            temp = date.parse(low);
+        } catch (ParseException ex) {
+            Logger.getLogger(WeathermanWindow.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+          min.setTime(temp);          
+          
+          min.add(Calendar.MONTH, 1);
+
+          double newLow = 0;
+          newLow = (double) min.getTimeInMillis();
+          lineGraph.setDomainUpperBound(newLow);
+          lineGraph.redraw();
+          lineGraph.repaint();
+    }//GEN-LAST:event_monthTabActionPerformed
+
+    
+    /**
+     * Author:  Mack Smith
+     * 
+     * Changes graph scale to yearly based on the initial date in the left spinner
+    */
+    private void yearTabActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_yearTabActionPerformed
+        // TODO add your handling code here:
+        // needed to format the object returned from the spinner data
+          DateFormat date = new SimpleDateFormat("dd-MM-yyyy");
+          String low = date.format(startDate.getValue());
+          Calendar min = Calendar.getInstance();
+
+          Date temp = null;
+        // parsing the string from the spinner, NetBeans complained without the try catch block
+        try {
+            temp = date.parse(low);
+        } catch (ParseException ex) {
+            Logger.getLogger(WeathermanWindow.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+          // set the calendar to the parsed date
+          min.setTime(temp);          
+          
+          // add a year to the calendar
+          min.add(Calendar.YEAR, 1);
+
+          // cast the calendar to a double by using the getTimeInMillis and redraw
+          double newLow = 0;
+          newLow = (double) min.getTimeInMillis();
+          lineGraph.setDomainUpperBound(newLow);
+          lineGraph.redraw();
+          lineGraph.repaint();
+    }//GEN-LAST:event_yearTabActionPerformed
+
 
     /**
      * @param args the command line arguments
@@ -683,6 +835,8 @@ public class WeathermanWindow extends javax.swing.JFrame {
     private javax.swing.JLabel chillLabel;
     private javax.swing.JLabel chillVal;
     private javax.swing.ButtonGroup dataOptions;
+    private javax.swing.ButtonGroup dateTabs;
+    private javax.swing.JRadioButton dayTab;
     private javax.swing.JMenu editMenu;
     private javax.swing.JSpinner endDate;
     private javax.swing.JMenu fileMenu;
@@ -697,6 +851,7 @@ public class WeathermanWindow extends javax.swing.JFrame {
     private com.hardcoders.csc468.weather.WeathermanLineGraph lineGraph;
     private javax.swing.JMenuBar menuBar;
     private javax.swing.JMenuItem menuQuit;
+    private javax.swing.JRadioButton monthTab;
     private javax.swing.JMenuItem openMenuItem;
     private javax.swing.JRadioButton pressureButton;
     private javax.swing.JLabel pressureLabel;
@@ -716,5 +871,6 @@ public class WeathermanWindow extends javax.swing.JFrame {
     private javax.swing.JRadioButton windChillButton;
     private javax.swing.JRadioButton windGustButton;
     private javax.swing.JRadioButton windSpeedButton;
+    private javax.swing.JRadioButton yearTab;
     // End of variables declaration//GEN-END:variables
 }
