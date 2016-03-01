@@ -492,9 +492,11 @@ public class WeathermanLineGraph extends RealInteractiveLineGraph {
         
         // Only mark point as highlighted if it is visible
         if (highlightedAdapter != null) {
-            double pDomain = highlightedAdapter.getDomainPercentage(domainLowerBound, domainUpperBound);
-            double pRange  = highlightedAdapter.getRangePercentage(getRangeLowerBound(), getRangeUpperBound());
-            if (pDomain < 0.0 || pDomain > 1.0 || pRange < 0.0 || pRange > 1.0) {
+            Double pDomain = highlightedAdapter.getDomainPercentage(domainLowerBound, domainUpperBound);
+            Double pRange  = highlightedAdapter.getRangePercentage(getRangeLowerBound(), getRangeUpperBound());
+            if (pDomain == null || pDomain < 0.0 || pDomain > 1.0
+                    || pRange == null || pRange < 0.0 || pRange > 1.0) {
+                
                 highlightedAdapter = null;
             }
         }
