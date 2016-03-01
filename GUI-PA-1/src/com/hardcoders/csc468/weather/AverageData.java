@@ -2,6 +2,7 @@ package com.hardcoders.csc468.weather;
 
 import com.hardcoders.csc468.weather.XMLImport.XmlWeatherDataPoint;
 import com.hardcoders.csc468.weather.model.AverageWeatherData;
+import static com.hardcoders.csc468.weather.model.WindDirection.*;
 import com.hardcoders.csc468.weather.model.WindDirection;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -9,8 +10,10 @@ import java.util.List;
 
 
 /**
- *
- * @author 7143145
+ * Calculates average temperature and windspeed, high/low temp, max wind speed
+ *  and prevalent wind direction
+ * 
+ * @author Johnny Ackerman
  */
 public class AverageData {
     
@@ -18,16 +21,16 @@ public class AverageData {
     private List<XmlWeatherDataPoint> currentDataPoints;
     
     //List of all daily calculations
-    private List<CalculatedAverageWeatherData> dailyValues;
+    private final List<CalculatedAverageWeatherData> dailyValues;
     
     //List of all weekly calculations
-    private List<CalculatedAverageWeatherData> weeklyValues;
+    private final List<CalculatedAverageWeatherData> weeklyValues;
     
     //List of all monthly calculations
-    private List<CalculatedAverageWeatherData> monthlyValues;
+    private final List<CalculatedAverageWeatherData> monthlyValues;
     
     //List of all yearly Calculations
-    private List<CalculatedAverageWeatherData> yearlyValues;
+    private final List<CalculatedAverageWeatherData> yearlyValues;
     
     //Calculation off all data values
     private CalculatedAverageWeatherData allDataValues;
@@ -37,6 +40,9 @@ public class AverageData {
     int weekCount;
     int dayCount;
     
+    /**
+     * Constructor initializes lists
+     */
     public AverageData() {
         allDataValues = new CalculatedAverageWeatherData();
         currentDataPoints = new ArrayList<>();
@@ -46,6 +52,12 @@ public class AverageData {
         yearlyValues = new ArrayList<>();
     }
     
+    /**
+     * initializes currentDataPoints with passed in data and processes the 
+     *  information
+     * 
+     * @param passedInData list of XmlWeatherDataPoints
+     */
     public void calculateData( List<XmlWeatherDataPoint> passedInData ) {
         //sets datapoints to global-to-class variable
         currentDataPoints = passedInData;
@@ -54,6 +66,11 @@ public class AverageData {
         crunchData();
     }
     
+    /**
+     * fills in Daily values, Monthly values, weekly values, and yearly values
+     *  while calculating all the needed data items 
+     * 
+     */
     private void crunchData(){
         //check if there is data to calculate
         if( currentDataPoints == null){
@@ -103,6 +120,7 @@ public class AverageData {
         List<CalculatedAverageWeatherData> 
                 tempYearMonthsList = new ArrayList<>();
         
+        
         // loops though all passed in xml points
         for( XmlWeatherDataPoint currentPoint : currentDataPoints ) {
             tempCalendar.setTime(currentPoint.getTimestamp());
@@ -118,7 +136,7 @@ public class AverageData {
                 tempList.clear();
             }
             currentDayOfWeek = tempCalendar.get(Calendar.DAY_OF_WEEK);
-            if( currentDayOfWeek == tempCalendar.get(Calendar.SUNDAY)){
+            if( currentDayOfWeek < tempCalendar.get(Calendar.SUNDAY)){
                 weekCount++;
                 weeklyValues.add(calculateAverageCalculatedAverageWeatherData(
                         tempWeekDaysList));
@@ -191,6 +209,9 @@ public class AverageData {
                 = new CalculatedAverageWeatherData();
         int pointCount = 0;
         
+        
+        WindDirectionCounter prevailingCounter = new WindDirectionCounter();
+        
         for( XmlWeatherDataPoint workingPoint : workingList)
         {
             //increament number of points processed
@@ -229,9 +250,8 @@ public class AverageData {
                 tempWorkingAverageDataPoint.maxWindGustPoint = workingPoint;
             }
         
-        //Determine prevailing wind direction
-        //Yikes
-        //TODO CALCULATE THIS MESS
+        //count up prevailing wind direction
+        prevailingCounter.count(workingPoint.getWindDirection());
         
         //Collect rainfall
             tempWorkingAverageDataPoint.totalRainFall
@@ -248,9 +268,26 @@ public class AverageData {
                 tempWorkingAverageDataPoint.getAverageTemperature() 
                         / pointCount;
         
+        //Determine prevailing wind direction
+        tempWorkingAverageDataPoint.prevalingWindDirection 
+                = prevailingCounter.getPrevailingWind();
+        
         return tempWorkingAverageDataPoint;
     }
-        
+       
+    /**
+     * calculateAverageCalculatedAverageWeatherData - takes an 
+     *  CalculatedAverageWeatherData point List and calculates the needed 
+     *  information ( average temperature, high/low temperature, average wind 
+     *  speed, max wind gust, prevailing wind direction and total rainfall.
+     *  Then stores that data in a CalculatedAverageWeatherData class
+     * 
+     * @see CalculatedAverageWeatherData
+     * 
+     * @param workingList-CalculatedAverageWeatherData list being worked on
+     * @return tempWorkingAverageDataPoint - 
+     *      filled in CalculatedAverageWeatherData class structure
+     */
     private CalculatedAverageWeatherData 
         calculateAverageCalculatedAverageWeatherData(
                 List<CalculatedAverageWeatherData> workingList )
@@ -258,6 +295,9 @@ public class AverageData {
         CalculatedAverageWeatherData tempWorkingAverageDataPoint 
                 = new CalculatedAverageWeatherData();
         int pointCount = 0;
+        
+        //used for prevalent wind
+        WindDirectionCounter prevailingCounter = new WindDirectionCounter();
         
         for( CalculatedAverageWeatherData workingPoint : workingList)
         {
@@ -302,9 +342,8 @@ public class AverageData {
                         = workingPoint.getHighTemperature();
             }
         
-        //Determine prevailing wind direction
-        //Yikes
-        //TODO CALCULATE THIS MESS
+        //count up prevailing wind direction
+        prevailingCounter.count(workingPoint.getPrevailingWindDirection());
         
         //Collect rainfall
             tempWorkingAverageDataPoint.totalRainFall
@@ -319,32 +358,79 @@ public class AverageData {
         tempWorkingAverageDataPoint.averageWindSpeed = 
                 tempWorkingAverageDataPoint.getAverageWindSpeed() / pointCount;
         
+        //Determine prevailing wind direction
+        tempWorkingAverageDataPoint.prevalingWindDirection 
+                = prevailingCounter.getPrevailingWind();
+        
         return tempWorkingAverageDataPoint;
     }
         
-        
+    /**
+     * Gets the Daily calculations for the given data set
+     * 
+     * @see CalculatedAverageWeatherData
+     * 
+     * @return dailyValues - list of CalculatedAverageWeatherData structure
+     */    
     public List<CalculatedAverageWeatherData> getDailyCalculations(){
         return dailyValues;
     }   
     
+    /**
+     * Gets the weekly calculations for the given data set
+     * 
+     * @see CalculatedAverageWeatherData
+     * 
+     * @return weeklyValues - list of CalculatedAverageWeatherData structure
+     */  
     public List<CalculatedAverageWeatherData> getWeeklyCalculations(){
         return weeklyValues;
     }
     
+    /**
+     * Gets the monthly calculations for the given data set
+     * 
+     * @see CalculatedAverageWeatherData
+     * 
+     * @return monthlyValues - list of CalculatedAverageWeatherData structure
+     */  
     public List<CalculatedAverageWeatherData> getMonthlyCalculations(){
         return monthlyValues;
     }
     
+    /**
+     * Gets the Yearly calculations for the given data set
+     * 
+     * @see CalculatedAverageWeatherData
+     * 
+     * @return yearlyValues - list of CalculatedAverageWeatherData structure
+     */  
     public List<CalculatedAverageWeatherData> getYearlyCalculations() {
         return yearlyValues;
     }
     
+    /**
+     * Takes in a data set of XmlWeatherDataPoint and calculates a
+     *  CalculatedAverageWeatherData structure
+     * 
+     * @see CalculatedAverageWeatherData
+     * 
+     * @return dailyValues - list of CalculatedAverageWeatherData structure
+     */  
     public CalculatedAverageWeatherData getAllDataValues(
             List<XmlWeatherDataPoint> passedInData) {
         allDataValues = (calculateAverageFromXmlWeatherDataPoints(passedInData));
         return allDataValues;
     }
     
+    /**
+     * CalculatedAverageWeatherData class that holds implemention for the
+     *  AverageWeatherData abstract class. The data stored here is the
+     *  calculated values for temperature, wind speed, wind direction, and
+     *  rainfall.
+     * 
+     * @see AverageWeatherData
+     */
     public class CalculatedAverageWeatherData implements AverageWeatherData {
         
         private double averageTemperature;
@@ -356,7 +442,7 @@ public class AverageData {
         private double totalRainFall;
         
         /**
-         *
+         * Constructor - initializes values incase anything is missing.
          */
         public CalculatedAverageWeatherData(){
             averageTemperature = 0;
@@ -403,4 +489,171 @@ public class AverageData {
             return this.totalRainFall;
         }
     }
+    
+    /**
+     * Class developed to handle prevailing wind directions for a set of data
+     * 
+     * @see WindDirection
+     * 
+     * @author Johnny Ackerman
+     */
+    public class WindDirectionCounter {
+        
+        int E, ENE, NEE, NE, NNE, N, NW, NWW, WNW, W, WSW, SWW, SW, SSW, S, SSE,
+                SE, SEE, ESE;
+
+        public WindDirectionCounter() {
+            reset();
+        }
+        
+        /**
+         * if the counter needs to be reset, places all counts down to 0
+         */
+        public void reset() {
+            this.ESE = 0;
+            this.SEE = 0;
+            this.SE = 0;
+            this.SSE = 0;
+            this.S = 0;
+            this.SSW = 0;
+            this.SW = 0;
+            this.SWW = 0;
+            this.WSW = 0;
+            this.W = 0;
+            this.WNW = 0;
+            this.NWW = 0;
+            this.NW = 0;
+            this.N = 0;
+            this.NNE = 0;
+            this.NE = 0;
+            this.NEE = 0;
+            this.ENE = 0;
+            this.E = 0;
+        }
+        
+        /**
+         * Increments the number of times any direction has been encountered
+         * 
+         * @see WindDirection
+         * 
+         * @param direction - direction being counted
+         */
+        public void count( WindDirection direction) {
+            switch (direction) {
+                case EAST:
+                    E++;
+                    break;
+                case EAST_NORTH_EAST:
+                    ENE++;
+                    break;
+                case NORTH_EAST_EAST:
+                    NEE++;
+                    break;
+                case NORTH_EAST:
+                    NE++;
+                    break;
+                case NORTH_NORTH_EAST:
+                    NNE++;
+                    break;
+                case NORTH:
+                    N++;
+                    break;
+                case NORTH_WEST:
+                    NW++;
+                    break;
+                case NORTH_WEST_WEST:
+                    NWW++;
+                    break;
+                case WEST_NORTH_WEST:
+                    WNW++;
+                    break;
+                case WEST:
+                    W++;
+                    break;
+                case WEST_SOUTH_WEST:
+                    WSW++;
+                    break;
+                case SOUTH_WEST_WEST:
+                    SWW++;
+                    break;
+                case SOUTH_WEST:
+                    SW++;
+                    break;
+                case SOUTH_SOUTH_WEST:
+                    SSW++;
+                    break;
+                case SOUTH:
+                    S++;
+                    break;
+                case SOUTH_SOUTH_EAST:
+                    SSE++;
+                    break;
+                case SOUTH_EAST:
+                    SE++;
+                    break;
+                case SOUTH_EAST_EAST:
+                    SEE++;
+                    break;
+                case EAST_SOUTH_EAST:
+                    ESE++;
+                    break;
+                default:
+                    break;
+        
+            }
+        } 
+        
+        /**
+         * determines which direction was encountered the most
+         * 
+         * @see WindDirection
+         * 
+         * @return returns the prevalent WindDirection
+         */
+        public WindDirection getPrevailingWind() {
+            int max = -2953838;
+            if (max < E) max = E;
+            if (max < ENE) max = ENE;
+            if (max < NEE) max = NEE;
+            if (max < NE) max = NE;
+            if (max < NNE) max = NNE;
+            if (max < N) max = N;
+            if (max < NNE) max = NNE;
+            if (max < NW) max = NW;
+            if (max < NWW) max = NWW;
+            if (max < WNW) max = WNW;
+            if (max < W) max = W;
+            if (max < WSW) max = WSW;
+            if (max < SWW) max = SWW;
+            if (max < SW) max = SW;
+            if (max < SSW) max = SSW;
+            if (max < S) max = S;
+            if (max < SSE) max = SSE;
+            if (max < SE) max = SE;
+            if (max < SEE) max = SEE;
+            if (max < ESE) max = ESE;
+            
+            if (max == E)  return EAST;
+            if (max == ENE) return EAST_NORTH_EAST;
+            if (max == NEE) return NORTH_EAST_EAST;
+            if (max == NE)  return NORTH_EAST;
+            if (max == NNE) return NORTH_NORTH_EAST;
+            if (max == N)   return NORTH;
+            if (max == NNE) return NORTH_NORTH_EAST;
+            if (max == NW) return NORTH_WEST;
+            if (max == NWW) return NORTH_WEST_WEST;
+            if (max == WNW) return WEST_NORTH_WEST;
+            if (max == W)   return WEST;
+            if (max == WSW) return WEST_SOUTH_WEST;
+            if (max == SWW) return SOUTH_WEST_WEST;
+            if (max == SW)  return SOUTH_WEST;
+            if (max == SSW) return SOUTH_SOUTH_WEST;
+            if (max == S)   return SOUTH;
+            if (max == SSE) return SOUTH_SOUTH_EAST;
+            if (max == SE)  return SOUTH_EAST;
+            if (max == SEE) return SOUTH_EAST_EAST;
+            if (max == ESE) return EAST_SOUTH_EAST;
+            return null;
+        }
+    }        
 }
