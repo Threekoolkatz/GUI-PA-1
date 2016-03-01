@@ -83,12 +83,12 @@ public enum WindDirection {
      * 
      * @return stringDirection - stored string representation
      */
-    public String getValue() {
+    public String getStringValue() {
         return stringDirection;
     }
     
     @Override
     public String toString(){
-        return this.getValue();
+        return this.getStringValue();
     }
 }
