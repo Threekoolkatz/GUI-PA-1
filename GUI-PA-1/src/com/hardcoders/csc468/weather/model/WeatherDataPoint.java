@@ -227,10 +227,13 @@ public interface WeatherDataPoint {
             // point in the center
             if (lowerBound == null
                     || upperBound == null
-                    || getDomainPosition() == null
-                    || lowerBound == upperBound) {
+                    || getDomainPosition() == null) {
                 
-                return 0.5;
+                return null;
+            } else if (lowerBound.doubleValue() == upperBound.doubleValue()) {
+                if (getDomainPosition() < lowerBound) return -1.0;
+                else if (getDomainPosition() > lowerBound) return 2.0;
+                else return 0.5;
             }
             
             // Calculate the percentage position across the domain
@@ -268,10 +271,13 @@ public interface WeatherDataPoint {
             // point in the center.
             if (lowerBound == null
                     || upperBound == null
-                    || getRangeValue() == null
-                    || upperBound == lowerBound) {
+                    || getRangeValue() == null) {
                 
-                return 0.5;
+                return null;
+            } else if (lowerBound.doubleValue() == upperBound.doubleValue()) {
+                if (getRangeValue() < lowerBound) return -1.0;
+                else if (getRangeValue() > lowerBound) return 2.0;
+                else return 0.5;
             }
             
             // Calculate the percentage position across the range

@@ -208,7 +208,7 @@ public class LineGraph<DomainType extends Comparable, RangeType extends Comparab
                 
                 // Search lower half
                 domainTop = domainMid - 1;
-            } else if (domainScale < 1.0) {
+            } else {
                 
                 // Search upper half
                 domainBottom = domainMid + 1;
@@ -231,7 +231,7 @@ public class LineGraph<DomainType extends Comparable, RangeType extends Comparab
                 
                 // Search lower half
                 domainTop = domainMid - 1;
-            } else if (domainScale < 0.0) {
+            } else {
                 
                 // Search upper half
                 domainBottom = domainMid + 1;
