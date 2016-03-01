@@ -696,6 +696,13 @@ public class WeathermanWindow extends javax.swing.JFrame {
         lineGraph.repaint();
     }//GEN-LAST:event_heatButtonActionPerformed
 
+    /**
+     * @Author Mack Smith
+     * 
+     * Changes the graph scale to one month based on the date in the left spinner
+     * 
+     * @param evt 
+     */
     private void dayTabActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dayTabActionPerformed
         // TODO add your handling code here:
           DateFormat date = new SimpleDateFormat("dd-MM-yyyy");
@@ -721,9 +728,16 @@ public class WeathermanWindow extends javax.swing.JFrame {
           lineGraph.repaint();
     }//GEN-LAST:event_dayTabActionPerformed
 
+    /**
+     * @Author Mack Smith
+     * 
+     * Changes the graph scale to one month based on the date in the left spinner
+     * 
+     * @param evt 
+     */
     private void monthTabActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_monthTabActionPerformed
         // TODO add your handling code here:
-                  DateFormat date = new SimpleDateFormat("dd-MM-yyyy");
+          DateFormat date = new SimpleDateFormat("dd-MM-yyyy");
           String low = date.format(startDate.getValue());
           Calendar min = Calendar.getInstance();
 
@@ -746,24 +760,34 @@ public class WeathermanWindow extends javax.swing.JFrame {
           lineGraph.repaint();
     }//GEN-LAST:event_monthTabActionPerformed
 
+    
+    /**
+     * Author:  Mack Smith
+     * 
+     * Changes graph scale to yearly based on the initial date in the left spinner
+    */
     private void yearTabActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_yearTabActionPerformed
         // TODO add your handling code here:
-                  DateFormat date = new SimpleDateFormat("dd-MM-yyyy");
+        // needed to format the object returned from the spinner data
+          DateFormat date = new SimpleDateFormat("dd-MM-yyyy");
           String low = date.format(startDate.getValue());
           Calendar min = Calendar.getInstance();
 
           Date temp = null;
-          
+        // parsing the string from the spinner, NetBeans complained without the try catch block
         try {
             temp = date.parse(low);
         } catch (ParseException ex) {
             Logger.getLogger(WeathermanWindow.class.getName()).log(Level.SEVERE, null, ex);
         }
         
+          // set the calendar to the parsed date
           min.setTime(temp);          
           
+          // add a year to the calendar
           min.add(Calendar.YEAR, 1);
 
+          // cast the calendar to a double by using the getTimeInMillis and redraw
           double newLow = 0;
           newLow = (double) min.getTimeInMillis();
           lineGraph.setDomainUpperBound(newLow);
