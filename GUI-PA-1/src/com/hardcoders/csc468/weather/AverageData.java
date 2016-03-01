@@ -2,7 +2,6 @@ package com.hardcoders.csc468.weather;
 
 import com.hardcoders.csc468.weather.XMLImport.XmlWeatherDataPoint;
 import com.hardcoders.csc468.weather.model.AverageWeatherData;
-import com.hardcoders.csc468.weather.model.WindDirection;
 import static com.hardcoders.csc468.weather.model.WindDirection.*;
 import com.hardcoders.csc468.weather.model.WindDirection;
 import java.util.ArrayList;
@@ -20,16 +19,16 @@ public class AverageData {
     private List<XmlWeatherDataPoint> currentDataPoints;
     
     //List of all daily calculations
-    private List<CalculatedAverageWeatherData> dailyValues;
+    private final List<CalculatedAverageWeatherData> dailyValues;
     
     //List of all weekly calculations
-    private List<CalculatedAverageWeatherData> weeklyValues;
+    private final List<CalculatedAverageWeatherData> weeklyValues;
     
     //List of all monthly calculations
-    private List<CalculatedAverageWeatherData> monthlyValues;
+    private final List<CalculatedAverageWeatherData> monthlyValues;
     
     //List of all yearly Calculations
-    private List<CalculatedAverageWeatherData> yearlyValues;
+    private final List<CalculatedAverageWeatherData> yearlyValues;
     
     //Calculation off all data values
     private CalculatedAverageWeatherData allDataValues;
@@ -259,7 +258,20 @@ public class AverageData {
         
         return tempWorkingAverageDataPoint;
     }
-        
+       
+    /**
+     * calculateAverageCalculatedAverageWeatherData - takes an 
+     *  CalculatedAverageWeatherData point List and calculates the needed 
+     *  information ( average temperature, high/low temperature, average wind 
+     *  speed, max wind gust, prevailing wind direction and total rainfall.
+     *  Then stores that data in a CalculatedAverageWeatherData class
+     * 
+     * @see CalculatedAverageWeatherData
+     * 
+     * @param workingList-CalculatedAverageWeatherData list being worked on
+     * @return tempWorkingAverageDataPoint - 
+     *      filled in CalculatedAverageWeatherData class structure
+     */
     private CalculatedAverageWeatherData 
         calculateAverageCalculatedAverageWeatherData(
                 List<CalculatedAverageWeatherData> workingList )
@@ -337,29 +349,72 @@ public class AverageData {
         return tempWorkingAverageDataPoint;
     }
         
-        
+    /**
+     * Gets the Daily calculations for the given data set
+     * 
+     * @see CalculatedAverageWeatherData
+     * 
+     * @return dailyValues - list of CalculatedAverageWeatherData structure
+     */    
     public List<CalculatedAverageWeatherData> getDailyCalculations(){
         return dailyValues;
     }   
     
+    /**
+     * Gets the weekly calculations for the given data set
+     * 
+     * @see CalculatedAverageWeatherData
+     * 
+     * @return weeklyValues - list of CalculatedAverageWeatherData structure
+     */  
     public List<CalculatedAverageWeatherData> getWeeklyCalculations(){
         return weeklyValues;
     }
     
+    /**
+     * Gets the monthly calculations for the given data set
+     * 
+     * @see CalculatedAverageWeatherData
+     * 
+     * @return monthlyValues - list of CalculatedAverageWeatherData structure
+     */  
     public List<CalculatedAverageWeatherData> getMonthlyCalculations(){
         return monthlyValues;
     }
     
+    /**
+     * Gets the Yearly calculations for the given data set
+     * 
+     * @see CalculatedAverageWeatherData
+     * 
+     * @return yearlyValues - list of CalculatedAverageWeatherData structure
+     */  
     public List<CalculatedAverageWeatherData> getYearlyCalculations() {
         return yearlyValues;
     }
     
+    /**
+     * Takes in a data set of XmlWeatherDataPoint and calculates a
+     *  CalculatedAverageWeatherData structure
+     * 
+     * @see CalculatedAverageWeatherData
+     * 
+     * @return dailyValues - list of CalculatedAverageWeatherData structure
+     */  
     public CalculatedAverageWeatherData getAllDataValues(
             List<XmlWeatherDataPoint> passedInData) {
         allDataValues = (calculateAverageFromXmlWeatherDataPoints(passedInData));
         return allDataValues;
     }
     
+    /**
+     * CalculatedAverageWeatherData class that holds implemention for the
+     *  AverageWeatherData abstract class. The data stored here is the
+     *  calculated values for temperature, wind speed, wind direction, and
+     *  rainfall.
+     * 
+     * @see AverageWeatherData
+     */
     public class CalculatedAverageWeatherData implements AverageWeatherData {
         
         private double averageTemperature;
