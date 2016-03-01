@@ -188,6 +188,13 @@ public class WeathermanWindow extends javax.swing.JFrame {
         dayTab = new javax.swing.JRadioButton();
         monthTab = new javax.swing.JRadioButton();
         yearTab = new javax.swing.JRadioButton();
+        averageTempLabel = new javax.swing.JLabel();
+        highTempLabel = new javax.swing.JLabel();
+        lowTempLabel = new javax.swing.JLabel();
+        maxWindSpeedLabel = new javax.swing.JLabel();
+        prevailingWindLabel = new javax.swing.JLabel();
+        totalRainfallLabel = new javax.swing.JLabel();
+        averageWindSpeedLabel = new javax.swing.JLabel();
         menuBar = new javax.swing.JMenuBar();
         fileMenu = new javax.swing.JMenu();
         openMenuItem = new javax.swing.JMenuItem();
@@ -371,6 +378,20 @@ public class WeathermanWindow extends javax.swing.JFrame {
             }
         });
 
+        averageTempLabel.setText("Average Temperature");
+
+        highTempLabel.setText("High Temperature");
+
+        lowTempLabel.setText("Low Temperature");
+
+        maxWindSpeedLabel.setText("Maximum Wind Speed");
+
+        prevailingWindLabel.setText("Prevailing Wind Direction");
+
+        totalRainfallLabel.setText("Rainfall");
+
+        averageWindSpeedLabel.setText("Mean Wind Speed");
+
         fileMenu.setText("File");
         fileMenu.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -415,7 +436,14 @@ public class WeathermanWindow extends javax.swing.JFrame {
                             .addComponent(rainfallLabel)
                             .addComponent(pressureLabel)
                             .addComponent(uvLabel)
-                            .addComponent(heatLabel))
+                            .addComponent(heatLabel)
+                            .addComponent(averageTempLabel)
+                            .addComponent(highTempLabel)
+                            .addComponent(lowTempLabel)
+                            .addComponent(maxWindSpeedLabel)
+                            .addComponent(prevailingWindLabel)
+                            .addComponent(totalRainfallLabel)
+                            .addComponent(averageWindSpeedLabel))
                         .addGap(37, 37, 37)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(heatVal)
@@ -443,7 +471,7 @@ public class WeathermanWindow extends javax.swing.JFrame {
                         .addComponent(monthTab)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(yearTab)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 45, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(uvButton)
                     .addGroup(layout.createSequentialGroup()
@@ -462,7 +490,7 @@ public class WeathermanWindow extends javax.swing.JFrame {
                         .addComponent(pressureButton)
                         .addGap(40, 40, 40)
                         .addComponent(heatButton)))
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addComponent(lineGraph, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
@@ -508,28 +536,36 @@ public class WeathermanWindow extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(heatLabel)
                             .addComponent(heatVal))
-                        .addGap(10, 10, 10))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(averageTempLabel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(highTempLabel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lowTempLabel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(averageWindSpeedLabel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(maxWindSpeedLabel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(prevailingWindLabel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(totalRainfallLabel))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(dayTab)
+                        .addComponent(monthTab)
+                        .addComponent(yearTab))
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(temperatureButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(windSpeedButton)))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(dayTab)
-                                    .addComponent(monthTab)
-                                    .addComponent(yearTab))
-                                .addGap(0, 0, Short.MAX_VALUE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(temperatureButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(windSpeedButton))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(windGustButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(humidityButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(humidityButton))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(rainfallButton)
                             .addComponent(windChillButton))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(pressureButton)
                             .addComponent(heatButton))
@@ -854,6 +890,8 @@ public class WeathermanWindow extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel averageTempLabel;
+    private javax.swing.JLabel averageWindSpeedLabel;
     private javax.swing.JLabel chillLabel;
     private javax.swing.JLabel chillVal;
     private javax.swing.ButtonGroup dataOptions;
@@ -867,10 +905,13 @@ public class WeathermanWindow extends javax.swing.JFrame {
     private javax.swing.JRadioButton heatButton;
     private javax.swing.JLabel heatLabel;
     private javax.swing.JLabel heatVal;
+    private javax.swing.JLabel highTempLabel;
     private javax.swing.JRadioButton humidityButton;
     private javax.swing.JLabel humidityLabel;
     private javax.swing.JLabel humidityVal;
     private com.hardcoders.csc468.weather.WeathermanLineGraph lineGraph;
+    private javax.swing.JLabel lowTempLabel;
+    private javax.swing.JLabel maxWindSpeedLabel;
     private javax.swing.JMenuBar menuBar;
     private javax.swing.JMenuItem menuQuit;
     private javax.swing.JRadioButton monthTab;
@@ -878,6 +919,7 @@ public class WeathermanWindow extends javax.swing.JFrame {
     private javax.swing.JRadioButton pressureButton;
     private javax.swing.JLabel pressureLabel;
     private javax.swing.JLabel pressureVal;
+    private javax.swing.JLabel prevailingWindLabel;
     private javax.swing.JRadioButton rainfallButton;
     private javax.swing.JLabel rainfallLabel;
     private javax.swing.JLabel rainfallVal;
@@ -887,6 +929,7 @@ public class WeathermanWindow extends javax.swing.JFrame {
     private javax.swing.JLabel tempLabel;
     private javax.swing.JLabel tempVal;
     private javax.swing.JRadioButton temperatureButton;
+    private javax.swing.JLabel totalRainfallLabel;
     private javax.swing.JRadioButton uvButton;
     private javax.swing.JLabel uvLabel;
     private javax.swing.JLabel uvVal;
