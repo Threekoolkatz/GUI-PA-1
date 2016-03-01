@@ -3,6 +3,7 @@ package com.hardcoders.csc468.weather;
 import com.hardcoders.csc468.weather.graph.DataPoint;
 import com.hardcoders.csc468.weather.graph.RealInteractiveLineGraph;
 import com.hardcoders.csc468.weather.model.WeatherDataPoint;
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
@@ -555,5 +556,55 @@ public class WeathermanLineGraph extends RealInteractiveLineGraph {
                 }
             }
         }
+    }
+    
+    @Override
+    public void paintLabels(Graphics g) {
+        super.paintLabels(g);
+        
+        paintRangeLabels(g);
+        paintDomainLabels(g);
+    }
+    
+    private void paintRangeLabels(Graphics g) {
+        
+        if (getRangeLowerBound() == null || getRangeUpperBound() == null) {
+            return;
+        }
+        
+        g.setColor(Color.GRAY);
+        
+        final double increment;
+        final double lowerBound = getRangeLowerBound();
+        final double upperBound = getRangeUpperBound();
+        final double rangeHeight = upperBound - lowerBound;
+        final int    maxDensity = getHeight() / 25;
+        
+        // Choose a label increment size
+        if (rangeHeight / 10.0 < 1.0) {
+            double temp;
+            for (temp = 1.0; temp >= rangeHeight / maxDensity; temp /= 2);
+            increment = temp * 2;
+        } else {
+            double temp;
+            boolean b = true;
+            for (temp = 1.0; temp <= rangeHeight / maxDensity; temp *= (b ? 5 : 2)) {
+                b = !b;
+            }
+            increment = temp;
+        }
+        
+        for (double v = Math.floor(lowerBound / increment) * increment;
+                v < upperBound; v += increment) {
+            int y = (int) ((1.0 - ((v - lowerBound) / rangeHeight)) * getHeight());
+            g.drawLine(0, y, getWidth(), y);
+            
+            String label = String.valueOf(v);
+            g.drawChars(label.toCharArray(), 0, label.length(), 3, y - 2);
+        }
+    }
+    
+    private void paintDomainLabels(Graphics g) {
+        
     }
 }

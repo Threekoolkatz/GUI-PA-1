@@ -308,7 +308,8 @@ public class WeathermanWindow extends javax.swing.JFrame {
 
         tempLabel.setText("Temperature");
 
-        lineGraph.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 5));
+        lineGraph.setBackground(new java.awt.Color(255, 255, 255));
+        lineGraph.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
 
         endDate.setModel(new javax.swing.SpinnerDateModel());
         endDate.setToolTipText("End date");
