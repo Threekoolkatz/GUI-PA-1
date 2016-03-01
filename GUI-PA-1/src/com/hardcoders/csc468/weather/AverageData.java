@@ -539,6 +539,9 @@ public class AverageData {
          * @param direction - direction being counted
          */
         public void count( WindDirection direction) {
+            if( direction == null ){
+                return;
+            }
             switch (direction) {
                 case EAST:
                     E++;
