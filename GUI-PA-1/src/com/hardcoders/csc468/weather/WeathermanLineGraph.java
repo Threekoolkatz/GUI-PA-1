@@ -11,6 +11,10 @@ import java.util.Collections;
 import java.util.List;
 
 /**
+ * Handles the Line Graph. Uses multiple listeners to update the graph
+ *  whenever a change occurs. Also allows for clicking on the graph to show
+ *  data for a given point, as well as displaying tool tips.
+ * 
  * @author Daniel Andrus <daniel.andrus@mines.sdsmt.edu>
  */
 public class WeathermanLineGraph extends RealInteractiveLineGraph {
@@ -42,6 +46,9 @@ public class WeathermanLineGraph extends RealInteractiveLineGraph {
     private WeatherDataPoint highlightedDataPoint;
     private boolean isDragging;
     
+    /**
+     * Initializes needed graph data
+     */
     public WeathermanLineGraph() {
         super();
         
@@ -70,12 +77,21 @@ public class WeathermanLineGraph extends RealInteractiveLineGraph {
         isDragging = false;
     }
     
+    /**
+     * Adds the information of a single dataPoint to the graph
+     * @param dataPoint 
+     */
     public void addWeatherDataPoint(WeatherDataPoint dataPoint) {
         if (dataPoint == null) return;
         
         addWeatherDataPoints(Collections.singleton(dataPoint));
     }
     
+    /**
+     * Takes a list of dataPoints and registers their data to the graph.
+     * 
+     * @param dataPoints 
+     */
     public void addWeatherDataPoints(Collection<? extends WeatherDataPoint> dataPoints) {
         if (dataPoints == null || dataPoints.isEmpty()) {
             return;
@@ -104,6 +120,11 @@ public class WeathermanLineGraph extends RealInteractiveLineGraph {
         forceRedrawLater();
     }
     
+    /**
+     * Registers a single field to the graph for display
+     * @param FIELD
+     * @param adapter 
+     */
     private void registerDataAdapter(final int FIELD, WeatherDataPoint.DoubleDataPointAdapter adapter) {
         double value = adapter.getRangeValue();
         
@@ -112,46 +133,83 @@ public class WeathermanLineGraph extends RealInteractiveLineGraph {
         if (rangeMaxValue[FIELD] == null || value > rangeMaxValue[FIELD]) rangeMaxValue[FIELD] = value;
     }
     
+    /**
+     * returns the information at the currently selected data point.
+     * 
+     * @return 
+     */
     public WeatherDataPoint getSelectedDataPoint() {
         return selectedDataPoint;
     }
     
+    /**
+     * Displays the data related to temperature
+     */
     public void showTemperatureData() {
         setActiveField(FIELD_TEMPERATURE);
     }
     
+    /**
+     * Displays the data related to humidity
+     */
     public void showHumidityData() {
         setActiveField(FIELD_HUMIDITY);
     }
     
+    /**
+     * Displays the data related to barometric pressure
+     */
     public void showPressureData() {
         setActiveField(FIELD_PRESSURE);
     }
     
+    /**
+     * Displays the data related to Wind Speed
+     */
     public void showWindSpeedData() {
         setActiveField(FIELD_WIND_SPEED);
     }
     
+    /**
+     * Displays the data related to wind gusts
+     */
     public void showWindGustData() {
         setActiveField(FIELD_WIND_GUST);
     }
     
+    /**
+     * Displays the data related to wind chill
+     */
     public void showWindChillData() {
         setActiveField(FIELD_WIND_CHILL);
     }
     
+    /**
+     * Displays the data related to the heat index
+     */
     public void showHeatIndexData() {
         setActiveField(FIELD_HEAT_INDEX);
     }
     
+    /**
+     * Displays the data related to the UV index
+     */
     public void showUVIndexData() {
         setActiveField(FIELD_UV_INDEX);
     }
     
+    /**
+     * Displays the data related to rainfall
+     */
     public void showPercipitationData() {
         setActiveField(FIELD_PERCIPITATION);
     }
     
+    /**
+     * Changes the graph to display any data related to the passed in field
+     * 
+     * @param FIELD 
+     */
     private void setActiveField(final int FIELD) {
         
         // Short circuit if attempting to switch to currently active field
@@ -167,6 +225,11 @@ public class WeathermanLineGraph extends RealInteractiveLineGraph {
         forceRedrawLater();
     }
     
+    /**
+     * returns the currently active field
+     * 
+     * @return activeField
+     */
     private int getActiveField() {
         return activeField;
     }
@@ -294,6 +357,16 @@ public class WeathermanLineGraph extends RealInteractiveLineGraph {
         updateHighlightedDataPoint(e.getX());
     }
     
+    /**
+     * Handles mouse click events. If mouse click is dragged, it passes
+     *  it to a different handler. Otherwise, it searches for the nearest point
+     *  on the graph in relation to the click, and passes that information to
+     *  the other display handlers.
+     * 
+     * @see WeathermanWindow
+     * 
+     * @param mouseX 
+     */
     private void updateHighlightedDataPoint(int mouseX) {
         
         // Completely dispell highlighted data point if dragging
