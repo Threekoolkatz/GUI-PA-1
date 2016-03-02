@@ -145,7 +145,8 @@ public class XMLImport{
      * 
      * @see WeatherDataPoint
      */
-    public class XmlWeatherDataPoint implements WeatherDataPoint {
+    public class XmlWeatherDataPoint implements WeatherDataPoint, 
+            Comparable<XmlWeatherDataPoint>  {
         private Date          timestamp;
         private Double        temperature;
         private Double        humidity;
@@ -371,6 +372,11 @@ public class XMLImport{
          */
         private void setPercipitation(Double percipitation) {
             this.rainFall = percipitation;
+        }
+
+        @Override
+        public int compareTo(XmlWeatherDataPoint o) {
+            return this.getTimestamp().compareTo(o.getTimestamp());
         }
     }
 }

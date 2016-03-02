@@ -218,21 +218,25 @@ public class AverageData {
         //Find high/low with date/time occurrence
         
             //check if current high point is higher than workingPoint
-            if((tempWorkingAverageDataPoint.getHighTemperature() == null) ||
-                    (tempWorkingAverageDataPoint.getHighTemperature().getTemperature() 
-                    < workingPoint.getTemperature()))
+            if( workingPoint.getTemperature() != null )
             {
-                if( workingPoint.getTemperature() != null )
+                if((tempWorkingAverageDataPoint.getHighTemperature() == null) ||
+                        (tempWorkingAverageDataPoint.getHighTemperature().getTemperature() 
+                        < workingPoint.getTemperature()))
+                {
                     tempWorkingAverageDataPoint.highTempPoint = workingPoint;
+                }
             }
             
             //check if current low point is less than workingPoint
-            if((tempWorkingAverageDataPoint.getLowTemperature() == null) ||
-                    (tempWorkingAverageDataPoint.getLowTemperature().getTemperature() 
-                    > workingPoint.getTemperature()))
+            if( workingPoint.getTemperature() != null )
             {
-                if( workingPoint.getTemperature() != null )
+                if((tempWorkingAverageDataPoint.getLowTemperature() == null) ||
+                        (tempWorkingAverageDataPoint.getLowTemperature().getTemperature() 
+                        > workingPoint.getTemperature()))
+                {
                     tempWorkingAverageDataPoint.lowTempPoint = workingPoint;
+                }
             }
             
         //Collect windspeed
@@ -243,12 +247,14 @@ public class AverageData {
             }
         
         //Find max windGust with date/time occurrence
-            if((tempWorkingAverageDataPoint.getMaxWindGust() == null) ||
-                    (tempWorkingAverageDataPoint.getMaxWindGust().getWindGust()
-                    < workingPoint.getWindGust()))
+            if( workingPoint.getWindGust() != null )
             {
-                if( workingPoint.getTemperature() != null )
+                if((tempWorkingAverageDataPoint.getMaxWindGust() == null) ||
+                        (tempWorkingAverageDataPoint.getMaxWindGust().getWindGust()
+                        < workingPoint.getWindGust()))
+                {
                     tempWorkingAverageDataPoint.maxWindGustPoint = workingPoint;
+                }
             }
         
         //count up prevailing wind direction
