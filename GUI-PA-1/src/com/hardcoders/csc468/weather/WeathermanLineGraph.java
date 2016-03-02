@@ -3,9 +3,12 @@ package com.hardcoders.csc468.weather;
 import com.hardcoders.csc468.weather.graph.DataPoint;
 import com.hardcoders.csc468.weather.graph.RealInteractiveLineGraph;
 import com.hardcoders.csc468.weather.model.WeatherDataPoint;
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.event.MouseEvent;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
@@ -126,11 +129,11 @@ public class WeathermanLineGraph extends RealInteractiveLineGraph {
      * @param adapter 
      */
     private void registerDataAdapter(final int FIELD, WeatherDataPoint.DoubleDataPointAdapter adapter) {
-        double value = adapter.getRangeValue();
+        Double value = adapter.getRangeValue();
         
         dataAdapters[FIELD].add(adapter);
-        if (rangeMinValue[FIELD] == null || value < rangeMinValue[FIELD]) rangeMinValue[FIELD] = value;
-        if (rangeMaxValue[FIELD] == null || value > rangeMaxValue[FIELD]) rangeMaxValue[FIELD] = value;
+        if (value != null && (rangeMinValue[FIELD] == null || value < rangeMinValue[FIELD])) rangeMinValue[FIELD] = value;
+        if (value != null && (rangeMaxValue[FIELD] == null || value > rangeMaxValue[FIELD])) rangeMaxValue[FIELD] = value;
     }
     
     /**
@@ -326,6 +329,23 @@ public class WeathermanLineGraph extends RealInteractiveLineGraph {
         rangeUpperBound[getActiveField()] = bound;
     }
     
+    @Override
+    public Double getDomainMinValue() {
+        return domainMinValue;
+    }
+    @Override
+    public Double getDomainMaxValue() {
+        return domainMaxValue;
+    }
+    @Override
+    public Double getRangeMinValue() {
+        return rangeMinValue[getActiveField()];
+    }
+    @Override
+    public Double getRangeMaxValue() {
+        return rangeMaxValue[getActiveField()];
+    }
+    
     
     @Override
     public void mouseClicked(MouseEvent e) {
@@ -489,9 +509,11 @@ public class WeathermanLineGraph extends RealInteractiveLineGraph {
         
         // Only mark point as highlighted if it is visible
         if (highlightedAdapter != null) {
-            double pDomain = highlightedAdapter.getDomainPercentage(domainLowerBound, domainUpperBound);
-            double pRange  = highlightedAdapter.getRangePercentage(getRangeLowerBound(), getRangeUpperBound());
-            if (pDomain < 0.0 || pDomain > 1.0 || pRange < 0.0 || pRange > 1.0) {
+            Double pDomain = highlightedAdapter.getDomainPercentage(domainLowerBound, domainUpperBound);
+            Double pRange  = highlightedAdapter.getRangePercentage(getRangeLowerBound(), getRangeUpperBound());
+            if (pDomain == null || pDomain < 0.0 || pDomain > 1.0
+                    || pRange == null || pRange < 0.0 || pRange > 1.0) {
+                
                 highlightedAdapter = null;
             }
         }
@@ -566,6 +588,186 @@ public class WeathermanLineGraph extends RealInteractiveLineGraph {
                 if (i == 0) {
                     g.drawOval(x - 4, y - 4, 8, 8);
                 }
+            }
+        }
+    }
+    
+    @Override
+    public void paintLabels(Graphics g) {
+        super.paintLabels(g);
+        
+        paintRangeLabels(g);
+        paintDomainLabels(g);
+    }
+    
+    private void paintRangeLabels(Graphics g) {
+        
+        if (getRangeLowerBound() == null || getRangeUpperBound() == null) {
+            return;
+        }
+        
+        g.setColor(Color.GRAY);
+        
+        final double increment;
+        final double lowerBound = getRangeLowerBound();
+        final double upperBound = getRangeUpperBound();
+        final double rangeHeight = upperBound - lowerBound;
+        final int    maxDensity = getHeight() / 25;
+        
+        // Choose a label increment size
+        if (rangeHeight / 10.0 < 1.0) {
+            double temp;
+            for (temp = 1.0; temp >= rangeHeight / maxDensity; temp /= 2);
+            increment = temp * 2;
+        } else {
+            double temp;
+            boolean b = true;
+            for (temp = 1.0; temp <= rangeHeight / maxDensity; temp *= (b ? 5 : 2)) {
+                b = !b;
+            }
+            increment = temp;
+        }
+        
+        for (double v = Math.floor(lowerBound / increment) * increment;
+                v < upperBound; v += increment) {
+            int y = (int) ((1.0 - ((v - lowerBound) / rangeHeight)) * getHeight());
+            g.drawLine(0, y, getWidth(), y);
+            
+            String label = String.valueOf(v);
+            g.drawChars(label.toCharArray(), 0, label.length(), 3, y - 2);
+        }
+    }
+    
+    private void paintDomainLabels(Graphics g) {
+        
+        if (getDomainLowerBound() == null || getDomainUpperBound() == null) {
+            return;
+        }
+        
+        g.setColor(Color.GRAY);
+        
+        final int    increment;
+        final double lowerBound = getDomainLowerBound();
+        final double upperBound = getDomainUpperBound();
+        final double domainWidth = upperBound - lowerBound;
+        final int    maxDensity = getWidth() / 75;
+        
+        // choose encrement type
+        if (maxDensity > domainWidth / 1000.0) { // seconds
+            increment = 0;
+        } else if (maxDensity > domainWidth / (1000.0 * 10)) { // 10 seconds
+            increment = 1;
+        } else if (maxDensity > domainWidth / (1000.0 * 30)) { // half minutes
+            increment = 2;
+        } else if (maxDensity > domainWidth / (1000.0 * 60)) { // minutes
+            increment = 3;
+        } else if (maxDensity > domainWidth / (1000.0 * 60 * 5)) { // 5 minutes
+            increment = 4;
+        } else if (maxDensity > domainWidth / (1000.0 * 60 * 15)) { // quarter hours
+            increment = 5;
+        } else if (maxDensity > domainWidth / (1000.0 * 60 * 30)) { // half hours
+            increment = 6;
+        } else if (maxDensity > domainWidth / (1000.0 * 60 * 60)) { // hours
+            increment = 7;
+        } else if (maxDensity > domainWidth / (1000.0 * 60 * 60 * 6)) { // quarter days
+            increment = 8;
+        } else if (maxDensity > domainWidth / (1000.0 * 60 * 60 * 12)) { // half days
+            increment = 9;
+        } else if (maxDensity > domainWidth / (1000.0 * 60 * 60 * 24)) { // days
+            increment = 10;
+        } else if (maxDensity > domainWidth / (1000.0 * 60 * 60 * 24 * 7)) { // weeks
+            increment = 11;
+        } else if (maxDensity > domainWidth / (1000.0 * 60 * 60 * 24 * 31)) { // months
+            increment = 12;
+        } else if (maxDensity > domainWidth / (1000.0 * 60 * 60 * 24 * 30 * 6)) { // half years
+            increment = 13;
+        } else if (maxDensity > domainWidth / (1000.0 * 60 * 60 * 24 * 365)) { // years
+            increment = 14;
+        } else if (maxDensity > domainWidth / (1000.0 * 60 * 60 * 24 * 365 * 2)) { // 2 years
+            increment = 15;
+        } else { // decades
+            increment = 16;
+        }
+        
+        // initialize lower bound
+        Calendar c = Calendar.getInstance();
+        c.setTimeInMillis((long) lowerBound);
+        c.set(Calendar.MILLISECOND, 0);
+        if (increment >= 1) c.set(Calendar.SECOND, 0);
+        if (increment >= 4) c.set(Calendar.MINUTE, 0);
+        if (increment >= 8) c.set(Calendar.HOUR_OF_DAY, 0);
+        if (increment == 11) c.set(Calendar.DAY_OF_WEEK, 0);
+        if (increment >= 12) c.set(Calendar.DAY_OF_MONTH, 0);
+        if (increment >= 13) c.set(Calendar.MONTH, 0);
+        if (increment >= 15) c.add(Calendar.YEAR, -(c.get(Calendar.YEAR) % 2));
+        if (increment >= 16) c.add(Calendar.YEAR, -(c.get(Calendar.YEAR) % 10));
+        
+        SimpleDateFormat date = new SimpleDateFormat("MMM d, yyyy");
+        SimpleDateFormat time = new SimpleDateFormat("h:mm:ss a");
+        
+        while (c.getTimeInMillis() < upperBound) {
+            int x = (int) (((c.getTimeInMillis() - lowerBound) / domainWidth) * getWidth());
+            g.drawLine(x, 0, x, getHeight());
+            
+            String l = date.format(c.getTime());
+            g.drawChars(l.toCharArray(), 0, l.length(), x + 3, getHeight() - 18);
+            l = time.format(c.getTime());
+            g.drawChars(l.toCharArray(), 0, l.length(), x + 3, getHeight() - 3);
+            
+            // Move label up
+            switch (increment) {
+                case 0:
+                    c.add(Calendar.SECOND, 1);
+                    break;
+                case 1:
+                    c.add(Calendar.SECOND, 10);
+                    break;
+                case 2:
+                    c.add(Calendar.SECOND, 30);
+                    break;
+                case 3:
+                    c.add(Calendar.MINUTE, 1);
+                    break;
+                case 4:
+                    c.add(Calendar.MINUTE, 5);
+                    break;
+                case 5:
+                    c.add(Calendar.MINUTE, 15);
+                    break;
+                case 6:
+                    c.add(Calendar.MINUTE, 30);
+                    break;
+                case 7:
+                    c.add(Calendar.HOUR, 1);
+                    break;
+                case 8:
+                    c.add(Calendar.HOUR, 6);
+                    break;
+                case 9:
+                    c.add(Calendar.HOUR, 12);
+                    break;
+                case 10:
+                    c.add(Calendar.DATE, 1);
+                    break;
+                case 11:
+                    c.add(Calendar.DATE, 7);
+                    break;
+                case 12:
+                    c.add(Calendar.MONTH, 1);
+                    break;
+                case 13:
+                    c.add(Calendar.MONTH, 6);
+                    break;
+                case 14:
+                    c.add(Calendar.YEAR, 1);
+                    break;
+                case 15:
+                    c.add(Calendar.YEAR, 2);
+                    break;
+                case 16:
+                default:
+                    c.add(Calendar.YEAR, 10);
+                    break;
             }
         }
     }

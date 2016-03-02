@@ -136,7 +136,7 @@ public abstract class InteractiveLineGraph<DomainType extends Comparable, RangeT
         setRangeUpperBound(clickRangeUpperBound);
         
         // Pass off implementation to subclass
-        translateBounds(-px, -py);
+        translateBounds(-px, py);
         
         redraw();
         repaint();
@@ -158,7 +158,7 @@ public abstract class InteractiveLineGraph<DomainType extends Comparable, RangeT
         int dy = (int) clickPoint.getY();
         
         double px = (double) dx / (double) getWidth();
-        double py = (double) dy / (double) getHeight();
+        double py = 1.0 - ((double) dy / (double) getHeight());
         
         scaleBounds(scale, px, py);
         

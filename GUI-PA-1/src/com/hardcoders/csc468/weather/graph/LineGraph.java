@@ -208,7 +208,7 @@ public class LineGraph<DomainType extends Comparable, RangeType extends Comparab
                 
                 // Search lower half
                 domainTop = domainMid - 1;
-            } else if (domainScale < 1.0) {
+            } else {
                 
                 // Search upper half
                 domainBottom = domainMid + 1;
@@ -231,7 +231,7 @@ public class LineGraph<DomainType extends Comparable, RangeType extends Comparab
                 
                 // Search lower half
                 domainTop = domainMid - 1;
-            } else if (domainScale < 0.0) {
+            } else {
                 
                 // Search upper half
                 domainBottom = domainMid + 1;
@@ -245,12 +245,15 @@ public class LineGraph<DomainType extends Comparable, RangeType extends Comparab
         for (DataPoint<DomainType, RangeType> dataPoint : dataPoints.subList(domainScalesLowerBound, domainScalesUpperBound)) {
             
             // Calculate point's position on the graph relative to the domain and range settings
-            double domainScale = dataPoint.getDomainPercentage(getDomainLowerBound(), getDomainUpperBound());
-            double rangeScale = dataPoint.getRangePercentage(getRangeLowerBound(), getRangeUpperBound());
+            Double domainScale = dataPoint.getDomainPercentage(getDomainLowerBound(), getDomainUpperBound());
+            Double rangeScale = dataPoint.getRangePercentage(getRangeLowerBound(), getRangeUpperBound());
             
-            // Store the result
-            domainScales.add(domainScale);
-            rangeScales.add(rangeScale);
+            if (domainScale != null && rangeScale != null) {
+            
+                // Store the result
+                domainScales.add(domainScale);
+                rangeScales.add(rangeScale);
+            }
         }
         
         // Update dirty flags
@@ -280,7 +283,7 @@ public class LineGraph<DomainType extends Comparable, RangeType extends Comparab
         // Initialize constants
         final int width = getWidth();
         final int height = getHeight();
-        final int numPoints = domainScalesUpperBound - domainScalesLowerBound;
+        final int numPoints = domainScales.size();
         
         // Allocate arrays
         for (int i = 0; i < 2; i++) {
@@ -307,6 +310,8 @@ public class LineGraph<DomainType extends Comparable, RangeType extends Comparab
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         
+        paintLabels(g);
+        
         final int numPoints = drawPoints[0].length;
         
         // Set the color
@@ -321,6 +326,15 @@ public class LineGraph<DomainType extends Comparable, RangeType extends Comparab
         for (int i = 0; i < numPoints; i++) {
             g.fillOval(drawPoints[0][i] - 2, drawPoints[1][i] - 2, 4, 4);
         }
+    }
+    
+    /**
+     * Draws labels on the graph.
+     * 
+     * @param g 
+     */
+    public void paintLabels(Graphics g) {
+        // Nothing else to do
     }
 
     
