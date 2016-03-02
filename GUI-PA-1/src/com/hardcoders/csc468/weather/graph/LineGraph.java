@@ -47,6 +47,8 @@ public class LineGraph<DomainType extends Comparable, RangeType extends Comparab
      */
     private final int          drawPoints[][];
     
+    private int                drawPointsSize;
+    
     /**
      * Flag indicating that data points are no longer valid and must be
      * resorted and calculated before rendering.
@@ -81,6 +83,7 @@ public class LineGraph<DomainType extends Comparable, RangeType extends Comparab
         drawPoints = new int[2][];
         drawPoints[0] = new int[0];
         drawPoints[1] = new int[0];
+        drawPointsSize = 0;
         
         dataPointsDirty = false;
         scalesDirty = false;
@@ -291,10 +294,18 @@ public class LineGraph<DomainType extends Comparable, RangeType extends Comparab
         }
         
         // Calculate pixel locations of drawing points
-        for (int i = 0; i < numPoints; i++) {
-            drawPoints[0][i] = (int) (domainScales.get(i) * width);
-            drawPoints[1][i] = (int) ((1 - rangeScales.get(i)) * height);
+        int x, y, j, i;
+        for (i = 0, j = 0; i < numPoints; i++) {
+            x = (int) (domainScales.get(i) * width);
+            y = (int) ((1 - rangeScales.get(i)) * height);
+            
+            if (i > 0 && drawPoints[0][i-1] == x && drawPoints[1][i-1] == y) continue;
+            
+            drawPoints[0][j] = x;
+            drawPoints[1][j] = y;
+            j++;
         }
+        drawPointsSize = j;
         
         // Reset dirty flag
         drawPointsDirty = false;
@@ -312,7 +323,7 @@ public class LineGraph<DomainType extends Comparable, RangeType extends Comparab
         
         paintLabels(g);
         
-        final int numPoints = drawPoints[0].length;
+        final int numPoints = drawPointsSize;
         
         // Set the color
         g.setColor(Color.RED);
@@ -323,8 +334,10 @@ public class LineGraph<DomainType extends Comparable, RangeType extends Comparab
         }
         
         // Draw circls at x/y array positions
-        for (int i = 0; i < numPoints; i++) {
-            g.fillOval(drawPoints[0][i] - 2, drawPoints[1][i] - 2, 4, 4);
+        if (numPoints <= 500) {
+            for (int i = 0; i < numPoints; i++) {
+                g.fillOval(drawPoints[0][i] - 3, drawPoints[1][i] - 3, 6, 6);
+            }
         }
     }
     
