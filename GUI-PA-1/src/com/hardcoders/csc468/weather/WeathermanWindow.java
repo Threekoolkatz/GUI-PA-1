@@ -18,6 +18,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import static java.util.Calendar.*;
+import java.util.Collections;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.event.ChangeEvent;
@@ -780,7 +781,6 @@ public class WeathermanWindow extends javax.swing.JFrame {
      * @param evt 
      */
     private void openMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_openMenuItemActionPerformed
-        // TODO add your handling code here:
         final JFileChooser fc = new JFileChooser();
         fc.setFileSelectionMode(FILES_AND_DIRECTORIES);
         fc.setMultiSelectionEnabled(true);
@@ -833,6 +833,7 @@ public class WeathermanWindow extends javax.swing.JFrame {
             
             //System.out.println( "Opening: " + files[1].getName() + "." + "\n" );
             
+            Collections.sort(dataPoints);
             //Testing AverageData class with data here. Might actually be right place for it
             dataCruncher.calculateData(dataPoints);
         }
