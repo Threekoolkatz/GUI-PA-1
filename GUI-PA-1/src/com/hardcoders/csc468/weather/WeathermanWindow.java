@@ -817,7 +817,7 @@ public class WeathermanWindow extends javax.swing.JFrame {
 
             lineGraph.addWeatherDataPoints(dataPoints);
             //System.out.println("right before redraw");
-            lineGraph.redraw();
+            lineGraph.repaint();
             
             //System.out.println( "Opening: " + files[1].getName() + "." + "\n" );
             
