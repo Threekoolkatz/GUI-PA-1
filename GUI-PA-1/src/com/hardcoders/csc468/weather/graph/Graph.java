@@ -222,6 +222,19 @@ public abstract class Graph<DomainType extends Comparable, RangeType extends Com
         }
     }
     
+    public DomainType getDomainMaxValue() {
+        return domainMaxValue;
+    }
+    public DomainType getDomainMinValue() {
+        return domainMinValue;
+    }
+    public RangeType getRangeMaxValue() {
+        return rangeMaxValue;
+    }
+    public RangeType getRangeMinValue() {
+        return rangeMinValue;
+    }
+    
     /**
      * Sets the domain upper bound value. Can be used to unset the bound if
      * {@code null} is supplied.

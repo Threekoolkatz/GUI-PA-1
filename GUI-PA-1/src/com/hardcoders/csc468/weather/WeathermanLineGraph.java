@@ -329,6 +329,23 @@ public class WeathermanLineGraph extends RealInteractiveLineGraph {
         rangeUpperBound[getActiveField()] = bound;
     }
     
+    @Override
+    public Double getDomainMinValue() {
+        return domainMinValue;
+    }
+    @Override
+    public Double getDomainMaxValue() {
+        return domainMaxValue;
+    }
+    @Override
+    public Double getRangeMinValue() {
+        return rangeMinValue[getActiveField()];
+    }
+    @Override
+    public Double getRangeMaxValue() {
+        return rangeMaxValue[getActiveField()];
+    }
+    
     
     @Override
     public void mouseClicked(MouseEvent e) {
