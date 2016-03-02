@@ -245,12 +245,15 @@ public class LineGraph<DomainType extends Comparable, RangeType extends Comparab
         for (DataPoint<DomainType, RangeType> dataPoint : dataPoints.subList(domainScalesLowerBound, domainScalesUpperBound)) {
             
             // Calculate point's position on the graph relative to the domain and range settings
-            double domainScale = dataPoint.getDomainPercentage(getDomainLowerBound(), getDomainUpperBound());
-            double rangeScale = dataPoint.getRangePercentage(getRangeLowerBound(), getRangeUpperBound());
+            Double domainScale = dataPoint.getDomainPercentage(getDomainLowerBound(), getDomainUpperBound());
+            Double rangeScale = dataPoint.getRangePercentage(getRangeLowerBound(), getRangeUpperBound());
             
-            // Store the result
-            domainScales.add(domainScale);
-            rangeScales.add(rangeScale);
+            if (domainScale != null && rangeScale != null) {
+            
+                // Store the result
+                domainScales.add(domainScale);
+                rangeScales.add(rangeScale);
+            }
         }
         
         // Update dirty flags
@@ -280,7 +283,7 @@ public class LineGraph<DomainType extends Comparable, RangeType extends Comparab
         // Initialize constants
         final int width = getWidth();
         final int height = getHeight();
-        final int numPoints = domainScalesUpperBound - domainScalesLowerBound;
+        final int numPoints = domainScales.size();
         
         // Allocate arrays
         for (int i = 0; i < 2; i++) {

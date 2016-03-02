@@ -129,15 +129,14 @@ public class XMLImport{
      * @param text
      * @return 
      */
-    public double stringToDouble(String text){
-        double temp = 0;
-        try{
-            temp = Double.parseDouble(text);
+    public Double stringToDouble(String text){
+        if (text == null) return null;
+        
+        try {
+            return Double.parseDouble(text);
+        } catch(NumberFormatException e) {
+            return null;
         }
-        catch(NumberFormatException e){
-        System.out.println("Number Format Exception, Inside string to Double");
-        };
-        return temp;
     }
 
     /**
