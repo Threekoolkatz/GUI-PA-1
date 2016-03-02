@@ -138,6 +138,10 @@ public class WeathermanWindow extends javax.swing.JFrame {
         lineGraph.redraw();
     }
     
+    /**
+     * Checks which mode the graph is in (Days, Weeks, Months, Years)
+     *  Then displays the calculations based on the selected point.
+     */
     public void setCalculatedData()
     {
         List<AverageData.CalculatedAverageWeatherData> tempList;
@@ -162,7 +166,7 @@ public class WeathermanWindow extends javax.swing.JFrame {
                 
             }
         }
-        if (weekTab.isSelected()){
+        else if (weekTab.isSelected()){
             tempList = dataCruncher.getWeeklyCalculations();
             for(AverageData.CalculatedAverageWeatherData tempPoint : tempList){
                 dateInListCalendar.setTime(tempPoint.getHighTemperature().getTimestamp());
@@ -175,7 +179,7 @@ public class WeathermanWindow extends javax.swing.JFrame {
                 }
             }
         }
-        if (monthTab.isSelected()){
+        else if (monthTab.isSelected()){
             tempList = dataCruncher.getMonthlyCalculations();
             for(AverageData.CalculatedAverageWeatherData tempPoint : tempList){
                 dateInListCalendar.setTime(tempPoint.getHighTemperature().getTimestamp());
@@ -188,7 +192,7 @@ public class WeathermanWindow extends javax.swing.JFrame {
                 }
             }
         }
-        if (yearTab.isSelected()){
+        else if (yearTab.isSelected()){
             tempList = dataCruncher.getYearlyCalculations();
             for(AverageData.CalculatedAverageWeatherData tempPoint : tempList){
                 dateInListCalendar.setTime(tempPoint.getHighTemperature().getTimestamp());
@@ -199,8 +203,15 @@ public class WeathermanWindow extends javax.swing.JFrame {
                 }
             }
         }
+        else
+            displayCalculatedData(dataCruncher.getAllDataValues(dataPoints));
     }
     
+    /**
+     * Uses the data from displayPoint to changed the labels related to
+     *  the calculated data
+     * @param displayPoint 
+     */
     public void displayCalculatedData(AverageData.CalculatedAverageWeatherData displayPoint){
         if (displayPoint == null) return;
         
@@ -823,8 +834,6 @@ public class WeathermanWindow extends javax.swing.JFrame {
             
             //Testing AverageData class with data here. Might actually be right place for it
             dataCruncher.calculateData(dataPoints);
-            //Line below needs to be removed after testing
-            dataCruncher.getAllDataValues(dataPoints);
         }
         else
         {
