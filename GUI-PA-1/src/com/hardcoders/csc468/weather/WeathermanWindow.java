@@ -218,9 +218,12 @@ public class WeathermanWindow extends javax.swing.JFrame {
         tempVal = displayPoint.getAverageWindSpeed();
         averageWindSpeedVal.setText(tempVal.toString());
         
-        tempString = (displayPoint.getMaxWindGust().getWindGust().toString());
-        tempString += " " + displayPoint.getMaxWindGust().getTimestamp().toString();
-        maxWindSpeedVal.setText(tempString);
+        if( displayPoint.getMaxWindGust().getWindGust() != null)
+        {
+            tempString = (displayPoint.getMaxWindGust().getWindGust().toString());
+            tempString += " " + displayPoint.getMaxWindGust().getTimestamp().toString();
+            maxWindSpeedVal.setText(tempString);
+        }
         
         tempString = (displayPoint.getPrevailingWindDirection().toString());
         prevailingWindDirectionVal.setText(tempString);
