@@ -222,7 +222,8 @@ public class AverageData {
                     (tempWorkingAverageDataPoint.getHighTemperature().getTemperature() 
                     < workingPoint.getTemperature()))
             {
-                tempWorkingAverageDataPoint.highTempPoint = workingPoint;
+                if( workingPoint.getTemperature() != null )
+                    tempWorkingAverageDataPoint.highTempPoint = workingPoint;
             }
             
             //check if current low point is less than workingPoint
@@ -230,7 +231,8 @@ public class AverageData {
                     (tempWorkingAverageDataPoint.getLowTemperature().getTemperature() 
                     > workingPoint.getTemperature()))
             {
-                tempWorkingAverageDataPoint.lowTempPoint = workingPoint;
+                if( workingPoint.getTemperature() != null )
+                    tempWorkingAverageDataPoint.lowTempPoint = workingPoint;
             }
             
         //Collect windspeed
@@ -245,15 +247,18 @@ public class AverageData {
                     (tempWorkingAverageDataPoint.getMaxWindGust().getWindGust()
                     < workingPoint.getWindGust()))
             {
-                tempWorkingAverageDataPoint.maxWindGustPoint = workingPoint;
+                if( workingPoint.getTemperature() != null )
+                    tempWorkingAverageDataPoint.maxWindGustPoint = workingPoint;
             }
         
         //count up prevailing wind direction
         prevailingCounter.count(workingPoint.getWindDirection());
         
         //Collect rainfall
-            tempWorkingAverageDataPoint.totalRainFall
-                    += workingPoint.getPercipitation();
+            if( workingPoint.getPercipitation() != null ){
+                tempWorkingAverageDataPoint.totalRainFall
+                        += workingPoint.getPercipitation();
+            }
         }
         
         //Calculate average temperature

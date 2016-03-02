@@ -207,18 +207,27 @@ public class WeathermanWindow extends javax.swing.JFrame {
         Double tempVal = displayPoint.getAverageTemperature();
         averageTempVal.setText(tempVal.toString());
         
-        String tempString = (displayPoint.getHighTemperature().getTemperature().toString());
-        tempString += " " + displayPoint.getHighTemperature().getTimestamp().toString();
-        highTempVal.setText(tempString);
+        String tempString;
         
-        tempString = (displayPoint.getLowTemperature().getTemperature().toString());
-        tempString += " " + displayPoint.getLowTemperature().getTimestamp().toString();
-        lowTempVal.setText(tempString);
+        if( displayPoint.getHighTemperature() != null && 
+                displayPoint.getHighTemperature().getTemperature() != null){
+            tempString = (displayPoint.getHighTemperature().getTemperature().toString());
+            tempString += " " + displayPoint.getHighTemperature().getTimestamp().toString();
+            highTempVal.setText(tempString);
+        }
+        
+        if( displayPoint.getLowTemperature() != null && 
+                displayPoint.getLowTemperature().getTemperature() != null){
+            tempString = (displayPoint.getLowTemperature().getTemperature().toString());
+            tempString += " " + displayPoint.getLowTemperature().getTimestamp().toString();
+            lowTempVal.setText(tempString);
+        }
         
         tempVal = displayPoint.getAverageWindSpeed();
         averageWindSpeedVal.setText(tempVal.toString());
         
-        if( displayPoint.getMaxWindGust().getWindGust() != null)
+        if( displayPoint.getMaxWindGust() != null &&
+                displayPoint.getMaxWindGust().getWindGust() != null)
         {
             tempString = (displayPoint.getMaxWindGust().getWindGust().toString());
             tempString += " " + displayPoint.getMaxWindGust().getTimestamp().toString();
