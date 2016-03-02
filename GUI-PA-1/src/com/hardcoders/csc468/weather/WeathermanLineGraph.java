@@ -509,7 +509,7 @@ public class WeathermanLineGraph extends RealInteractiveLineGraph {
         
         // Only mark point as highlighted if it is visible
         if (highlightedAdapter != null) {
-            Double pDomain = highlightedAdapter.getDomainPercentage(domainLowerBound, domainUpperBound);
+            Double pDomain = highlightedAdapter.getDomainPercentage(lowerBound, upperBound);
             Double pRange  = highlightedAdapter.getRangePercentage(getRangeLowerBound(), getRangeUpperBound());
             if (pDomain == null || pDomain < 0.0 || pDomain > 1.0
                     || pRange == null || pRange < 0.0 || pRange > 1.0) {
@@ -586,7 +586,9 @@ public class WeathermanLineGraph extends RealInteractiveLineGraph {
                 
                 // Draw bigger circle around selected point
                 if (i == 0) {
+                    g.setColor(Color.BLACK);
                     g.drawOval(x - 5, y - 5, 10, 10);
+                    g.setColor(Color.RED);
                 }
             }
         }
