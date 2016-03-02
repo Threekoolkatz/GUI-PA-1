@@ -129,11 +129,11 @@ public class WeathermanLineGraph extends RealInteractiveLineGraph {
      * @param adapter 
      */
     private void registerDataAdapter(final int FIELD, WeatherDataPoint.DoubleDataPointAdapter adapter) {
-        double value = adapter.getRangeValue();
+        Double value = adapter.getRangeValue();
         
         dataAdapters[FIELD].add(adapter);
-        if (rangeMinValue[FIELD] == null || value < rangeMinValue[FIELD]) rangeMinValue[FIELD] = value;
-        if (rangeMaxValue[FIELD] == null || value > rangeMaxValue[FIELD]) rangeMaxValue[FIELD] = value;
+        if (value != null && (rangeMinValue[FIELD] == null || value < rangeMinValue[FIELD])) rangeMinValue[FIELD] = value;
+        if (value != null && (rangeMaxValue[FIELD] == null || value > rangeMaxValue[FIELD])) rangeMaxValue[FIELD] = value;
     }
     
     /**
