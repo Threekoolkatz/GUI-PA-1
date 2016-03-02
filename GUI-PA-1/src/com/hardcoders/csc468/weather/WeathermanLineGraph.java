@@ -698,9 +698,9 @@ public class WeathermanLineGraph extends RealInteractiveLineGraph {
         if (increment >= 1) c.set(Calendar.SECOND, 0);
         if (increment >= 4) c.set(Calendar.MINUTE, 0);
         if (increment >= 8) c.set(Calendar.HOUR_OF_DAY, 0);
-        if (increment == 11) c.set(Calendar.DAY_OF_WEEK, 0);
-        if (increment >= 12) c.set(Calendar.DAY_OF_MONTH, 0);
-        if (increment >= 13) c.set(Calendar.MONTH, 0);
+        if (increment == 11) c.set(Calendar.DAY_OF_WEEK, Calendar.SUNDAY);
+        if (increment >= 12) c.set(Calendar.DAY_OF_MONTH, 1);
+        if (increment >= 13) c.set(Calendar.MONTH, Calendar.JANUARY);
         if (increment >= 15) c.add(Calendar.YEAR, -(c.get(Calendar.YEAR) % 2));
         if (increment >= 16) c.add(Calendar.YEAR, -(c.get(Calendar.YEAR) % 10));
         
