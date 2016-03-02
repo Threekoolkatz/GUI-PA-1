@@ -90,44 +90,39 @@
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" alignment="0" attributes="0">
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="humidityLabel" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="rainfallLabel" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="pressureLabel" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="uvLabel" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="heatLabel" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="prevailingWindLabel" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="totalRainfallLabel" alignment="0" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="prevailingWindDirectionVal" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Group type="103" alignment="0" groupAlignment="1" attributes="0">
-                                      <Component id="highTempVal" min="-2" max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="heatVal" min="-2" max="-2" attributes="0"/>
-                                          <Component id="pressureVal" min="-2" max="-2" attributes="0"/>
-                                          <Component id="rainfallVal" min="-2" max="-2" attributes="0"/>
-                                          <Component id="humidityVal" min="-2" max="-2" attributes="0"/>
-                                          <Component id="tempVal" min="-2" max="-2" attributes="0"/>
-                                          <Component id="uvVal" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      </Group>
-                                      <Component id="lowTempVal" alignment="1" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                                  <Component id="totalRainfallVal" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                          </Group>
-                          <Group type="103" alignment="0" groupAlignment="1" attributes="0">
-                              <Component id="averageWindSpeedVal" min="-2" max="-2" attributes="0"/>
-                              <Group type="102" attributes="0">
-                                  <Component id="maxWindSpeedLabel" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                                  <Component id="maxWindSpeedVal" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                          </Group>
+                          <Component id="humidityLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="rainfallLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="pressureLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="uvLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="heatLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="prevailingWindLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="totalRainfallLabel" alignment="0" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace max="32767" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="prevailingWindDirectionVal" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Group type="103" alignment="0" groupAlignment="1" attributes="0">
+                              <Component id="highTempVal" min="-2" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="heatVal" min="-2" max="-2" attributes="0"/>
+                                  <Component id="pressureVal" min="-2" max="-2" attributes="0"/>
+                                  <Component id="rainfallVal" min="-2" max="-2" attributes="0"/>
+                                  <Component id="humidityVal" min="-2" max="-2" attributes="0"/>
+                                  <Component id="tempVal" min="-2" max="-2" attributes="0"/>
+                                  <Component id="uvVal" alignment="0" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <Component id="lowTempVal" alignment="1" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <Component id="totalRainfallVal" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                  </Group>
+                  <Group type="103" alignment="0" groupAlignment="1" attributes="0">
+                      <Component id="averageWindSpeedVal" min="-2" max="-2" attributes="0"/>
+                      <Group type="102" attributes="0">
+                          <Component id="maxWindSpeedLabel" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                          <Component id="maxWindSpeedVal" min="-2" max="-2" attributes="0"/>
+                      </Group>
                   </Group>
               </Group>
               <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
