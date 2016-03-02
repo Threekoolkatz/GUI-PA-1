@@ -149,6 +149,7 @@ public class WeathermanWindow extends javax.swing.JFrame {
         Calendar currentDataPointCalendar = Calendar.getInstance();
         currentDataPointCalendar.setTime(dataPoint.getTimestamp());
         Calendar dateInListCalendar = Calendar.getInstance();
+        
         if (dayTab.isSelected())
         {
             tempList = dataCruncher.getDailyCalculations();
