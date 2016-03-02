@@ -586,7 +586,7 @@ public class WeathermanLineGraph extends RealInteractiveLineGraph {
                 
                 // Draw bigger circle around selected point
                 if (i == 0) {
-                    g.drawOval(x - 4, y - 4, 8, 8);
+                    g.drawOval(x - 5, y - 5, 10, 10);
                 }
             }
         }
