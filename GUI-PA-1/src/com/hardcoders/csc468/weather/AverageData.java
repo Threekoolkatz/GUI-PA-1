@@ -73,6 +73,10 @@ public class AverageData {
             System.err.println
                 ("Weather data Points passed to AverageData() is null");
             return;
+        } if (currentDataPoints.isEmpty()) {
+            System.err.println
+                    ("Weather data points passed to AverageData() is empty");
+            return;
         }
         
         Calendar tempCalendar = Calendar.getInstance();
