@@ -320,6 +320,7 @@ public class LineGraph<DomainType extends Comparable, RangeType extends Comparab
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
+        redraw();
         
         paintLabels(g);
         

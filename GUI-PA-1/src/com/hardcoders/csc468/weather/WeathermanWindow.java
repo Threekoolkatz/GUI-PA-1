@@ -478,10 +478,10 @@ public class WeathermanWindow extends javax.swing.JFrame {
 
         averageWindSpeedLabel.setText("Mean Wind Speed");
 
-        graphPanel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 3));
         graphPanel.setLayout(new java.awt.BorderLayout());
 
-        lineGraph.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 5));
+        lineGraph.setBackground(new java.awt.Color(255, 255, 255));
+        lineGraph.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
 
         endDate.setModel(new javax.swing.SpinnerDateModel());
         endDate.setToolTipText("End date");
@@ -496,7 +496,7 @@ public class WeathermanWindow extends javax.swing.JFrame {
         lineGraphLayout.setHorizontalGroup(
             lineGraphLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(lineGraphLayout.createSequentialGroup()
-                .addContainerGap(470, Short.MAX_VALUE)
+                .addContainerGap(484, Short.MAX_VALUE)
                 .addComponent(startDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(endDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -515,7 +515,7 @@ public class WeathermanWindow extends javax.swing.JFrame {
 
         yAxisLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         yAxisLabel.setText("No Data Selected");
-        graphPanel.add(yAxisLabel, java.awt.BorderLayout.WEST);
+        graphPanel.add(yAxisLabel, java.awt.BorderLayout.LINE_START);
 
         xAxisLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         xAxisLabel.setText("Time");
@@ -648,14 +648,12 @@ public class WeathermanWindow extends javax.swing.JFrame {
                         .addGap(40, 40, 40)
                         .addComponent(heatButton)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(graphPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(graphPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addComponent(graphPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(graphPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 257, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -750,7 +748,7 @@ public class WeathermanWindow extends javax.swing.JFrame {
                             .addComponent(heatButton))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(uvButton)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(29, Short.MAX_VALUE))
         );
 
         pack();
@@ -848,7 +846,7 @@ public class WeathermanWindow extends javax.swing.JFrame {
      * @param evt 
      */
     private void temperatureButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_temperatureButtonActionPerformed
-        yAxisLabel.setText("Temperature");
+        xAxisLabel.setText("Temperature / Time");
         lineGraph.showTemperatureData();
         lineGraph.redraw();
         lineGraph.repaint();
@@ -859,7 +857,7 @@ public class WeathermanWindow extends javax.swing.JFrame {
      * @param evt 
      */
     private void pressureButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pressureButtonActionPerformed
-        yAxisLabel.setText("Pressure");
+        xAxisLabel.setText("Pressure / Time");
         lineGraph.showPressureData();
         lineGraph.redraw();
         lineGraph.repaint();
@@ -870,7 +868,7 @@ public class WeathermanWindow extends javax.swing.JFrame {
      * @param evt 
      */
     private void uvButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_uvButtonActionPerformed
-       yAxisLabel.setText("UV Index");
+        xAxisLabel.setText("UV Index / Time");
         lineGraph.showUVIndexData();
         lineGraph.redraw();
         lineGraph.repaint();
@@ -881,7 +879,7 @@ public class WeathermanWindow extends javax.swing.JFrame {
      * @param evt 
      */
     private void windSpeedButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_windSpeedButtonActionPerformed
-        yAxisLabel.setText("Wind Speed");
+        xAxisLabel.setText("Wind Speed / Time");
         lineGraph.showWindSpeedData();
         lineGraph.redraw();
         lineGraph.repaint();
@@ -892,7 +890,7 @@ public class WeathermanWindow extends javax.swing.JFrame {
      * @param evt 
      */
     private void windChillButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_windChillButtonActionPerformed
-        yAxisLabel.setText("Wind Chill");
+        xAxisLabel.setText("Wind Chill / Time");
         lineGraph.showWindChillData();
         lineGraph.redraw();
         lineGraph.repaint();
@@ -903,7 +901,7 @@ public class WeathermanWindow extends javax.swing.JFrame {
      * @param evt 
      */
     private void humidityButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_humidityButtonActionPerformed
-        yAxisLabel.setText("Humidity");
+        xAxisLabel.setText("Humidity / Time");
         lineGraph.showHumidityData();
         lineGraph.redraw();
         lineGraph.repaint();
@@ -914,7 +912,7 @@ public class WeathermanWindow extends javax.swing.JFrame {
      * @param evt 
      */
     private void windGustButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_windGustButtonActionPerformed
-        yAxisLabel.setText("Wind Gust");
+        xAxisLabel.setText("Wind Gust / Time");
         lineGraph.showWindGustData();
         lineGraph.redraw();
         lineGraph.repaint();
@@ -925,7 +923,7 @@ public class WeathermanWindow extends javax.swing.JFrame {
      * @param evt 
      */
     private void rainfallButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rainfallButtonActionPerformed
-        yAxisLabel.setText("Rainfall");
+        xAxisLabel.setText("Rainfall / Time");
         lineGraph.showPercipitationData();
         lineGraph.redraw();
         lineGraph.repaint();
@@ -936,7 +934,7 @@ public class WeathermanWindow extends javax.swing.JFrame {
      * @param evt 
      */
     private void heatButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_heatButtonActionPerformed
-        yAxisLabel.setText("Heat Index");
+        xAxisLabel.setText("Heat Index / Time");
         lineGraph.showHeatIndexData();
         lineGraph.redraw();
         lineGraph.repaint();
