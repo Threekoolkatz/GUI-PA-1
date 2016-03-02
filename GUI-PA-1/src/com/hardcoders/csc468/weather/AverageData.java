@@ -35,10 +35,6 @@ public class AverageData {
     //Calculation off all data values
     private CalculatedAverageWeatherData allDataValues;
     
-    int yearCount;
-    int monthCount;
-    int weekCount;
-    int dayCount;
     
     /**
      * Constructor initializes lists
@@ -94,11 +90,6 @@ public class AverageData {
         //Initializes the current Year
         int currentYear = tempCalendar.get(Calendar.YEAR);
         
-        yearCount = 1;
-        monthCount = 1;
-        weekCount = 1;
-        dayCount = 1;
-        
         //all xml points in a given day
         List<XmlWeatherDataPoint> tempList = new ArrayList<>();
         
@@ -146,7 +137,6 @@ public class AverageData {
             
             //Handles Month List
             if( currentMonth != tempCalendar.get(Calendar.MONTH)){
-                monthCount++;
                 currentMonth = tempCalendar.get(Calendar.MONTH);
                 tempMonthValue = calculateAverageCalculatedAverageWeatherData(
                         tempMonthDaysList);
@@ -157,7 +147,6 @@ public class AverageData {
             
             // Handles Year List
             if( currentYear != tempCalendar.get(Calendar.YEAR)){
-                yearCount++;
                 currentYear = tempCalendar.get(Calendar.YEAR);
                 yearlyValues.add(calculateAverageCalculatedAverageWeatherData(
                         tempYearMonthsList));
@@ -212,19 +201,20 @@ public class AverageData {
     {
         CalculatedAverageWeatherData tempWorkingAverageDataPoint 
                 = new CalculatedAverageWeatherData();
-        int pointCount = 0;
+        int tempCount = 0;
+        int windSpeedCount = 0;
         
         
         WindDirectionCounter prevailingCounter = new WindDirectionCounter();
         
         for( XmlWeatherDataPoint workingPoint : workingList)
-        {
-            //increament number of points processed
-            pointCount++;
-            
+        {            
         //Collect temperature
-            tempWorkingAverageDataPoint.averageTemperature 
-                    += workingPoint.getTemperature();
+            if(workingPoint.getTemperature() != null){
+                tempWorkingAverageDataPoint.averageTemperature 
+                        += workingPoint.getTemperature();
+                tempCount++;
+            }
         //Find high/low with date/time occurrence
         
             //check if current high point is higher than workingPoint
@@ -232,7 +222,8 @@ public class AverageData {
                     (tempWorkingAverageDataPoint.getHighTemperature().getTemperature() 
                     < workingPoint.getTemperature()))
             {
-                tempWorkingAverageDataPoint.highTempPoint = workingPoint;
+                if( workingPoint.getTemperature() != null )
+                    tempWorkingAverageDataPoint.highTempPoint = workingPoint;
             }
             
             //check if current low point is less than workingPoint
@@ -240,38 +231,45 @@ public class AverageData {
                     (tempWorkingAverageDataPoint.getLowTemperature().getTemperature() 
                     > workingPoint.getTemperature()))
             {
-                tempWorkingAverageDataPoint.lowTempPoint = workingPoint;
+                if( workingPoint.getTemperature() != null )
+                    tempWorkingAverageDataPoint.lowTempPoint = workingPoint;
             }
             
         //Collect windspeed
-            tempWorkingAverageDataPoint.averageWindSpeed 
-                    += workingPoint.getWindSpeed();
+            if(workingPoint.getWindSpeed() != null){
+                tempWorkingAverageDataPoint.averageWindSpeed 
+                        += workingPoint.getWindSpeed();
+                windSpeedCount++;
+            }
         
         //Find max windGust with date/time occurrence
             if((tempWorkingAverageDataPoint.getMaxWindGust() == null) ||
                     (tempWorkingAverageDataPoint.getMaxWindGust().getWindGust()
                     < workingPoint.getWindGust()))
             {
-                tempWorkingAverageDataPoint.maxWindGustPoint = workingPoint;
+                if( workingPoint.getTemperature() != null )
+                    tempWorkingAverageDataPoint.maxWindGustPoint = workingPoint;
             }
         
         //count up prevailing wind direction
         prevailingCounter.count(workingPoint.getWindDirection());
         
         //Collect rainfall
-            tempWorkingAverageDataPoint.totalRainFall
-                    += workingPoint.getPercipitation();
+            if( workingPoint.getPercipitation() != null ){
+                tempWorkingAverageDataPoint.totalRainFall
+                        += workingPoint.getPercipitation();
+            }
         }
         
         //Calculate average temperature
         tempWorkingAverageDataPoint.averageTemperature = 
                 tempWorkingAverageDataPoint.getAverageTemperature() 
-                        / pointCount;
+                        / tempCount;
         
         //Calculate average windspeed
         tempWorkingAverageDataPoint.averageWindSpeed = 
                 tempWorkingAverageDataPoint.getAverageTemperature() 
-                        / pointCount;
+                        / windSpeedCount;
         
         //Determine prevailing wind direction
         tempWorkingAverageDataPoint.prevalingWindDirection 
